@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../context/ThemeContext";
 import { personalInfo, interests } from "../data/portfolioData.index";
-
+import MABImage from "/images/MAB.jpg";
 const About: React.FC = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
@@ -41,7 +41,7 @@ const About: React.FC = () => {
               >
                 {/* Replace the text with an image */}
                 <img
-                  src="/../public/images/MAB.jpg"
+                  src={MABImage}
                   alt={personalInfo.name}
                   className="w-full h-full object-cover"
                 />
