@@ -1,0 +1,172 @@
+{
+  "nav": {
+    "about": "About",
+    "timeline": "Journey",
+    "skills": "Skills",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "hero": {
+    "cta": "View Projects",
+    "hire": "Hire Me"
+  },
+  "about": {
+    "title": "About Me",
+    "subtitle": "Passionate about Development",
+    "years": "Years Experience",
+    "projects": "Projects Completed",
+    "internships": "Internships Done",
+    "contactInfo": "Contact Information",
+    "interests": "Interests"
+  },
+  "timeline": {
+    "title": "My Journey",
+    "subtitle": "An overview of my professional and academic evolution over the years",
+    "filter": {
+      "all": "All",
+      "work": "Experiences",
+      "internship": "Internships"
+    },
+    "showMore": "Show more",
+    "education": "Academic Background"
+  },
+  "projects": {
+    "title": "My Projects",
+    "subtitle": "Explore my work and discover my technical expertise through concrete projects",
+    "filter": {
+      "all": "All",
+      "professional": "Professional",
+      "internship": "Internships",
+      "academic": "Academic",
+      "other": "Others"
+    },
+    "addPhoto": "Add a photo",
+    "technologies": "Technologies Used",
+    "viewGithub": "View on GitHub",
+    "viewSite": "View Site",
+    "viewDetails": "View Details",
+    "placeholder": "Placeholder - Photo coming soon",
+    "noProjects": "No projects found in this category",
+    "type": {
+      "professional": "Professional",
+      "internship": "Internship",
+      "academic": "Academic",
+      "other": "Other"
+    },
+    "stats": {
+      "microservices": "Microservices",
+      "metrics": "Metrics",
+      "tasks": "Tasks",
+      "learnings": "Learnings",
+      "concepts": "Concepts",
+      "methodologies": "Methodologies",
+      "details": "Details",
+      "info": "Info"
+    },
+    "default": {
+      "professional": "Professional project",
+      "internship": "Internship project",
+      "academic": "Academic project",
+      "project": "Project details"
+    },
+    "yearsAgo": {
+      "thisMonth": "This month",
+      "oneMonth": "1 month ago",
+      "multipleMonths": "{{count}} months ago",
+      "oneYear": "1 year ago",
+      "oneYearMultipleMonths": "1 year {{months}} months ago",
+      "multipleYears": "{{count}} years ago",
+      "multipleYearsMultipleMonths": "{{years}} years {{months}} months ago"
+    }
+  },
+  "projectDetail": {
+    "architecture": "Architecture",
+    "technicalStack": "Technical Stack",
+    "microservices": "Microservices",
+    "performance": "Performance Improvements",
+    "contributions": "My Contributions",
+    "teamSize": "Team size",
+    "developers": "developers",
+    "mission": "Mission",
+    "supervisor": "Supervisor",
+    "keyTasks": "Key Tasks",
+    "keyLearnings": "Key Learnings",
+    "deliverables": "Deliverables",
+    "evaluation": "Evaluation",
+    "images": "images",
+    "preview": "Preview",
+    "clickToEnlarge": "Click on an image to enlarge",
+    "close": "Close",
+    "viewCode": "View Code",
+    "course": "Course",
+    "professor": "Professor",
+    "grade": "Grade",
+    "teamMembers": "Team Members",
+    "methodologies": "Methodologies",
+    "keyConcepts": "Key Concepts",
+    "documentation": "Documentation",
+    "features": "Features",
+    "modules": "Modules",
+    "challenges": "Challenges & Solutions",
+    "results": "Impact & Results",
+    "screenshots": "Screenshots",
+    "technologies": "Technologies",
+    "challenge": "Challenge",
+    "solution": "Solution",
+    "addPhoto": "Add a photo",
+    "noScreenshots": "No screenshots available yet",
+    "photoPending": "Photo pending - will be added soon",
+    "whatIBuilt": "What I Built",
+    "myResponsibilities": "My Responsibilities",
+    "keySkillsDemonstrated": "Key Skills Demonstrated",
+    "keyResults": "Key Results",
+    "technologiesUsed": "Technologies Used",
+    "whatIDid": "What I Did",
+    "whatILearned": "What I Learned",
+    "swipeToSee": "Swipe to see more"
+  },
+  "skills": {
+    "title": "Skills",
+    "subtitle": "An overview of my technical skills acquired through my experiences",
+    "categories": {
+      "all": "All",
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "mobile": "Mobile",
+      "devops": "DevOps",
+      "database": "Database",
+      "other": "Other"
+    },
+    "languages": "Languages",
+    "certifications": "Certifications"
+  },
+  "contact": {
+    "title1": "Let's Work",
+    "title2": "Together",
+    "subtitle": "Contact",
+    "description": "Don't hesitate to contact me to discuss your projects or simply to exchange ideas",
+    "email": "Email",
+    "phone": "Phone",
+    "location": "Location",
+    "form": {
+      "title": "Send Me a Message",
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "subject": "Subject",
+      "subjectPlaceholder": "Message subject",
+      "message": "Message",
+      "messagePlaceholder": "Your message...",
+      "submit": "Send Message",
+      "success": "Message sent! I will reply soon."
+    }
+  },
+  "theme": {
+    "dark": "Dark",
+    "light": "Light"
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  }
+}

@@ -1,0 +1,172 @@
+{
+  "nav": {
+    "about": "À propos",
+    "timeline": "Parcours",
+    "skills": "Compétences",
+    "projects": "Projets",
+    "contact": "Contact"
+  },
+  "hero": {
+    "cta": "Voir les Projets",
+    "hire": "Engagez-moi"
+  },
+  "about": {
+    "title": "À propos de moi",
+    "subtitle": "Passionné par le Développement",
+    "years": "Années d'expérience",
+    "projects": "Projets Complétés",
+    "internships": "Stages Effectués",
+    "contactInfo": "Informations de contact",
+    "interests": "Centres d'intérêt"
+  },
+  "timeline": {
+    "title": "Mon Parcours",
+    "subtitle": "Un aperçu de mon évolution professionnelle et académique à travers les années",
+    "filter": {
+      "all": "Tout",
+      "work": "Expériences",
+      "internship": "Stages"
+    },
+    "showMore": "Voir plus",
+    "education": "Formation Académique"
+  },
+  "projects": {
+    "title": "Mes Projets",
+    "subtitle": "Explorez mes réalisations et découvrez mon expertise technique à travers des projets concrets",
+    "filter": {
+      "all": "Tous",
+      "professional": "Professionnel",
+      "internship": "Stages",
+      "academic": "Académique",
+      "other": "Autres"
+    },
+    "addPhoto": "Ajouter une photo",
+    "technologies": "Technologies utilisées",
+    "viewGithub": "Voir sur GitHub",
+    "viewSite": "Voir le site",
+    "viewDetails": "Voir les détails",
+    "placeholder": "Placeholder - Photo à venir",
+    "noProjects": "Aucun projet trouvé dans cette catégorie",
+    "type": {
+      "professional": "Professionnel",
+      "internship": "Stage",
+      "academic": "Académique",
+      "other": "Autre"
+    },
+    "stats": {
+      "microservices": "Microservices",
+      "metrics": "Métriques",
+      "tasks": "Tâches",
+      "learnings": "Apprentissages",
+      "concepts": "Concepts",
+      "methodologies": "Méthodologies",
+      "details": "Détails",
+      "info": "Infos"
+    },
+    "default": {
+      "professional": "Projet professionnel",
+      "internship": "Projet de stage",
+      "academic": "Projet académique",
+      "project": "Détails du projet"
+    },
+    "yearsAgo": {
+      "thisMonth": "Ce mois-ci",
+      "oneMonth": "Il y a 1 mois",
+      "multipleMonths": "Il y a {{count}} mois",
+      "oneYear": "Il y a 1 an",
+      "oneYearMultipleMonths": "Il y a 1 an et {{months}} mois",
+      "multipleYears": "Il y a {{count}} ans",
+      "multipleYearsMultipleMonths": "Il y a {{years}} ans et {{months}} mois"
+    }
+  },
+  "projectDetail": {
+    "architecture": "Architecture",
+    "technicalStack": "Stack Technique",
+    "microservices": "Microservices",
+    "performance": "Améliorations des performances",
+    "contributions": "Mes Contributions",
+    "teamSize": "Taille de l'équipe",
+    "developers": "développeurs",
+    "mission": "Mission",
+    "supervisor": "Encadreur",
+    "keyTasks": "Tâches Principales",
+    "keyLearnings": "Principaux Apprentissages",
+    "deliverables": "Livrables",
+    "evaluation": "Évaluation",
+    "images": "images",
+    "preview": "Aperçu",
+    "clickToEnlarge": "Cliquez sur une image pour l'agrandir",
+    "close": "Fermer",
+    "viewCode": "Voir le code",
+    "course": "Cours",
+    "professor": "Professeur",
+    "grade": "Note",
+    "teamMembers": "Membres de l'équipe",
+    "methodologies": "Méthodologies",
+    "keyConcepts": "Concepts Clés",
+    "documentation": "Documentation",
+    "features": "Fonctionnalités",
+    "modules": "Modules",
+    "challenges": "Défis & Solutions",
+    "results": "Impact & Résultats",
+    "screenshots": "Captures d'écran",
+    "technologies": "Technologies",
+    "challenge": "Défi",
+    "solution": "Solution",
+    "addPhoto": "Ajouter une photo",
+    "noScreenshots": "Aucune capture d'écran disponible",
+    "photoPending": "Photo en attente - à ajouter bientôt",
+    "whatIBuilt": "Ce que j'ai réalisé",
+    "myResponsibilities": "Mes responsabilités",
+    "keySkillsDemonstrated": "Compétences clés démontrées",
+    "keyResults": "Résultats clés",
+    "technologiesUsed": "Technologies utilisées",
+    "whatIDid": "Ce que j'ai fait",
+    "whatILearned": "Ce que j'ai appris",
+    "swipeToSee": "Glisser pour voir plus"
+  },
+  "skills": {
+    "title": "Compétences",
+    "subtitle": "Un aperçu de mes compétences techniques acquises au fil de mes expériences",
+    "categories": {
+      "all": "Tous",
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "mobile": "Mobile",
+      "devops": "DevOps",
+      "database": "Base de données",
+      "other": "Autre"
+    },
+    "languages": "Langues",
+    "certifications": "Certifications"
+  },
+  "contact": {
+    "title1": "Travaillons",
+    "title2": "ensemble",
+    "subtitle": "Contact",
+    "description": "N'hésitez pas à me contacter pour discuter de vos projets ou simplement pour échanger",
+    "email": "Email",
+    "phone": "Téléphone",
+    "location": "Localisation",
+    "form": {
+      "title": "Envoyez-moi un message",
+      "name": "Nom",
+      "namePlaceholder": "Votre nom",
+      "email": "Email",
+      "emailPlaceholder": "votre@email.com",
+      "subject": "Sujet",
+      "subjectPlaceholder": "Objet du message",
+      "message": "Message",
+      "messagePlaceholder": "Votre message...",
+      "submit": "Envoyer le message",
+      "success": "Message envoyé! Je vous répondrai bientôt."
+    }
+  },
+  "theme": {
+    "dark": "Sombre",
+    "light": "Clair"
+  },
+  "footer": {
+    "rights": "Tous droits réservés."
+  }
+}
