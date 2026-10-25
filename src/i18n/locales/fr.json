@@ -1,4 +1,8 @@
 {
+  "meta": {
+    "title": "Mohamed Amine Bouzidi — Ingénieur Full-Stack",
+    "description": "Portfolio de Mohamed Amine Bouzidi, ingénieur full-stack spécialisé en React, Node.js et React Native."
+  },
   "nav": {
     "about": "À propos",
     "timeline": "Parcours",
@@ -12,7 +16,8 @@
   },
   "about": {
     "title": "À propos de moi",
-    "subtitle": "Passionné par le Développement",
+    "subtitle": "Passionné par le",
+    "development": "développement",
     "years": "Années d'expérience",
     "projects": "Projets Complétés",
     "internships": "Stages Effectués",
@@ -121,6 +126,13 @@
     "keySkillsDemonstrated": "Compétences clés démontrées",
     "keyResults": "Résultats clés",
     "technologiesUsed": "Technologies utilisées",
+    "techStack": "Stack technique",
+    "technologiesUsedCount_one": "{{count}} technologie utilisée",
+    "technologiesUsedCount_other": "{{count}} technologies utilisées",
+    "teamSizeDevelopers_one": "{{count}} développeur dans l'équipe",
+    "teamSizeDevelopers_other": "{{count}} développeurs dans l'équipe",
+    "webScreenshots": "Captures de l'application web",
+    "mobileScreenshots": "Captures de l'application mobile",
     "whatIDid": "Ce que j'ai fait",
     "whatILearned": "Ce que j'ai appris",
     "swipeToSee": "Glisser pour voir plus"
@@ -159,8 +171,31 @@
       "message": "Message",
       "messagePlaceholder": "Votre message...",
       "submit": "Envoyer le message",
-      "success": "Message envoyé! Je vous répondrai bientôt."
+      "sending": "Envoi…",
+      "success": "Merci ! Votre message est prêt — je vous répondrai bientôt.",
+      "error": "Une erreur est survenue. Réessayez ou écrivez-moi directement par email.",
+      "mailtoNote": "Ce formulaire ouvre votre application email avec le message pré-rempli. Vous pouvez aussi m'écrire à {{email}}.",
+      "validation": {
+        "name": "Veuillez saisir votre nom (2 caractères minimum).",
+        "email": "Veuillez saisir une adresse email valide.",
+        "subject": "Veuillez saisir un sujet (3 caractères minimum).",
+        "message": "Veuillez écrire un message (10 caractères minimum)."
+      }
     }
+  },
+  "a11y": {
+    "skipToContent": "Aller au contenu",
+    "mainNavigation": "Navigation principale",
+    "toggleTheme": "Changer de thème",
+    "openMenu": "Ouvrir le menu de navigation",
+    "closeMenu": "Fermer le menu de navigation",
+    "closeProject": "Fermer les détails du projet",
+    "closeImage": "Fermer l'image",
+    "previousImage": "Image précédente",
+    "nextImage": "Image suivante",
+    "email": "Envoyer un email",
+    "linkedin": "Profil LinkedIn",
+    "github": "Profil GitHub"
   },
   "theme": {
     "dark": "Sombre",

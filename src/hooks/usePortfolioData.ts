@@ -1,24 +1,12 @@
-// src/hooks/usePortfolioData.ts
-import { useState, useEffect } from "react";
-import i18n from "../i18n";
-import * as fr from "../data/portfolioData.fr";
-import * as en from "../data/portfolioData.en";
+import { useTranslation } from "react-i18next";
+import { getPortfolioData, type PortfolioData } from "../data";
 
-type PortfolioDataType = typeof fr;
-
-export const usePortfolioData = () => {
-  const [data, setData] = useState<PortfolioDataType>(fr);
-
-  useEffect(() => {
-    const updateData = () => {
-      setData(i18n.language === "en" ? en : fr);
-    };
-
-    i18n.on("languageChanged", updateData);
-    updateData();
-
-    return () => i18n.off("languageChanged", updateData);
-  }, []);
-
-  return data;
+/**
+ * Returns the portfolio content for the currently resolved language.
+ * `useTranslation` subscribes the component to language changes, so the
+ * content updates in place when the user switches language.
+ */
+export const usePortfolioData = (): PortfolioData => {
+  const { i18n } = useTranslation();
+  return getPortfolioData(i18n.resolvedLanguage ?? i18n.language);
 };

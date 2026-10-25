@@ -516,7 +516,7 @@ const winshotReward: InternshipProject = {
   company: "GOFIELD (WINSHOT)",
   location: "Tunis, Tunisia",
   placeholder: false, // On passe à false car on a toutes les infos
-  imageUrl: "/images/projects/winshot-reward/web-login.png",
+  imageUrl: "/images/projects/winshot-reward/web-login.webp",
   // --- Mission principale extraite du rapport ---
 
   mission:
@@ -579,211 +579,211 @@ const winshotReward: InternshipProject = {
   screenshots: [
     // Sprint 1 - Web Application
     {
-      url: "/images/projects/winshot-reward/web-login.png",
+      url: "/images/projects/winshot-reward/web-login.webp",
       caption: "Authentication Interface (Web App)",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-tenants-list.jpg",
+      url: "/images/projects/winshot-reward/web-tenants-list.webp",
       caption: "Tenants Management - List View",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-add-tenant.jpg",
+      url: "/images/projects/winshot-reward/web-add-tenant.webp",
       caption: "Add New Tenant - Configuration Wizard",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-delete-tenant.jpg",
+      url: "/images/projects/winshot-reward/web-delete-tenant.webp",
       caption: "Delete Tenant - Security Confirmation",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-companies-list.jpg",
+      url: "/images/projects/winshot-reward/web-companies-list.webp",
       caption: "Companies Management - List View",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-add-company.jpg",
+      url: "/images/projects/winshot-reward/web-add-company.webp",
       caption: "Add New Company - Two-Step Form (Company + Admin)",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-delete-company.jpg",
+      url: "/images/projects/winshot-reward/web-delete-company.webp",
       caption: "Delete Company - Final Warning",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-language.jpg",
+      url: "/images/projects/winshot-reward/web-language.webp",
       caption: "Multi-language Support (i18n)",
       placeholder: false,
     },
 
     // Sprint 2 - Web Application (Teams, Levels, Employees)
     {
-      url: "/images/projects/winshot-reward/web-profile.jpg",
+      url: "/images/projects/winshot-reward/web-profile.webp",
       caption: "Profile Management",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-change-password.jpg",
+      url: "/images/projects/winshot-reward/web-change-password.webp",
       caption: "Change Password Interface",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-teams-list.jpg",
+      url: "/images/projects/winshot-reward/web-teams-list.webp",
       caption: "Teams Management - List View",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-add-team.jpg",
+      url: "/images/projects/winshot-reward/web-add-team.webp",
       caption: "Add New Team",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-edit-team.jpg",
+      url: "/images/projects/winshot-reward/web-edit-team.webp",
       caption: "Edit Team Information",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-delete-team.jpg",
+      url: "/images/projects/winshot-reward/web-delete-team.webp",
       caption: "Delete Team Confirmation",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-levels-list.jpg",
+      url: "/images/projects/winshot-reward/web-levels-list.webp",
       caption: "Levels Customization - List View",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-add-level.jpg",
+      url: "/images/projects/winshot-reward/web-add-level.webp",
       caption: "Add New Level ",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-edit-level.jpg",
+      url: "/images/projects/winshot-reward/web-edit-level.webp",
       caption: "Edit Level Information",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-employees-list.jpg",
+      url: "/images/projects/winshot-reward/web-employees-list.webp",
       caption: "Employees Management - List View",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-add-employee.jpg",
+      url: "/images/projects/winshot-reward/web-add-employee.webp",
       caption: "Add New Employee (Team selection + auto-assignment)",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-edit-employee.jpg",
+      url: "/images/projects/winshot-reward/web-edit-employee.webp",
       caption: "Edit Employee Information",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-delete-employee.jpg",
+      url: "/images/projects/winshot-reward/web-delete-employee.webp",
       caption: "Delete Employee Confirmation",
       placeholder: false,
     },
 
     // Sprint 3 - Web Application (Objectives, Categories, Rewards)
     {
-      url: "/images/projects/winshot-reward/web-goals-list.jpg",
+      url: "/images/projects/winshot-reward/web-goals-list.webp",
       caption: "Objectives Management - List View with Filters",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-add-goal.jpg",
+      url: "/images/projects/winshot-reward/web-add-goal.webp",
       caption: "Create New Objective (Title, Category, Levels, Instructions)",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-edit-goal.jpg",
+      url: "/images/projects/winshot-reward/web-edit-goal.webp",
       caption: "Edit Objective Configuration",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-delete-goal.jpg",
+      url: "/images/projects/winshot-reward/web-delete-goal.webp",
       caption: "Delete Objective Confirmation",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-goal-assignments-users.jpg",
+      url: "/images/projects/winshot-reward/web-goal-assignments-users.webp",
       caption: "Objective Assignments - Employees View",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-assign-goal-users.jpg",
+      url: "/images/projects/winshot-reward/web-assign-goal-users.webp",
       caption: "Assign Objective to Employees",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-unassign-goal-user.jpg",
+      url: "/images/projects/winshot-reward/web-unassign-goal-user.webp",
       caption: "Unassign Objective from Employee",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-goal-assignments-teams.jpg",
+      url: "/images/projects/winshot-reward/web-goal-assignments-teams.webp",
       caption: "Objective Assignments - Teams View with Progress",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-assign-goal-teams.jpg",
+      url: "/images/projects/winshot-reward/web-assign-goal-teams.webp",
       caption: "Assign Objective to Teams (Multi-select)",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-unassign-goal-team.jpg",
+      url: "/images/projects/winshot-reward/web-unassign-goal-team.webp",
       caption: "Unassign Objective from Team",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-goal-progress.jpg",
+      url: "/images/projects/winshot-reward/web-goal-progress.webp",
       caption: "Objective Progress Tracking - List View",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-approve-progress.jpg",
+      url: "/images/projects/winshot-reward/web-approve-progress.webp",
       caption: "Approve Employee Progress",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-reject-progress.jpg",
+      url: "/images/projects/winshot-reward/web-reject-progress.webp",
       caption: "Reject Employee Progress with Comment",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-rewards-list.jpg",
+      url: "/images/projects/winshot-reward/web-rewards-list.webp",
       caption: "Rewards Management - List View with Filters",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-add-reward.jpg",
+      url: "/images/projects/winshot-reward/web-add-reward.webp",
       caption: "Create New Reward (Title, Points, Validation Type)",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-edit-reward.jpg",
+      url: "/images/projects/winshot-reward/web-edit-reward.webp",
       caption: "Edit Reward Configuration",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-delete-reward.jpg",
+      url: "/images/projects/winshot-reward/web-delete-reward.webp",
       caption: "Delete Reward Confirmation",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-orders-list.jpg",
+      url: "/images/projects/winshot-reward/web-orders-list.webp",
       caption: "Reward Orders Management - List View",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-approve-order.jpg",
+      url: "/images/projects/winshot-reward/web-approve-order.webp",
       caption: "Approve Reward Order",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-reject-order.jpg",
+      url: "/images/projects/winshot-reward/web-reject-order.webp",
       caption: "Reject Reward Order with Comment",
       placeholder: false,
     },
@@ -792,61 +792,61 @@ const winshotReward: InternshipProject = {
 
     // Sprint 5 - Mobile Application
     {
-      url: "/images/projects/winshot-reward/mobile/login.jpg",
+      url: "/images/projects/winshot-reward/mobile/login.webp",
       caption: "Mobile Authentication Screen",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/home.jpg",
+      url: "/images/projects/winshot-reward/mobile/home.webp",
       caption: "Mobile Home Dashboard",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/sidebar.jpg",
+      url: "/images/projects/winshot-reward/mobile/sidebar.webp",
       caption: "Mobile Sidebar Navigation",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/settings.jpg",
+      url: "/images/projects/winshot-reward/mobile/settings.webp",
       caption: "Mobile Settings Interface",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/profile.jpg",
+      url: "/images/projects/winshot-reward/mobile/profile.webp",
       caption: "Profile Management",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/change-password.jpg",
+      url: "/images/projects/winshot-reward/mobile/change-password.webp",
       caption: "Change Password Interface",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/language.jpg",
+      url: "/images/projects/winshot-reward/mobile/language.webp",
       caption: "Mobile Language Selection",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/home-en.jpg",
+      url: "/images/projects/winshot-reward/mobile/home-en.webp",
       caption: "Mobile Home Dashboard (English)",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/forgot-password-1.jpg",
+      url: "/images/projects/winshot-reward/mobile/forgot-password-1.webp",
       caption: "Forgot Password - Email Input",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/forgot-password-2.jpg",
+      url: "/images/projects/winshot-reward/mobile/forgot-password-2.webp",
       caption: "Forgot Password - Confirmation",
       placeholder: false,
       isMobile: true,
@@ -854,73 +854,73 @@ const winshotReward: InternshipProject = {
 
     // Sprint 6 - Mobile Application (Objectives & Rewards)
     {
-      url: "/images/projects/winshot-reward/mobile/goals-list.jpg",
+      url: "/images/projects/winshot-reward/mobile/goals-list.webp",
       caption: "Objectives List with Filters",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/goals-filter.jpg",
+      url: "/images/projects/winshot-reward/mobile/goals-filter.webp",
       caption: "Filter Objectives Interface",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/goal-details.jpg",
+      url: "/images/projects/winshot-reward/mobile/goal-details.webp",
       caption: "Objective Details View",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/increment-progress.jpg",
+      url: "/images/projects/winshot-reward/mobile/increment-progress.webp",
       caption: "Increment Objective Progress",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/rankings-teams.jpg",
+      url: "/images/projects/winshot-reward/mobile/rankings-teams.webp",
       caption: "Rankings by Team",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/rankings-employees.jpg",
+      url: "/images/projects/winshot-reward/mobile/rankings-employees.webp",
       caption: "Rankings by Employee",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/rewards-list.jpg",
+      url: "/images/projects/winshot-reward/mobile/rewards-list.webp",
       caption: "Rewards Catalog",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/rewards-filter.jpg",
+      url: "/images/projects/winshot-reward/mobile/rewards-filter.webp",
       caption: "Filter Rewards",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/reward-details.jpg",
+      url: "/images/projects/winshot-reward/mobile/reward-details.webp",
       caption: "Reward Details",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/order-reward.jpg",
+      url: "/images/projects/winshot-reward/mobile/order-reward.webp",
       caption: "Order Reward Confirmation",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/orders-list.jpg",
+      url: "/images/projects/winshot-reward/mobile/orders-list.webp",
       caption: "My Reward Orders",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/orders-filter.jpg",
+      url: "/images/projects/winshot-reward/mobile/orders-filter.webp",
       caption: "Filter Reward Orders",
       placeholder: false,
       isMobile: true,
@@ -971,7 +971,7 @@ const financeTracker: InternshipProject = {
   company: "Visual Dev",
   location: "Manouba, Tunisia",
   placeholder: false,
-  imageUrl: "/images/projects/finance-tracker/logoWallet.png",
+  imageUrl: "/images/projects/finance-tracker/logoWallet.webp",
 
   mission:
     "Develop an intuitive cross-platform mobile application for personal finance management with both guest and authenticated modes, featuring transaction tracking, visual statistics, and cloud synchronization.",
@@ -1024,55 +1024,55 @@ const financeTracker: InternshipProject = {
 
   screenshots: [
     {
-      url: "/images/projects/finance-tracker/splash.jpg",
+      url: "/images/projects/finance-tracker/splash.webp",
       caption: "Splash Screen (Login/Register/Guest)",
       placeholder: false,
       isMobile: true, // Add this
     },
     {
-      url: "/images/projects/finance-tracker/login.png",
+      url: "/images/projects/finance-tracker/login.webp",
       caption: "Authentication Interface (Email + Google)",
       placeholder: false,
       isMobile: true, // Add this
     },
     {
-      url: "/images/projects/finance-tracker/register.png",
+      url: "/images/projects/finance-tracker/register.webp",
       caption: "Registration Interface",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/finance-tracker/home.png",
+      url: "/images/projects/finance-tracker/home.webp",
       caption: "Home Dashboard",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/finance-tracker/add-transaction.png",
+      url: "/images/projects/finance-tracker/add-transaction.webp",
       caption: "Add Transaction",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/finance-tracker/stats-weekly.png",
+      url: "/images/projects/finance-tracker/stats-weekly.webp",
       caption: "Weekly Statistics",
       placeholder: false,
       isMobile: true, // Add this
     },
     {
-      url: "/images/projects/finance-tracker/stats-monthly.png",
+      url: "/images/projects/finance-tracker/stats-monthly.webp",
       caption: "Monthly Statistics",
       placeholder: false,
       isMobile: true, // Add this
     },
     {
-      url: "/images/projects/finance-tracker/stats-yearly.png",
+      url: "/images/projects/finance-tracker/stats-yearly.webp",
       caption: "Yearly Statistics",
       placeholder: false,
       isMobile: true, // Add this
     },
     {
-      url: "/images/projects/finance-tracker/profile.jpg",
+      url: "/images/projects/finance-tracker/profile.webp",
       caption: "Profile Management",
       placeholder: false,
       isMobile: true,
@@ -1196,67 +1196,67 @@ const pfaCloud: AcademicProject = {
 
   screenshots: [
     {
-      url: "/images/projects/pfa/architecture.png",
+      url: "/images/projects/pfa/architecture.webp",
       caption: "Hybrid Cloud Architecture (SaaS + PaaS + IaaS)",
       placeholder: false,
     },
     {
-      url: "/images/projects/pfa/login.png",
+      url: "/images/projects/pfa/login.webp",
       caption: "Login Interface",
       placeholder: false,
     },
     {
-      url: "/images/projects/pfa/user-list.png",
+      url: "/images/projects/pfa/user-list.webp",
       caption: "User Management",
       placeholder: false,
     },
     {
-      url: "/images/projects/pfa/add-user.png",
+      url: "/images/projects/pfa/add-user.webp",
       caption: "Add Employee",
       placeholder: false,
     },
     {
-      url: "/images/projects/pfa/edit-user.png",
+      url: "/images/projects/pfa/edit-user.webp",
       caption: "Edit Employee",
       placeholder: false,
     },
     {
-      url: "/images/projects/pfa/delete-user.png",
+      url: "/images/projects/pfa/delete-user.webp",
       caption: "Delete Employee",
       placeholder: false,
     },
     {
-      url: "/images/projects/pfa/add-department.png",
+      url: "/images/projects/pfa/add-department.webp",
       caption: "Add Department",
       placeholder: false,
     },
     {
-      url: "/images/projects/pfa/add-project.png",
+      url: "/images/projects/pfa/add-project.webp",
       caption: "Add Project",
       placeholder: false,
     },
     {
-      url: "/images/projects/pfa/add-task.jpg",
+      url: "/images/projects/pfa/add-task.webp",
       caption: "Add Task",
       placeholder: false,
     },
     {
-      url: "/images/projects/pfa/company-dashboard.png",
+      url: "/images/projects/pfa/company-dashboard.webp",
       caption: "Company Dashboard (Kibana)",
       placeholder: false,
     },
     {
-      url: "/images/projects/pfa/department-dashboard.png",
+      url: "/images/projects/pfa/department-dashboard.webp",
       caption: "Department Dashboard (Kibana)",
       placeholder: false,
     },
     {
-      url: "/images/projects/pfa/project-dashboard.png",
+      url: "/images/projects/pfa/project-dashboard.webp",
       caption: "Project Dashboard (Kibana)",
       placeholder: false,
     },
   ],
-  imageUrl: "/images/projects/pfa/architecture.png",
+  imageUrl: "/images/projects/pfa/architecture.webp",
 };
 // const easyPlant: InternshipProject = {
 //   id: "easy-plant",
@@ -1344,67 +1344,67 @@ const pfaCloud: AcademicProject = {
 
 //   screenshots: [
 //     {
-//       url: "/images/projects/easyplant/planning-chef.png",
+//       url: "/images/projects/easyplant/planning-chef.webp",
 //       caption: "Figure 3.6 - Planning pour chef d'équipe (filtrage temps/type)",
 //       placeholder: true,
 //     },
 //     {
-//       url: "/images/projects/easyplant/planning-responsable.png",
+//       url: "/images/projects/easyplant/planning-responsable.webp",
 //       caption: "Figure 3.7 - Planning pour responsable",
 //       placeholder: true,
 //     },
 //     {
-//       url: "/images/projects/easyplant/lancement-production.png",
+//       url: "/images/projects/easyplant/lancement-production.webp",
 //       caption: "Figure 3.8 - Interface lancement production",
 //       placeholder: true,
 //     },
 //     {
-//       url: "/images/projects/easyplant/valider-comptage.png",
+//       url: "/images/projects/easyplant/valider-comptage.webp",
 //       caption: "Figure 3.9 - Interface validation comptage",
 //       placeholder: true,
 //     },
 //     {
-//       url: "/images/projects/easyplant/ajouter-comptage.png",
+//       url: "/images/projects/easyplant/ajouter-comptage.webp",
 //       caption: "Figure 3.10 - Interface ajout comptage aléatoire",
 //       placeholder: true,
 //     },
 //     {
-//       url: "/images/projects/easyplant/avancement-production.png",
+//       url: "/images/projects/easyplant/avancement-production.webp",
 //       caption: "Figure 3.11 - Interface avancement production",
 //       placeholder: true,
 //     },
 //     {
-//       url: "/images/projects/easyplant/login.png",
+//       url: "/images/projects/easyplant/login.webp",
 //       caption: "Figure 4.5 - Interface authentification",
 //       placeholder: true,
 //     },
 //     {
-//       url: "/images/projects/easyplant/livraisons.png",
+//       url: "/images/projects/easyplant/livraisons.webp",
 //       caption: "Figure 4.6 - Interface commandes à livrer",
 //       placeholder: true,
 //     },
 //     {
-//       url: "/images/projects/easyplant/valider-livraison.png",
+//       url: "/images/projects/easyplant/valider-livraison.webp",
 //       caption: "Figure 4.7 - Interface validation livraison",
 //       placeholder: true,
 //     },
 //     {
-//       url: "/images/projects/easyplant/historiques-livraison.png",
+//       url: "/images/projects/easyplant/historiques-livraison.webp",
 //       caption: "Figure 4.8 - Interface historique livraisons",
 //       placeholder: true,
 //     },
 //     {
-//       url: "/images/projects/easyplant/supports-clients.png",
+//       url: "/images/projects/easyplant/supports-clients.webp",
 //       caption: "Figure 4.9 - Interface supports chez clients",
 //       placeholder: true,
 //     },
 //     {
-//       url: "/images/projects/easyplant/stock-supports.png",
+//       url: "/images/projects/easyplant/stock-supports.webp",
 //       caption: "Figure 5.3 - Interface stock supports",
 //       placeholder: true,
 //     },
 //     {
-//       url: "/images/projects/easyplant/stock-semences.png",
+//       url: "/images/projects/easyplant/stock-semences.webp",
 //       caption: "Figure 5.4 - Interface stock semences",
 //       placeholder: true,
 //     },
@@ -1453,7 +1453,7 @@ const easyPlant: InternshipProject = {
   company: "EASY Technology",
   location: "Tunis, Tunisia",
   placeholder: false,
-  imageUrl: "/images/projects/easyplant/login.png",
+  imageUrl: "/images/projects/easyplant/login.webp",
 
   // supervisor:
   //   "Mr. Ali BEMRI (Professional Supervisor) + Ms. Marwa CHAABANI (Academic Supervisor)",
@@ -1504,77 +1504,77 @@ const easyPlant: InternshipProject = {
 
   screenshots: [
     {
-      url: "/images/projects/easyplant/planning-chef.png",
+      url: "/images/projects/easyplant/planning-chef.webp",
       caption: "Team Leader Planning (time/type filtering)",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/planning-responsable.png",
+      url: "/images/projects/easyplant/planning-responsable.webp",
       caption: "Manager Planning",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/lancement-production.png",
+      url: "/images/projects/easyplant/lancement-production.webp",
       caption: "Production Launch Interface",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/valider-comptage.png",
+      url: "/images/projects/easyplant/valider-comptage.webp",
       caption: "Counting Validation Interface",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/ajouter-comptage.png",
+      url: "/images/projects/easyplant/ajouter-comptage.webp",
       caption: "Random Counting Addition",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/avancement-production.png",
+      url: "/images/projects/easyplant/avancement-production.webp",
       caption: "Production Progress Interface",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/login.png",
+      url: "/images/projects/easyplant/login.webp",
       caption: "Authentication Interface",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/livraisons.png",
+      url: "/images/projects/easyplant/livraisons.webp",
       caption: "Orders to Deliver",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/valider-livraison.png",
+      url: "/images/projects/easyplant/valider-livraison.webp",
       caption: "Delivery Validation",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/historiques-livraison.png",
+      url: "/images/projects/easyplant/historiques-livraison.webp",
       caption: "Delivery History",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/supports-clients.png",
+      url: "/images/projects/easyplant/supports-clients.webp",
       caption: "Client Equipment List",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/stock-supports.png",
+      url: "/images/projects/easyplant/stock-supports.webp",
       caption: "Equipment Stock",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/stock-semences.png",
+      url: "/images/projects/easyplant/stock-semences.webp",
       caption: "Seed Stock",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/dashboard-powerbi-p1.png",
+      url: "/images/projects/easyplant/dashboard-powerbi-p1.webp",
       caption: "Power BI Dashboards part 1",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/dashboard-powerbi-p2.png",
+      url: "/images/projects/easyplant/dashboard-powerbi-p2.webp",
       caption: "Power BI Dashboards part 2",
       placeholder: false,
     },
@@ -1609,46 +1609,46 @@ const devnetPortal: InternshipProject = {
   company: "DEVNET",
   location: "Tunis, Tunisia",
   placeholder: false,
-  imageUrl: "/images/projects/devnet/admin-dashboard.png",
+  imageUrl: "/images/projects/devnet/admin-dashboard.webp",
 
   screenshots: [
     {
-      url: "/images/projects/devnet/login.png",
+      url: "/images/projects/devnet/login.webp",
       caption: "Authentication Interface",
       placeholder: false,
     },
     {
-      url: "/images/projects/devnet/admin-dashboard.png",
+      url: "/images/projects/devnet/admin-dashboard.webp",
       caption: "Admin Dashboard with Statistics",
       placeholder: false,
     },
     {
-      url: "/images/projects/devnet/agent-dashboard.png",
+      url: "/images/projects/devnet/agent-dashboard.webp",
       caption: "Agent Dashboard with Statistics",
       placeholder: false,
     },
     {
-      url: "/images/projects/devnet/user-management.png",
+      url: "/images/projects/devnet/user-management.webp",
       caption: "User Management",
       placeholder: false,
     },
     {
-      url: "/images/projects/devnet/enterprise-management.png",
+      url: "/images/projects/devnet/enterprise-management.webp",
       caption: "Public Enterprise Management",
       placeholder: false,
     },
     {
-      url: "/images/projects/devnet/add-enterprise.png",
+      url: "/images/projects/devnet/add-enterprise.webp",
       caption: "Add Enterprise Form",
       placeholder: false,
     },
     {
-      url: "/images/projects/devnet/edit-enterprise.png",
+      url: "/images/projects/devnet/edit-enterprise.webp",
       caption: "Edit Enterprise",
       placeholder: false,
     },
     {
-      url: "/images/projects/devnet/single-delete.png",
+      url: "/images/projects/devnet/single-delete.webp",
       caption: "Delete Enterprise",
       placeholder: false,
     },
@@ -1722,7 +1722,7 @@ const sccGlobal: InternshipProject = {
   company: "SCC Global",
   location: "Béja, Tunisia",
   placeholder: false,
-  imageUrl: "/images/projects/sccglobal/login.png",
+  imageUrl: "/images/projects/sccglobal/login.webp",
 
   mission:
     "Replace fragmented Excel-based equipment management with a centralized web application for tracking computer equipment and managing reservations.",
@@ -1770,37 +1770,37 @@ const sccGlobal: InternshipProject = {
 
   screenshots: [
     {
-      url: "/images/projects/sccglobal/login.png",
+      url: "/images/projects/sccglobal/login.webp",
       caption: "Authentication Interface",
       placeholder: false,
     },
     {
-      url: "/images/projects/sccglobal/agent-dashboard.png",
+      url: "/images/projects/sccglobal/agent-dashboard.webp",
       caption: "Agent Dashboard - Equipment List",
       placeholder: false,
     },
     {
-      url: "/images/projects/sccglobal/admin-dashboard.png",
+      url: "/images/projects/sccglobal/admin-dashboard.webp",
       caption: "Admin Dashboard - User Management",
       placeholder: false,
     },
     {
-      url: "/images/projects/sccglobal/equipment-details.png",
+      url: "/images/projects/sccglobal/equipment-details.webp",
       caption: "Equipment Details View",
       placeholder: false,
     },
     {
-      url: "/images/projects/sccglobal/equipment-list.png",
+      url: "/images/projects/sccglobal/equipment-list.webp",
       caption: "Equipment Management (Admin)",
       placeholder: false,
     },
     {
-      url: "/images/projects/sccglobal/delete-equipment.png",
+      url: "/images/projects/sccglobal/delete-equipment.webp",
       caption: "Delete Confirmation",
       placeholder: false,
     },
     {
-      url: "/images/projects/sccglobal/add-headset.png",
+      url: "/images/projects/sccglobal/add-headset.webp",
       caption: "Add Equipment Form",
       placeholder: false,
     },
@@ -1889,62 +1889,62 @@ const sccGlobal: InternshipProject = {
 
 //   screenshots: [
 //     {
-//       url: "/images/projects/pfa/architecture.png",
+//       url: "/images/projects/pfa/architecture.webp",
 //       caption: "Figure 1 - Hybrid Cloud Architecture (SaaS + PaaS + IaaS)",
 //       placeholder: false,
 //     },
 //     {
-//       url: "/images/projects/pfa/login.png",
+//       url: "/images/projects/pfa/login.webp",
 //       caption: "Login Interface",
 //       placeholder: false,
 //     },
 //     {
-//       url: "/images/projects/pfa/user-list.png",
+//       url: "/images/projects/pfa/user-list.webp",
 //       caption: "User Management",
 //       placeholder: false,
 //     },
 //     {
-//       url: "/images/projects/pfa/add-user.png",
+//       url: "/images/projects/pfa/add-user.webp",
 //       caption: "Add Employee",
 //       placeholder: false,
 //     },
 //     {
-//       url: "/images/projects/pfa/edit-user.png",
+//       url: "/images/projects/pfa/edit-user.webp",
 //       caption: "Edit Employee",
 //       placeholder: false,
 //     },
 //     {
-//       url: "/images/projects/pfa/delete-user.png",
+//       url: "/images/projects/pfa/delete-user.webp",
 //       caption: "Delete Employee",
 //       placeholder: false,
 //     },
 //     {
-//       url: "/images/projects/pfa/add-department.png",
+//       url: "/images/projects/pfa/add-department.webp",
 //       caption: "Add Department",
 //       placeholder: false,
 //     },
 //     {
-//       url: "/images/projects/pfa/add-project.png",
+//       url: "/images/projects/pfa/add-project.webp",
 //       caption: "Add Project",
 //       placeholder: false,
 //     },
 //     {
-//       url: "/images/projects/pfa/add-task.jpg",
+//       url: "/images/projects/pfa/add-task.webp",
 //       caption: "Add Task",
 //       placeholder: false,
 //     },
 //     {
-//       url: "/images/projects/pfa/company-dashboard.png",
+//       url: "/images/projects/pfa/company-dashboard.webp",
 //       caption: "Company Dashboard (Kibana)",
 //       placeholder: false,
 //     },
 //     {
-//       url: "/images/projects/pfa/department-dashboard.png",
+//       url: "/images/projects/pfa/department-dashboard.webp",
 //       caption: "Department Dashboard (Kibana)",
 //       placeholder: false,
 //     },
 //     {
-//       url: "/images/projects/pfa/project-dashboard.png",
+//       url: "/images/projects/pfa/project-dashboard.webp",
 //       caption: "Project Dashboard (Kibana)",
 //       placeholder: false,
 //     },
@@ -2192,7 +2192,7 @@ export const skills: Skill[] = [
   {
     name: "Power BI",
     category: "other",
-    icon: "/images/icons/powerbi.png",
+    icon: "/images/icons/powerbi.webp",
     description:
       "Business analytics with DAX, Power Query, and interactive dashboards",
   },
@@ -2242,7 +2242,7 @@ export const languages = [
 ];
 
 export const socialLinks = {
-  linkedIn: "https://linkedin.com/in/mohamed-amine-bouzidi",
+  linkedIn: "https://www.linkedin.com/in/med-amine-bouzidi",
   github: "https://github.com/MedamineBouzidi",
   email: "mailto:bouzidi.amine0301@gmail.com",
 };

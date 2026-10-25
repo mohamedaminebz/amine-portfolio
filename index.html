@@ -1,31 +1,131 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Portfolio de Mohamed Amine Bouzidi - Ingénieur Full-Stack spécialisé en React, Node.js et React Native" />
+    <meta
+      name="description"
+      content="Portfolio de Mohamed Amine Bouzidi, ingénieur full-stack spécialisé en React, Node.js et React Native."
+    />
     <meta name="author" content="Mohamed Amine Bouzidi" />
-    <meta name="theme-color" content="#1f2937" />
+    <meta name="robots" content="index, follow" />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: light)"
+      content="#f8fafc"
+    />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: dark)"
+      content="#0f172a"
+    />
+
+    <link
+      rel="canonical"
+      href="https://mohamedaminebz.github.io/amine-portfolio/"
+    />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Mohamed Amine Bouzidi - Full-Stack Engineer" />
-    <meta property="og:description" content="Portfolio de développeur full-stack spécialisée en applications web et mobiles" />
+    <meta property="og:site_name" content="Mohamed Amine Bouzidi" />
+    <meta
+      property="og:url"
+      content="https://mohamedaminebz.github.io/amine-portfolio/"
+    />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta
+      property="og:title"
+      content="Mohamed Amine Bouzidi — Full-Stack Engineer"
+    />
+    <meta
+      property="og:description"
+      content="Portfolio de Mohamed Amine Bouzidi, ingénieur full-stack spécialisé en React, Node.js et React Native."
+    />
+    <meta
+      property="og:image"
+      content="https://mohamedaminebz.github.io/amine-portfolio/images/MAB2.jpg"
+    />
+    <meta property="og:image:alt" content="Mohamed Amine Bouzidi" />
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:title" content="Mohamed Amine Bouzidi - Full-Stack Engineer" />
-    <meta property="twitter:description" content="Portfolio de développeur full-stack spécialisée en applications web et mobiles" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Mohamed Amine Bouzidi — Full-Stack Engineer"
+    />
+    <meta
+      name="twitter:description"
+      content="Portfolio de Mohamed Amine Bouzidi, ingénieur full-stack spécialisé en React, Node.js et React Native."
+    />
+    <meta
+      name="twitter:image"
+      content="https://mohamedaminebz.github.io/amine-portfolio/images/MAB2.jpg"
+    />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230f172a' width='100' height='100' rx='20'/><text x='50' y='65' font-size='50' text-anchor='middle' fill='%233b82f6' font-family='Arial'>M</text></svg>" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230f172a' width='100' height='100' rx='20'/><text x='50' y='65' font-size='50' text-anchor='middle' fill='%233b82f6' font-family='Arial'>M</text></svg>"
+    />
 
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
-    <title>Mohamed Amine Bouzidi - Full-Stack Engineer</title>
+    <!-- Apply the saved theme before React mounts to avoid a flash of the wrong theme. -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          var theme =
+            stored === "light" || stored === "dark"
+              ? stored
+              : window.matchMedia("(prefers-color-scheme: light)").matches
+                ? "light"
+                : "dark";
+          document.documentElement.classList.add(theme);
+          document.documentElement.style.colorScheme = theme;
+        } catch (error) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Mohamed Amine Bouzidi",
+        "jobTitle": "Full-Stack Software Engineer",
+        "url": "https://mohamedaminebz.github.io/amine-portfolio/",
+        "image": "https://mohamedaminebz.github.io/amine-portfolio/images/MAB2.jpg",
+        "email": "mailto:bouzidi.amine0301@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Ariana",
+          "addressCountry": "TN"
+        },
+        "knowsAbout": [
+          "React",
+          "Node.js",
+          "React Native",
+          "TypeScript",
+          "Microservices"
+        ],
+        "sameAs": [
+          "https://www.linkedin.com/in/med-amine-bouzidi",
+          "https://github.com/MedamineBouzidi"
+        ]
+      }
+    </script>
+
+    <title>Mohamed Amine Bouzidi — Full-Stack Engineer</title>
   </head>
   <body>
     <div id="root"></div>

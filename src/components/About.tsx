@@ -1,11 +1,13 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../context/ThemeContext";
-import { personalInfo, interests } from "../data/portfolioData.index";
-import MABImage from "/images/MAB.jpg";
+import { usePortfolioData } from "../hooks/usePortfolioData";
+import { asset } from "../lib/asset";
+
 const About: React.FC = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
+  const { personalInfo, interests } = usePortfolioData();
 
   return (
     <section
@@ -41,8 +43,12 @@ const About: React.FC = () => {
               >
                 {/* Replace the text with an image */}
                 <img
-                  src={MABImage}
+                  src={asset("/images/MAB.webp")}
                   alt={personalInfo.name}
+                  loading="eager"
+                  decoding="async"
+                  width={512}
+                  height={512}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -68,7 +74,13 @@ const About: React.FC = () => {
 
           {/* Right Column - Content */}
           <div>
-            <span className="inline-block px-4 py-2 bg-blue-500/20 text-blue-400 rounded-full text-sm font-medium mb-6">
+            <span
+              className={`inline-block px-4 py-2 rounded-full text-sm font-medium mb-6 ${
+                theme === "dark"
+                  ? "bg-blue-500/20 text-blue-400"
+                  : "bg-blue-100 text-blue-700"
+              }`}
+            >
               {t("about.title")}
             </span>
             <h2
@@ -78,9 +90,7 @@ const About: React.FC = () => {
             >
               {t("about.subtitle")}{" "}
               <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                {t("hero.cta").includes("View")
-                  ? "development"
-                  : "développement"}
+                {t("about.development")}
               </span>
             </h2>
             <p
@@ -100,7 +110,13 @@ const About: React.FC = () => {
                     : "bg-white border-gray-200 shadow-sm"
                 }`}
               >
-                <div className="text-3xl font-bold text-blue-400 mb-1">1+</div>
+                <div
+                  className={`text-3xl font-bold mb-1 ${
+                    theme === "dark" ? "text-blue-400" : "text-blue-600"
+                  }`}
+                >
+                  1+
+                </div>
                 <div
                   className={`${theme === "dark" ? "text-gray-400" : "text-gray-500"} text-sm`}
                 >
@@ -114,7 +130,13 @@ const About: React.FC = () => {
                     : "bg-white border-gray-200 shadow-sm"
                 }`}
               >
-                <div className="text-3xl font-bold text-cyan-400 mb-1">6+</div>
+                <div
+                  className={`text-3xl font-bold mb-1 ${
+                    theme === "dark" ? "text-cyan-400" : "text-cyan-600"
+                  }`}
+                >
+                  6+
+                </div>
                 <div
                   className={`${theme === "dark" ? "text-gray-400" : "text-gray-500"} text-sm`}
                 >
@@ -128,7 +150,11 @@ const About: React.FC = () => {
                     : "bg-white border-gray-200 shadow-sm"
                 }`}
               >
-                <div className="text-3xl font-bold text-purple-400 mb-1">
+                <div
+                  className={`text-3xl font-bold mb-1 ${
+                    theme === "dark" ? "text-purple-400" : "text-purple-600"
+                  }`}
+                >
                   4+
                 </div>
                 <div
@@ -147,13 +173,13 @@ const About: React.FC = () => {
                   : "bg-white border-gray-200 shadow-sm"
               }`}
             >
-              <h4
+              <h3
                 className={`text-lg font-semibold mb-4 ${
                   theme === "dark" ? "text-white" : "text-gray-900"
                 }`}
               >
                 {t("about.contactInfo")}
-              </h4>
+              </h3>
               <div className="space-y-3">
                 <a
                   href={`mailto:${personalInfo.email}`}
@@ -234,15 +260,15 @@ const About: React.FC = () => {
 
             {/* Interests */}
             <div>
-              <h4
+              <h3
                 className={`text-lg font-semibold mb-4 ${
                   theme === "dark" ? "text-white" : "text-gray-900"
                 }`}
               >
                 {t("about.interests")}
-              </h4>
+              </h3>
               <div className="flex flex-wrap gap-3">
-                {interests.value.map((interest, index) => (
+                {interests.map((interest, index) => (
                   <div
                     key={index}
                     className={`px-5 py-3 rounded-xl border transition-all duration-300 flex items-center gap-2 ${

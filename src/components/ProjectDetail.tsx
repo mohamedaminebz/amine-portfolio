@@ -1,13 +1,15 @@
 // src/components/ProjectDetail.tsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../context/ThemeContext";
+import { asset } from "../lib/asset";
 import {
   Project,
   ProfessionalProject,
   InternshipProject,
   AcademicProject,
   OtherProject,
+  ProjectScreenshot,
 } from "../types/portfolio";
 import {
   SiNodedotjs,
@@ -34,55 +36,100 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 
   const { t } = useTranslation();
   const { theme } = useTheme();
+  const screenshots = useMemo(
+    () => project.screenshots ?? [],
+    [project.screenshots],
+  );
   const [isVisible, setIsVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState<{
     url: string;
     caption: string;
   } | null>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const previouslyFocused = useRef<HTMLElement | null>(null);
+
+  const openScreenshot = (screenshot: ProjectScreenshot) => {
+    if (screenshot.placeholder || !screenshot.url) return;
+    setSelectedImage({ url: screenshot.url, caption: screenshot.caption });
+  };
+
+  const handleScreenshotKeyDown = (
+    event: React.KeyboardEvent<HTMLElement>,
+    screenshot: ProjectScreenshot,
+  ) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openScreenshot(screenshot);
+    }
+  };
 
   useEffect(() => {
     setIsVisible(true);
+    const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    previouslyFocused.current = document.activeElement as HTMLElement | null;
+    dialogRef.current
+      ?.querySelector<HTMLButtonElement>("[data-autofocus]")
+      ?.focus();
+
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = previousOverflow;
+      previouslyFocused.current?.focus();
     };
   }, []);
-  // Keyboard navigation for lightbox
+
+  // Keyboard navigation: Escape closes the lightbox or the dialog, arrows
+  // move through screenshots and Tab stays inside the dialog.
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        if (selectedImage) setSelectedImage(null);
+        else onClose();
+        return;
+      }
+
+      if (!selectedImage && event.key === "Tab" && dialogRef.current) {
+        const focusable = Array.from(
+          dialogRef.current.querySelectorAll<HTMLElement>(
+            'button:not([disabled]), a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+          ),
+        );
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (!first || !last) return;
+
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+
       if (!selectedImage) return;
 
-      const currentIndex = project.screenshots.findIndex(
+      const currentIndex = screenshots.findIndex(
         (s) => s.url === selectedImage.url,
       );
 
-      if (e.key === "ArrowLeft") {
-        const prevIndex = currentIndex - 1;
-        if (prevIndex >= 0 && project.screenshots[prevIndex].url) {
-          setSelectedImage({
-            url: project.screenshots[prevIndex].url,
-            caption: project.screenshots[prevIndex].caption,
-          });
+      if (event.key === "ArrowLeft") {
+        const previous = screenshots[currentIndex - 1];
+        if (previous?.url) {
+          setSelectedImage({ url: previous.url, caption: previous.caption });
         }
-      } else if (e.key === "ArrowRight") {
-        const nextIndex = currentIndex + 1;
-        if (
-          nextIndex < project.screenshots.length &&
-          project.screenshots[nextIndex].url
-        ) {
-          setSelectedImage({
-            url: project.screenshots[nextIndex].url,
-            caption: project.screenshots[nextIndex].caption,
-          });
+      } else if (event.key === "ArrowRight") {
+        const next = screenshots[currentIndex + 1];
+        if (next?.url) {
+          setSelectedImage({ url: next.url, caption: next.caption });
         }
-      } else if (e.key === "Escape") {
-        setSelectedImage(null);
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedImage, project.screenshots]);
+  }, [onClose, screenshots, selectedImage]);
 
   const renderProjectContent = () => {
     switch (project.type) {
@@ -126,7 +173,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                         className={`text-xs font-medium px-2 py-0.5 rounded-full ${
                           isDark
                             ? "bg-blue-500/20 text-blue-400"
-                            : "bg-blue-100 text-blue-600"
+                            : "bg-blue-100 text-blue-700"
                         }`}
                       >
                         {project.role}
@@ -135,7 +182,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                         className={`text-xs font-medium px-2 py-0.5 rounded-full ${
                           isDark
                             ? "bg-green-500/20 text-green-400"
-                            : "bg-green-100 text-green-600"
+                            : "bg-green-100 text-green-700"
                         }`}
                       >
                         {project.period}
@@ -166,8 +213,12 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                 <div
                   className={`flex items-center gap-1.5 text-xs ${
                     project.period.includes("Present")
-                      ? "text-green-400"
-                      : "text-gray-400"
+                      ? isDark
+                        ? "text-green-400"
+                        : "text-green-600"
+                      : isDark
+                        ? "text-gray-400"
+                        : "text-gray-600"
                   }`}
                 >
                   <span
@@ -507,12 +558,9 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                       isDark ? "text-gray-400" : "text-gray-500"
                     }`}
                   >
-                    <span
-                      className={`font-bold ${isDark ? "text-white" : "text-gray-900"}`}
-                    >
-                      {project.teamSize}
-                    </span>{" "}
-                    developer{project.teamSize !== 1 ? "s" : ""} in the team
+                    {t("projectDetail.teamSizeDevelopers", {
+                      count: project.teamSize,
+                    })}
                   </span>
                 </div>
               )}
@@ -544,15 +592,16 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                   <h3
                     className={`font-bold text-lg ${isDark ? "text-white" : "text-gray-900"}`}
                   >
-                    Tech Stack
+                    {t("projectDetail.techStack")}
                   </h3>
                   <p
                     className={`text-xs font-medium uppercase tracking-wider ${
                       isDark ? "text-gray-500" : "text-gray-400"
                     }`}
                   >
-                    {project.technologies.length} Technologie
-                    {project.technologies.length !== 1 ? "s" : ""} Used
+                    {t("projectDetail.technologiesUsedCount", {
+                      count: project.technologies.length,
+                    })}
                   </p>
                 </div>
               </div>
@@ -576,13 +625,16 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                       />
 
                       {TechIcon && (
-                        <TechIcon
-                          className={`relative w-5 h-5 flex-shrink-0 transition-all duration-300 group-hover/tech:scale-110 ${
+                        <span
+                          aria-hidden="true"
+                          className={`relative flex-shrink-0 transition-all duration-300 group-hover/tech:scale-110 ${
                             isDark
                               ? "opacity-80 group-hover/tech:opacity-100"
                               : "opacity-65 group-hover/tech:opacity-90"
                           }`}
-                        />
+                        >
+                          <TechIcon size={20} />
+                        </span>
                       )}
                       <span className="relative tracking-wide">
                         {tech.name}
@@ -775,10 +827,16 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
               <h3
                 className={`font-semibold ${theme === "dark" ? "text-white" : "text-gray-900"}`}
               >
-                Web Application Screenshots
+                {t("projectDetail.webScreenshots")}
               </h3>
-              <span className="text-xs ml-2 px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-400">
-                {webScreenshots.length} images
+              <span
+                className={`text-xs ml-2 px-2 py-0.5 rounded-full ${
+                  theme === "dark"
+                    ? "bg-blue-500/20 text-blue-400"
+                    : "bg-blue-100 text-blue-700"
+                }`}
+              >
+                {webScreenshots.length} {t("projectDetail.images")}
               </span>
             </div>
 
@@ -787,17 +845,16 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
               {webScreenshots.map((screenshot, idx) => (
                 <div
                   key={idx}
-                  className={`group relative rounded-lg overflow-hidden border cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl ${
+                  role="button"
+                  tabIndex={screenshot.placeholder ? -1 : 0}
+                  aria-label={screenshot.caption || t("projectDetail.preview")}
+                  className={`group relative rounded-lg overflow-hidden border cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl focus-visible:ring-2 focus-visible:ring-blue-500 ${
                     theme === "dark" ? "border-gray-700" : "border-gray-200"
                   }`}
-                  onClick={() => {
-                    if (!screenshot.placeholder && screenshot.url) {
-                      setSelectedImage({
-                        url: screenshot.url,
-                        caption: screenshot.caption,
-                      });
-                    }
-                  }}
+                  onClick={() => openScreenshot(screenshot)}
+                  onKeyDown={(event) =>
+                    handleScreenshotKeyDown(event, screenshot)
+                  }
                 >
                   <div className="aspect-video bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center relative">
                     {screenshot.placeholder ? (
@@ -821,8 +878,12 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                       </div>
                     ) : (
                       <img
-                        src={screenshot.url}
+                        src={asset(screenshot.url)}
                         alt={screenshot.caption}
+                        loading="lazy"
+                        decoding="async"
+                        width={640}
+                        height={360}
                         className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                       />
                     )}
@@ -867,10 +928,16 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
               <h3
                 className={`font-semibold ${theme === "dark" ? "text-white" : "text-gray-900"}`}
               >
-                Mobile Application Screenshots
+                {t("projectDetail.mobileScreenshots")}
               </h3>
-              <span className="text-xs ml-2 px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-400">
-                {mobileScreenshots.length} images
+              <span
+                className={`text-xs ml-2 px-2 py-0.5 rounded-full ${
+                  theme === "dark"
+                    ? "bg-blue-500/20 text-blue-400"
+                    : "bg-blue-100 text-blue-700"
+                }`}
+              >
+                {mobileScreenshots.length} {t("projectDetail.images")}
               </span>
             </div>
 
@@ -883,19 +950,20 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                     className="flex-shrink-0 w-[250px] snap-start transition-all duration-300 hover:scale-[1.02]"
                   >
                     <div
-                      className={`relative mx-auto w-[230px] rounded-[1.5rem] border-4 border-gray-800 dark:border-gray-700 shadow-2xl bg-black transition-all duration-300 hover:shadow-2xl hover:border-blue-500/50 ${
+                      role="button"
+                      tabIndex={screenshot.placeholder ? -1 : 0}
+                      aria-label={
+                        screenshot.caption || t("projectDetail.preview")
+                      }
+                      className={`relative mx-auto w-[230px] rounded-[1.5rem] border-4 border-gray-800 dark:border-gray-700 shadow-2xl bg-black transition-all duration-300 hover:shadow-2xl hover:border-blue-500/50 focus-visible:ring-2 focus-visible:ring-blue-500 ${
                         !screenshot.placeholder && screenshot.url
                           ? "cursor-pointer group"
                           : ""
                       }`}
-                      onClick={() => {
-                        if (!screenshot.placeholder && screenshot.url) {
-                          setSelectedImage({
-                            url: screenshot.url,
-                            caption: screenshot.caption,
-                          });
-                        }
-                      }}
+                      onClick={() => openScreenshot(screenshot)}
+                      onKeyDown={(event) =>
+                        handleScreenshotKeyDown(event, screenshot)
+                      }
                     >
                       <div className="overflow-hidden rounded-[1.3rem] bg-gray-900 relative">
                         <div className="relative w-full h-[520px]">
@@ -921,8 +989,12 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                           ) : (
                             <>
                               <img
-                                src={screenshot.url}
+                                src={asset(screenshot.url)}
                                 alt={screenshot.caption}
+                                loading="lazy"
+                                decoding="async"
+                                width={250}
+                                height={520}
                                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                 style={{ objectPosition: "top center" }}
                               />
@@ -962,7 +1034,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                   <p
                     className={`text-center text-xs mt-2 ${theme === "dark" ? "text-gray-500" : "text-gray-400"}`}
                   >
-                    ← swipe to see more →
+                    ← {t("projectDetail.swipeToSee")} →
                   </p>
                 </>
               )}
@@ -1209,7 +1281,13 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
             >
               {t("projectDetail.screenshots")}
             </h3>
-            <span className="text-xs ml-2 px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-400">
+            <span
+              className={`text-xs ml-2 px-2 py-0.5 rounded-full ${
+                theme === "dark"
+                  ? "bg-blue-500/20 text-blue-400"
+                  : "bg-blue-100 text-blue-700"
+              }`}
+            >
               {project.screenshots.length} {t("projectDetail.images")}
             </span>
           </div>
@@ -1217,17 +1295,16 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
             {project.screenshots.map((screenshot, idx) => (
               <div
                 key={idx}
-                className={`group relative rounded-lg overflow-hidden border cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl ${
+                role="button"
+                tabIndex={screenshot.placeholder ? -1 : 0}
+                aria-label={screenshot.caption || t("projectDetail.preview")}
+                className={`group relative rounded-lg overflow-hidden border cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl focus-visible:ring-2 focus-visible:ring-blue-500 ${
                   theme === "dark" ? "border-gray-700" : "border-gray-200"
                 }`}
-                onClick={() => {
-                  if (!screenshot.placeholder && screenshot.url) {
-                    setSelectedImage({
-                      url: screenshot.url,
-                      caption: screenshot.caption,
-                    });
-                  }
-                }}
+                onClick={() => openScreenshot(screenshot)}
+                onKeyDown={(event) =>
+                  handleScreenshotKeyDown(event, screenshot)
+                }
               >
                 <div className="aspect-video bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center relative">
                   {screenshot.placeholder ? (
@@ -1251,8 +1328,12 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                     </div>
                   ) : (
                     <img
-                      src={screenshot.url}
+                      src={asset(screenshot.url)}
                       alt={screenshot.caption}
+                      loading="lazy"
+                      decoding="async"
+                      width={640}
+                      height={360}
                       className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                     />
                   )}
@@ -1311,25 +1392,21 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
     switch (project.type) {
       case "professional":
         return {
-          color: "bg-blue-500/20 text-blue-400",
           label: t("projects.type.professional"),
           bg: "from-blue-600 to-cyan-600",
         };
       case "internship":
         return {
-          color: "bg-purple-500/20 text-purple-400",
           label: t("projects.type.internship"),
           bg: "from-purple-600 to-pink-600",
         };
       case "academic":
         return {
-          color: "bg-green-500/20 text-green-400",
           label: t("projects.type.academic"),
           bg: "from-green-600 to-emerald-600",
         };
       default:
         return {
-          color: "bg-gray-500/20 text-gray-400",
           label: t("projects.type.other"),
           bg: "from-gray-600 to-slate-600",
         };
@@ -1347,6 +1424,11 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
         onClick={onClose}
       >
         <div
+          ref={dialogRef}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="project-detail-title"
+          tabIndex={-1}
           className={`w-full max-w-4xl max-h-[90vh] rounded-2xl overflow-hidden shadow-2xl transition-all duration-700 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           } ${theme === "dark" ? "bg-gray-900" : "bg-white"}`}
@@ -1357,9 +1439,12 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
           >
             <button
               onClick={onClose}
+              data-autofocus
+              aria-label={t("a11y.closeProject")}
               className="absolute top-4 right-4 p-2 rounded-full bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm transition-all hover:scale-110"
             >
               <svg
+                aria-hidden="true"
                 className="w-5 h-5"
                 fill="none"
                 stroke="currentColor"
@@ -1375,9 +1460,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
             </button>
 
             <div className="flex flex-wrap items-center gap-2 mb-4">
-              <span
-                className={`px-3 py-1 rounded-full text-xs font-semibold ${typeBadge.color}`}
-              >
+              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white/20 text-white">
                 {typeBadge.label}
               </span>
               <span className="px-3 py-1 rounded-full text-xs bg-white/20 text-white">
@@ -1388,7 +1471,10 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
               </span>
             </div>
 
-            <h2 className="text-3xl md:text-4xl font-bold mb-3 text-white">
+            <h2
+              id="project-detail-title"
+              className="text-3xl md:text-4xl font-bold mb-3 text-white"
+            >
               {project.title}
             </h2>
             <p className="text-base md:text-lg text-white/90 mb-2">
@@ -1476,6 +1562,9 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
       </div>
       {selectedImage && (
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={t("projectDetail.screenshots")}
           className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/95 backdrop-blur-md"
           onClick={() => setSelectedImage(null)}
         >
@@ -1486,9 +1575,11 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
             {/* Close button */}
             <button
               onClick={() => setSelectedImage(null)}
+              aria-label={t("a11y.closeImage")}
               className="absolute -top-12 right-0 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all z-10"
             >
               <svg
+                aria-hidden="true"
                 className="w-6 h-6"
                 fill="none"
                 stroke="currentColor"
@@ -1510,27 +1601,29 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                 <button
                   onClick={() => {
                     if (!selectedImage) return;
-                    const currentIndex = project.screenshots.findIndex(
+                    const currentIndex = screenshots.findIndex(
                       (s) => s.url === selectedImage.url,
                     );
-                    const prevIndex = currentIndex - 1;
-                    if (prevIndex >= 0 && project.screenshots[prevIndex].url) {
+                    const previous = screenshots[currentIndex - 1];
+                    if (previous?.url) {
                       setSelectedImage({
-                        url: project.screenshots[prevIndex].url,
-                        caption: project.screenshots[prevIndex].caption,
+                        url: previous.url,
+                        caption: previous.caption,
                       });
                     }
                   }}
+                  aria-label={t("a11y.previousImage")}
                   className="absolute left-0 top-1/2 -translate-y-1/2 -ml-12 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed"
                   disabled={(() => {
                     if (!selectedImage) return true;
-                    const idx = project.screenshots.findIndex(
+                    const idx = screenshots.findIndex(
                       (s) => s.url === selectedImage.url,
                     );
                     return idx === 0;
                   })()}
                 >
                   <svg
+                    aria-hidden="true"
                     className="w-8 h-8"
                     fill="none"
                     stroke="currentColor"
@@ -1549,30 +1642,29 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                 <button
                   onClick={() => {
                     if (!selectedImage) return;
-                    const currentIndex = project.screenshots.findIndex(
+                    const currentIndex = screenshots.findIndex(
                       (s) => s.url === selectedImage.url,
                     );
-                    const nextIndex = currentIndex + 1;
-                    if (
-                      nextIndex < project.screenshots.length &&
-                      project.screenshots[nextIndex].url
-                    ) {
+                    const next = screenshots[currentIndex + 1];
+                    if (next?.url) {
                       setSelectedImage({
-                        url: project.screenshots[nextIndex].url,
-                        caption: project.screenshots[nextIndex].caption,
+                        url: next.url,
+                        caption: next.caption,
                       });
                     }
                   }}
+                  aria-label={t("a11y.nextImage")}
                   className="absolute right-0 top-1/2 -translate-y-1/2 -mr-12 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed"
                   disabled={(() => {
                     if (!selectedImage) return true;
-                    const idx = project.screenshots.findIndex(
+                    const idx = screenshots.findIndex(
                       (s) => s.url === selectedImage.url,
                     );
-                    return idx === project.screenshots.length - 1;
+                    return idx === screenshots.length - 1;
                   })()}
                 >
                   <svg
+                    aria-hidden="true"
                     className="w-8 h-8"
                     fill="none"
                     stroke="currentColor"
@@ -1590,8 +1682,9 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                 {/* Fixed box - same size for every image */}
                 <div className="w-full h-[600px] md:h-[750px] bg-black/30 rounded-xl flex items-center justify-center">
                   <img
-                    src={selectedImage.url}
+                    src={asset(selectedImage.url)}
                     alt={selectedImage.caption}
+                    decoding="async"
                     className="max-w-full max-h-full object-contain"
                   />
                 </div>
@@ -1604,10 +1697,10 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
               <p className="text-white/50 text-sm mt-2">
                 {(() => {
                   if (!selectedImage) return "";
-                  const idx = project.screenshots.findIndex(
+                  const idx = screenshots.findIndex(
                     (s) => s.url === selectedImage.url,
                   );
-                  return `${idx + 1} / ${project.screenshots.length}`;
+                  return `${idx + 1} / ${screenshots.length}`;
                 })()}
               </p>
             </div>

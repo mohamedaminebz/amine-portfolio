@@ -1,16 +1,20 @@
 // src/components/Projects.tsx
-import React, { useState } from "react";
+import React, { lazy, Suspense, useState } from "react";
 import { useTranslation } from "react-i18next";
+import type { TFunction } from "i18next";
 import { useTheme } from "../context/ThemeContext";
-// import { projects } from "../data/portfolioData.index";
 import { usePortfolioData } from "../hooks/usePortfolioData";
+import { asset } from "../lib/asset";
+import { getYearsAgo } from "../lib/period";
 import {
   Project,
   ProfessionalProject,
   InternshipProject,
   AcademicProject,
 } from "../types/portfolio";
-import ProjectDetail from "./ProjectDetail";
+
+// The detail view is a large component; keep it out of the initial bundle.
+const ProjectDetail = lazy(() => import("./ProjectDetail"));
 
 const Projects: React.FC = () => {
   const { projects } = usePortfolioData();
@@ -37,43 +41,6 @@ const Projects: React.FC = () => {
   };
 
   const filteredProjects = getProjectsByCategory();
-
-  // Helper to get count based on project type
-  const getProjectStats = (project: Project) => {
-    switch (project.type) {
-      case "professional":
-        const profProject = project as ProfessionalProject;
-        return {
-          primaryCount: profProject.microservices?.length || 0,
-          primaryLabel: t("projects.stats.microservices"),
-          secondaryCount: profProject.performanceMetrics?.length || 0,
-          secondaryLabel: t("projects.stats.metrics"),
-        };
-      case "internship":
-        const internProject = project as InternshipProject;
-        return {
-          primaryCount: internProject.tasks?.length || 0,
-          primaryLabel: t("projects.stats.tasks"),
-          secondaryCount: internProject.learnings?.length || 0,
-          secondaryLabel: t("projects.stats.learnings"),
-        };
-      case "academic":
-        const academicProject = project as AcademicProject;
-        return {
-          primaryCount: academicProject.keyConcepts?.length || 0,
-          primaryLabel: t("projects.stats.concepts"),
-          secondaryCount: academicProject.methodologies?.length || 0,
-          secondaryLabel: t("projects.stats.methodologies"),
-        };
-      default:
-        return {
-          primaryCount: 0,
-          primaryLabel: t("projects.stats.details"),
-          secondaryCount: 0,
-          secondaryLabel: t("projects.stats.info"),
-        };
-    }
-  };
 
   return (
     <section
@@ -137,7 +104,6 @@ const Projects: React.FC = () => {
               onClick={() => setSelectedProject(project)}
               theme={theme}
               t={t}
-              getProjectStats={getProjectStats}
             />
           ))}
         </div>
@@ -169,295 +135,23 @@ const Projects: React.FC = () => {
       </div>
 
       {selectedProject && (
-        <ProjectDetail
-          project={selectedProject}
-          onClose={() => setSelectedProject(null)}
-        />
+        <Suspense fallback={null}>
+          <ProjectDetail
+            project={selectedProject}
+            onClose={() => setSelectedProject(null)}
+          />
+        </Suspense>
       )}
     </section>
   );
 };
 
-// Helper function to calculate years ago with i18n support
-// const getYearsAgo = (
-//   period: string,
-//   t: (key: string) => string,
-// ): { text: string; years: number; months: number } | null => {
-//   const endMatch = period.match(/([A-Za-zÀ-ÿ]+)\s*(\d{4})/g);
-//   if (!endMatch) return null;
-
-//   const endDateStr = endMatch[endMatch.length - 1];
-//   const [month, year] = endDateStr.split(" ");
-
-//   const monthMap: Record<string, number> = {
-//     Jan: 0,
-//     Janv: 0,
-//     Janvier: 0,
-//     Fév: 1,
-//     Fev: 1,
-//     Février: 1,
-//     Mar: 2,
-//     Mars: 2,
-//     Avr: 3,
-//     Avril: 3,
-//     Mai: 4,
-//     Jun: 5,
-//     Juin: 5,
-//     Jul: 6,
-//     Juillet: 6,
-//     Août: 7,
-//     Aout: 7,
-//     Sep: 8,
-//     Sept: 8,
-//     Septembre: 8,
-//     Oct: 9,
-//     Octobre: 9,
-//     Nov: 10,
-//     Novembre: 10,
-//     Déc: 11,
-//     Dec: 11,
-//     Décembre: 11,
-//   };
-
-//   const endDate = new Date(parseInt(year), monthMap[month] || 0);
-//   const now = new Date();
-//   let yearsDiff = now.getFullYear() - endDate.getFullYear();
-//   let monthsDiff = now.getMonth() - endDate.getMonth();
-
-//   if (monthsDiff < 0) {
-//     yearsDiff--;
-//     monthsDiff += 12;
-//   }
-
-//   // Format the text based on the difference
-//   let text = "";
-//   if (yearsDiff === 0 && monthsDiff === 0) {
-//     text = t("projects.yearsAgo.thisMonth");
-//   } else if (yearsDiff === 0 && monthsDiff === 1) {
-//     text = t("projects.yearsAgo.oneMonth");
-//   } else if (yearsDiff === 0 && monthsDiff > 1) {
-//     text = t("projects.yearsAgo.multipleMonths", { count: monthsDiff });
-//   } else if (yearsDiff === 1 && monthsDiff === 0) {
-//     text = t("projects.yearsAgo.oneYear");
-//   } else if (yearsDiff === 1 && monthsDiff > 0) {
-//     text = t("projects.yearsAgo.oneYearMultipleMonths", { months: monthsDiff });
-//   } else if (yearsDiff > 1 && monthsDiff === 0) {
-//     text = t("projects.yearsAgo.multipleYears", { count: yearsDiff });
-//   } else if (yearsDiff > 1 && monthsDiff > 0) {
-//     text = t("projects.yearsAgo.multipleYearsMultipleMonths", {
-//       years: yearsDiff,
-//       months: monthsDiff,
-//     });
-//   }
-
-//   return { text, years: yearsDiff, months: monthsDiff };
-// };
-// Helper function to calculate years ago with i18n support
-const getYearsAgo = (
-  period: string,
-  t: (key: string) => string,
-): { text: string; years: number; months: number } | null => {
-  const endMatch = period.match(/([A-Za-zÀ-ÿ]+)\s*(\d{4})/g);
-  if (!endMatch) {
-    console.warn("No date match found in period:", period);
-    return null;
-  }
-
-  const endDateStr = endMatch[endMatch.length - 1];
-  const parts = endDateStr.split(" ");
-  if (parts.length !== 2) {
-    console.warn("Invalid date format:", endDateStr);
-    return null;
-  }
-
-  const [month, year] = parts;
-
-  // Comprehensive month mapping (supports multiple languages)
-  const monthMap: Record<string, number> = {
-    // English
-    Jan: 0,
-    "Jan.": 0,
-    January: 0,
-    Feb: 1,
-    "Feb.": 1,
-    February: 1,
-    Mar: 2,
-    "Mar.": 2,
-    March: 2,
-    Apr: 3,
-    "Apr.": 3,
-    April: 3,
-    May: 4,
-    "May.": 4,
-    Jun: 5,
-    "Jun.": 5,
-    June: 5,
-    Jul: 6,
-    "Jul.": 6,
-    July: 6,
-    Aug: 7,
-    "Aug.": 7,
-    August: 7,
-    Sep: 8,
-    "Sep.": 8,
-    September: 8,
-    Sept: 8,
-    "Sept.": 8,
-    Oct: 9,
-    "Oct.": 9,
-    October: 9,
-    Nov: 10,
-    "Nov.": 10,
-    November: 10,
-    Dec: 11,
-    "Dec.": 11,
-    December: 11,
-    // French
-    Janv: 0,
-    Janvier: 0,
-    Fév: 1,
-    Fev: 1,
-    Février: 1,
-    Mars: 2,
-    Mar: 2,
-    Avr: 3,
-    Avril: 3,
-    Mai: 4,
-    Juin: 5,
-    Jun: 5,
-    Juillet: 6,
-    Jul: 6,
-    Août: 7,
-    Aout: 7,
-    Sept: 8,
-    Septembre: 8,
-    Oct: 9,
-    Octobre: 9,
-    Nov: 10,
-    Novembre: 10,
-    Déc: 11,
-    Dec: 11,
-    Décembre: 11,
-    // Spanish
-    Ene: 0,
-    Enero: 0,
-    Feb: 1,
-    Febrero: 1,
-    Mar: 2,
-    Marzo: 2,
-    Abr: 3,
-    Abril: 3,
-    May: 4,
-    Mayo: 4,
-    Jun: 5,
-    Junio: 5,
-    Jul: 6,
-    Julio: 6,
-    Ago: 7,
-    Agosto: 7,
-    Sep: 8,
-    Septiembre: 8,
-    Oct: 9,
-    Octubre: 9,
-    Nov: 10,
-    Noviembre: 10,
-    Dic: 11,
-    Diciembre: 11,
-    // German
-    Jan: 0,
-    Januar: 0,
-    Feb: 1,
-    Februar: 1,
-    Mär: 2,
-    März: 2,
-    Apr: 3,
-    April: 3,
-    Mai: 4,
-    Jun: 5,
-    Juni: 5,
-    Jul: 6,
-    Juli: 6,
-    Aug: 7,
-    August: 7,
-    Sep: 8,
-    September: 8,
-    Okt: 9,
-    Oktober: 9,
-    Nov: 10,
-    November: 10,
-    Dez: 11,
-    Dezember: 11,
-  };
-
-  const monthIndex = monthMap[month];
-  if (monthIndex === undefined) {
-    console.warn("Unknown month abbreviation:", month, "in period:", period);
-    return null;
-  }
-
-  const parsedYear = parseInt(year);
-  if (isNaN(parsedYear)) {
-    console.warn("Invalid year:", year, "in period:", period);
-    return null;
-  }
-
-  const endDate = new Date(parsedYear, monthIndex);
-  const now = new Date();
-
-  // Ensure we're using the correct date values
-  let yearsDiff = now.getFullYear() - endDate.getFullYear();
-  let monthsDiff = now.getMonth() - endDate.getMonth();
-
-  if (monthsDiff < 0) {
-    yearsDiff--;
-    monthsDiff += 12;
-  }
-
-  // Ensure monthsDiff is never negative
-  if (monthsDiff < 0) {
-    monthsDiff = 0;
-  }
-
-  // Ensure yearsDiff is never negative
-  if (yearsDiff < 0) {
-    yearsDiff = 0;
-  }
-
-  // Format the text based on the difference
-  let text = "";
-  if (yearsDiff === 0 && monthsDiff === 0) {
-    text = t("projects.yearsAgo.thisMonth");
-  } else if (yearsDiff === 0 && monthsDiff === 1) {
-    text = t("projects.yearsAgo.oneMonth");
-  } else if (yearsDiff === 0 && monthsDiff > 1) {
-    text = t("projects.yearsAgo.multipleMonths", { count: monthsDiff });
-  } else if (yearsDiff === 1 && monthsDiff === 0) {
-    text = t("projects.yearsAgo.oneYear");
-  } else if (yearsDiff === 1 && monthsDiff > 0) {
-    text = t("projects.yearsAgo.oneYearMultipleMonths", { months: monthsDiff });
-  } else if (yearsDiff > 1 && monthsDiff === 0) {
-    text = t("projects.yearsAgo.multipleYears", { count: yearsDiff });
-  } else if (yearsDiff > 1 && monthsDiff > 0) {
-    text = t("projects.yearsAgo.multipleYearsMultipleMonths", {
-      years: yearsDiff,
-      months: monthsDiff,
-    });
-  }
-
-  return { text, years: yearsDiff, months: monthsDiff };
-};
 interface ProjectCardProps {
   project: Project;
   index: number;
   onClick: () => void;
   theme: "light" | "dark";
-  t: (key: string) => string;
-  getProjectStats: (project: Project) => {
-    primaryCount: number;
-    primaryLabel: string;
-    secondaryCount: number;
-    secondaryLabel: string;
-  };
+  t: TFunction;
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -466,7 +160,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   onClick,
   theme,
   t,
-  getProjectStats,
 }) => {
   const getTypeBadge = () => {
     const badges: Record<
@@ -524,7 +217,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   };
 
   const typeBadge = getTypeBadge();
-  const stats = getProjectStats(project);
   const yearsAgoData = getYearsAgo(project.period, t);
 
   // Get a short description for the card
@@ -648,8 +340,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           </div>
         ) : (
           <img
-            src={project.imageUrl}
+            src={project.imageUrl ? asset(project.imageUrl) : undefined}
             alt={project.title}
+            loading="lazy"
+            decoding="async"
+            width={640}
+            height={360}
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 transform-gpu"
             style={{ backfaceVisibility: "hidden" }}
           />
@@ -773,20 +469,24 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               className={`px-3 py-1 rounded-full text-xs font-medium ${
                 theme === "dark"
                   ? "bg-gray-700/50 text-gray-400"
-                  : "bg-gray-100 text-gray-500"
+                  : "bg-gray-100 text-gray-600"
               }`}
             >
               +{project.technologies.length - 3}
             </span>
           )}
         </div>{" "}
-        <div
+        <button
+          type="button"
+          onClick={onClick}
           className={`flex items-center gap-1.5 text-xs font-medium ${
             theme === "dark" ? "text-blue-400" : "text-blue-600"
-          } opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+          } opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded transition-opacity duration-300`}
         >
           <span>{t("projects.viewDetails")}</span>
+          <span className="sr-only"> — {project.title}</span>
           <svg
+            aria-hidden="true"
             className="w-3 h-3"
             fill="none"
             stroke="currentColor"
@@ -799,7 +499,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               d="M9 5l7 7-7 7"
             />
           </svg>
-        </div>
+        </button>
       </div>
     </div>
   );

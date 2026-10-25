@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../context/ThemeContext";
-import { timelineItems, educationItems } from "../data/portfolioData.index";
+import { usePortfolioData } from "../hooks/usePortfolioData";
 import { TimelineItem } from "../types/portfolio";
 
 const Timeline: React.FC = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
+  const { timelineItems, educationItems } = usePortfolioData();
   const [activeFilter, setActiveFilter] = useState<
     "all" | "work" | "internship"
   >("all");
@@ -14,8 +15,8 @@ const Timeline: React.FC = () => {
 
   const filteredItems =
     activeFilter === "all"
-      ? timelineItems.value
-      : timelineItems.value.filter((item) => item.type === activeFilter);
+      ? timelineItems
+      : timelineItems.filter((item) => item.type === activeFilter);
 
   const displayedItems = filteredItems.slice(0, visibleItems);
 
@@ -106,18 +107,17 @@ const Timeline: React.FC = () => {
             {
               key: "all",
               label: t("timeline.filter.all"),
-              count: timelineItems.value.length,
+              count: timelineItems.length,
             },
             {
               key: "work",
               label: t("timeline.filter.work"),
-              count: timelineItems.value.filter((i) => i.type === "work")
-                .length,
+              count: timelineItems.filter((i) => i.type === "work").length,
             },
             {
               key: "internship",
               label: t("timeline.filter.internship"),
-              count: timelineItems.value.filter((i) => i.type === "internship")
+              count: timelineItems.filter((i) => i.type === "internship")
                 .length,
             },
           ].map((tab) => (
@@ -127,6 +127,7 @@ const Timeline: React.FC = () => {
                 setActiveFilter(tab.key as typeof activeFilter);
                 setVisibleItems(4);
               }}
+              aria-pressed={activeFilter === tab.key}
               className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
                 activeFilter === tab.key
                   ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg shadow-blue-500/30"
@@ -200,7 +201,7 @@ const Timeline: React.FC = () => {
             {t("timeline.education")}
           </h3>
           <div className="grid md:grid-cols-3 gap-6">
-            {educationItems.value.map((edu, index) => (
+            {educationItems.map((edu, index) => (
               <div
                 key={index}
                 className={`rounded-2xl p-6 border transition-all duration-300 hover:transform hover:scale-105 ${
@@ -231,7 +232,13 @@ const Timeline: React.FC = () => {
                       />
                     </svg>
                   </div>
-                  <span className="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm font-medium">
+                  <span
+                    className={`px-3 py-1 rounded-full text-sm font-medium ${
+                      theme === "dark"
+                        ? "bg-blue-500/20 text-blue-400"
+                        : "bg-blue-100 text-blue-700"
+                    }`}
+                  >
                     {edu.year}
                   </span>
                 </div>
@@ -322,13 +329,13 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
           >
             {item.date}
           </span>
-          <h4
+          <h3
             className={`text-xl font-bold mb-2 ${
               theme === "dark" ? "text-white" : "text-gray-900"
             }`}
           >
             {item.title}
-          </h4>
+          </h3>
           <p
             className={`font-medium mb-2 ${
               theme === "dark" ? "text-blue-400" : "text-blue-600"

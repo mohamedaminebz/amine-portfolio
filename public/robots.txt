@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mohamedaminebz.github.io/amine-portfolio/sitemap.xml

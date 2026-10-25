@@ -1,11 +1,12 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../context/ThemeContext";
-import { personalInfo, socialLinks } from "../data/portfolioData.index";
+import { usePortfolioData } from "../hooks/usePortfolioData";
 
 const Hero: React.FC = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
+  const { personalInfo, socialLinks } = usePortfolioData();
 
   return (
     <section
@@ -88,9 +89,10 @@ const Hero: React.FC = () => {
                 ? "bg-gray-800/50 hover:bg-blue-600/20 border border-gray-700 hover:border-blue-500"
                 : "bg-white/50 hover:bg-blue-600/20 border border-gray-200 hover:border-blue-500 shadow-sm"
             }`}
-            aria-label="LinkedIn"
+            aria-label={t("a11y.linkedin")}
           >
             <svg
+              aria-hidden="true"
               className={`w-6 h-6 ${theme === "dark" ? "text-gray-400 hover:text-blue-400" : "text-gray-600 hover:text-blue-600"}`}
               fill="currentColor"
               viewBox="0 0 24 24"
@@ -107,9 +109,10 @@ const Hero: React.FC = () => {
                 ? "bg-gray-800/50 hover:bg-gray-700/50 border border-gray-700 hover:border-gray-600"
                 : "bg-white/50 hover:bg-gray-100 border border-gray-200 shadow-sm"
             }`}
-            aria-label="GitHub"
+            aria-label={t("a11y.github")}
           >
             <svg
+              aria-hidden="true"
               className={`w-6 h-6 ${theme === "dark" ? "text-gray-400 hover:text-white" : "text-gray-600 hover:text-gray-900"}`}
               fill="currentColor"
               viewBox="0 0 24 24"
@@ -124,9 +127,10 @@ const Hero: React.FC = () => {
                 ? "bg-gray-800/50 hover:bg-green-600/20 border border-gray-700 hover:border-green-500"
                 : "bg-white/50 hover:bg-green-600/20 border border-gray-200 hover:border-green-500 shadow-sm"
             }`}
-            aria-label="Email"
+            aria-label={t("a11y.email")}
           >
             <svg
+              aria-hidden="true"
               className={`w-6 h-6 ${theme === "dark" ? "text-gray-400 hover:text-green-400" : "text-gray-600 hover:text-green-600"}`}
               fill="none"
               stroke="currentColor"

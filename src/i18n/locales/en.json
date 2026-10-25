@@ -1,4 +1,8 @@
 {
+  "meta": {
+    "title": "Mohamed Amine Bouzidi — Full-Stack Engineer",
+    "description": "Portfolio of Mohamed Amine Bouzidi, full-stack engineer specialised in React, Node.js and React Native."
+  },
   "nav": {
     "about": "About",
     "timeline": "Journey",
@@ -12,7 +16,8 @@
   },
   "about": {
     "title": "About Me",
-    "subtitle": "Passionate about Development",
+    "subtitle": "Passionate about",
+    "development": "Development",
     "years": "Years Experience",
     "projects": "Projects Completed",
     "internships": "Internships Done",
@@ -121,6 +126,13 @@
     "keySkillsDemonstrated": "Key Skills Demonstrated",
     "keyResults": "Key Results",
     "technologiesUsed": "Technologies Used",
+    "techStack": "Tech Stack",
+    "technologiesUsedCount_one": "{{count}} Technology Used",
+    "technologiesUsedCount_other": "{{count}} Technologies Used",
+    "teamSizeDevelopers_one": "{{count}} developer in the team",
+    "teamSizeDevelopers_other": "{{count}} developers in the team",
+    "webScreenshots": "Web Application Screenshots",
+    "mobileScreenshots": "Mobile Application Screenshots",
     "whatIDid": "What I Did",
     "whatILearned": "What I Learned",
     "swipeToSee": "Swipe to see more"
@@ -159,8 +171,31 @@
       "message": "Message",
       "messagePlaceholder": "Your message...",
       "submit": "Send Message",
-      "success": "Message sent! I will reply soon."
+      "sending": "Sending…",
+      "success": "Thank you! Your message is ready — I will reply soon.",
+      "error": "Something went wrong. Please try again or email me directly.",
+      "mailtoNote": "This form opens your email app with the message pre-filled. You can also write to {{email}}.",
+      "validation": {
+        "name": "Please enter your name (at least 2 characters).",
+        "email": "Please enter a valid email address.",
+        "subject": "Please enter a subject (at least 3 characters).",
+        "message": "Please write a message (at least 10 characters)."
+      }
     }
+  },
+  "a11y": {
+    "skipToContent": "Skip to content",
+    "mainNavigation": "Main navigation",
+    "toggleTheme": "Toggle dark mode",
+    "openMenu": "Open navigation menu",
+    "closeMenu": "Close navigation menu",
+    "closeProject": "Close project details",
+    "closeImage": "Close image",
+    "previousImage": "Previous image",
+    "nextImage": "Next image",
+    "email": "Send an email",
+    "linkedin": "LinkedIn profile",
+    "github": "GitHub profile"
   },
   "theme": {
     "dark": "Dark",

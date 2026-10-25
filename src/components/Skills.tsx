@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../context/ThemeContext";
-import { skills, languages, certifications } from "../data/portfolioData.index";
+import { usePortfolioData } from "../hooks/usePortfolioData";
+import { asset } from "../lib/asset";
 import { Skill } from "../types/portfolio";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
@@ -9,6 +10,7 @@ import { useInView } from "react-intersection-observer";
 const Skills: React.FC = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
+  const { skills, languages, certifications } = usePortfolioData();
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [ref, inView] = useInView({
     triggerOnce: true,
@@ -27,8 +29,8 @@ const Skills: React.FC = () => {
 
   const filteredSkills =
     activeCategory === "all"
-      ? skills.value
-      : skills.value.filter((s) => s.category === activeCategory);
+      ? skills
+      : skills.filter((s) => s.category === activeCategory);
 
   const getCategoryColor = (category: string) => {
     switch (category) {
@@ -111,6 +113,7 @@ const Skills: React.FC = () => {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.4, delay: 0.05 * index }}
               onClick={() => setActiveCategory(cat.key)}
+              aria-pressed={activeCategory === cat.key}
               className={`px-6 py-3 rounded-full font-medium transition-all duration-300 flex items-center gap-3 ${
                 activeCategory === cat.key
                   ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg shadow-blue-500/30"
@@ -129,7 +132,7 @@ const Skills: React.FC = () => {
           layout
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          <AnimatePresence mode="wait">
+          <AnimatePresence>
             {filteredSkills.map((skill, index) => (
               <CleanSkillCard
                 key={skill.name}
@@ -167,7 +170,7 @@ const Skills: React.FC = () => {
               {t("skills.languages")}
             </h3>
             <div className="space-y-4">
-              {languages.value.map((lang, index) => (
+              {languages.map((lang, index) => (
                 <div
                   key={index}
                   className="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 transition-colors"
@@ -204,7 +207,7 @@ const Skills: React.FC = () => {
               {t("skills.certifications")}
             </h3>
             <div className="space-y-4">
-              {certifications.value.map((cert, index) => (
+              {certifications.map((cert, index) => (
                 <div
                   key={index}
                   className={`flex items-center gap-4 p-4 rounded-xl transition-all ${
@@ -313,17 +316,21 @@ const CleanSkillCard: React.FC<{
           {skill.icon && !imageError ? (
             <img
               key={skill.icon}
-              src={skill.icon}
+              src={asset(skill.icon)}
               alt={skill.name}
+              loading="lazy"
+              decoding="async"
+              width={56}
+              height={56}
               className="w-full h-full object-contain"
               onError={() => setImageError(true)}
             />
           ) : (
-            <span className="text-2xl text-white">{skill.icon || "💻"}</span>
+            <span className="text-2xl">{getCategoryIcon(skill.category)}</span>
           )}
         </div>
         <div>
-          <h4
+          <h3
             className={`text-xl font-bold ${
               isHovered
                 ? "text-blue-400"
@@ -333,7 +340,7 @@ const CleanSkillCard: React.FC<{
             } transition-colors duration-300`}
           >
             {skill.name}
-          </h4>
+          </h3>
           {skill.description && (
             <p
               className={`text-sm ${

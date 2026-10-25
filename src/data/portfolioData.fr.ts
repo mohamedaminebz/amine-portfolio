@@ -461,7 +461,7 @@ const winshotReward: InternshipProject = {
   company: "GOFIELD (WINSHOT)",
   location: "Tunis, Tunisie",
   placeholder: false,
-  imageUrl: "/images/projects/winshot-reward/web-login.png",
+  imageUrl: "/images/projects/winshot-reward/web-login.webp",
 
   mission:
     "Concevoir et développer une plateforme SaaS multi-tenant pour la gestion des objectifs de performance (OKRs) et des récompenses pour les équipes terrain, en intégrant des pipelines CI/CD pour automatiser le cycle de développement.",
@@ -526,275 +526,275 @@ const winshotReward: InternshipProject = {
   screenshots: [
     // Sprint 1 - Application Web
     {
-      url: "/images/projects/winshot-reward/web-login.png",
+      url: "/images/projects/winshot-reward/web-login.webp",
       caption: "Interface d'authentification (Application Web)",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-tenants-list.jpg",
+      url: "/images/projects/winshot-reward/web-tenants-list.webp",
       caption: "Gestion des Tenants - Vue Liste",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-add-tenant.jpg",
+      url: "/images/projects/winshot-reward/web-add-tenant.webp",
       caption: "Ajout d'un nouveau Tenant - Assistant de configuration",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-delete-tenant.jpg",
+      url: "/images/projects/winshot-reward/web-delete-tenant.webp",
       caption: "Suppression d'un Tenant - Confirmation de sécurité",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-companies-list.jpg",
+      url: "/images/projects/winshot-reward/web-companies-list.webp",
       caption: "Gestion des Entreprises - Vue Liste",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-add-company.jpg",
+      url: "/images/projects/winshot-reward/web-add-company.webp",
       caption:
         "Ajout d'une nouvelle entreprise - Formulaire en deux étapes (Entreprise + Admin)",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-delete-company.jpg",
+      url: "/images/projects/winshot-reward/web-delete-company.webp",
       caption: "Suppression d'une entreprise - Avertissement final",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-language.jpg",
+      url: "/images/projects/winshot-reward/web-language.webp",
       caption: "Support multi-langues (i18n)",
       placeholder: false,
     },
 
     // Sprint 2 - Application Web (Équipes, Niveaux, Employés)
     {
-      url: "/images/projects/winshot-reward/web-profile.jpg",
+      url: "/images/projects/winshot-reward/web-profile.webp",
       caption: "Gestion du profil",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-change-password.jpg",
+      url: "/images/projects/winshot-reward/web-change-password.webp",
       caption: "Interface de changement de mot de passe",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-teams-list.jpg",
+      url: "/images/projects/winshot-reward/web-teams-list.webp",
       caption: "Gestion des équipes - Vue Liste",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-add-team.jpg",
+      url: "/images/projects/winshot-reward/web-add-team.webp",
       caption: "Ajout d'une nouvelle équipe",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-edit-team.jpg",
+      url: "/images/projects/winshot-reward/web-edit-team.webp",
       caption: "Modification d'une équipe",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-delete-team.jpg",
+      url: "/images/projects/winshot-reward/web-delete-team.webp",
       caption: "Confirmation de suppression d'équipe",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-levels-list.jpg",
+      url: "/images/projects/winshot-reward/web-levels-list.webp",
       caption: "Personnalisation des niveaux - Vue Liste",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-add-level.jpg",
+      url: "/images/projects/winshot-reward/web-add-level.webp",
       caption: "Ajout d'un nouveau niveau",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-edit-level.jpg",
+      url: "/images/projects/winshot-reward/web-edit-level.webp",
       caption: "Modification d'un niveau",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-employees-list.jpg",
+      url: "/images/projects/winshot-reward/web-employees-list.webp",
       caption: "Gestion des employés - Vue Liste",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-add-employee.jpg",
+      url: "/images/projects/winshot-reward/web-add-employee.webp",
       caption: "Ajout d'un employé (Sélection d'équipe + auto-affectation)",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-edit-employee.jpg",
+      url: "/images/projects/winshot-reward/web-edit-employee.webp",
       caption: "Modification d'un employé",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-delete-employee.jpg",
+      url: "/images/projects/winshot-reward/web-delete-employee.webp",
       caption: "Confirmation de suppression d'employé",
       placeholder: false,
     },
 
     // Sprint 3 - Application Web (Objectifs, Catégories, Récompenses)
     {
-      url: "/images/projects/winshot-reward/web-goals-list.jpg",
+      url: "/images/projects/winshot-reward/web-goals-list.webp",
       caption: "Gestion des objectifs - Vue Liste avec filtres",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-add-goal.jpg",
+      url: "/images/projects/winshot-reward/web-add-goal.webp",
       caption:
         "Création d'un nouvel objectif (Titre, Catégorie, Niveaux, Instructions)",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-edit-goal.jpg",
+      url: "/images/projects/winshot-reward/web-edit-goal.webp",
       caption: "Modification d'un objectif",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-delete-goal.jpg",
+      url: "/images/projects/winshot-reward/web-delete-goal.webp",
       caption: "Confirmation de suppression d'objectif",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-goal-assignments-users.jpg",
+      url: "/images/projects/winshot-reward/web-goal-assignments-users.webp",
       caption: "Affectations des objectifs - Vue employés",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-assign-goal-users.jpg",
+      url: "/images/projects/winshot-reward/web-assign-goal-users.webp",
       caption: "Affecter un objectif à des employés",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-unassign-goal-user.jpg",
+      url: "/images/projects/winshot-reward/web-unassign-goal-user.webp",
       caption: "Désaffecter un objectif d'un employé",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-goal-assignments-teams.jpg",
+      url: "/images/projects/winshot-reward/web-goal-assignments-teams.webp",
       caption: "Affectations des objectifs - Vue équipes avec progression",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-assign-goal-teams.jpg",
+      url: "/images/projects/winshot-reward/web-assign-goal-teams.webp",
       caption: "Affecter un objectif à des équipes (Sélection multiple)",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-unassign-goal-team.jpg",
+      url: "/images/projects/winshot-reward/web-unassign-goal-team.webp",
       caption: "Désaffecter un objectif d'une équipe",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-goal-progress.jpg",
+      url: "/images/projects/winshot-reward/web-goal-progress.webp",
       caption: "Suivi des progressions d'objectif - Vue Liste",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-approve-progress.jpg",
+      url: "/images/projects/winshot-reward/web-approve-progress.webp",
       caption: "Approuver la progression d'un employé",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-reject-progress.jpg",
+      url: "/images/projects/winshot-reward/web-reject-progress.webp",
       caption: "Rejeter la progression d'un employé avec commentaire",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-rewards-list.jpg",
+      url: "/images/projects/winshot-reward/web-rewards-list.webp",
       caption: "Gestion des récompenses - Vue Liste avec filtres",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-add-reward.jpg",
+      url: "/images/projects/winshot-reward/web-add-reward.webp",
       caption:
         "Création d'une nouvelle récompense (Titre, Points, Type de validation)",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-edit-reward.jpg",
+      url: "/images/projects/winshot-reward/web-edit-reward.webp",
       caption: "Modification d'une récompense",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-delete-reward.jpg",
+      url: "/images/projects/winshot-reward/web-delete-reward.webp",
       caption: "Confirmation de suppression de récompense",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-orders-list.jpg",
+      url: "/images/projects/winshot-reward/web-orders-list.webp",
       caption: "Gestion des commandes de récompenses - Vue Liste",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-approve-order.jpg",
+      url: "/images/projects/winshot-reward/web-approve-order.webp",
       caption: "Approuver une commande de récompense",
       placeholder: false,
     },
     {
-      url: "/images/projects/winshot-reward/web-reject-order.jpg",
+      url: "/images/projects/winshot-reward/web-reject-order.webp",
       caption: "Rejeter une commande de récompense avec commentaire",
       placeholder: false,
     },
 
     // Sprint 5 - Application Mobile
     {
-      url: "/images/projects/winshot-reward/mobile/login.jpg",
+      url: "/images/projects/winshot-reward/mobile/login.webp",
       caption: "Écran d'authentification mobile",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/home.jpg",
+      url: "/images/projects/winshot-reward/mobile/home.webp",
       caption: "Tableau de bord d'accueil mobile",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/sidebar.jpg",
+      url: "/images/projects/winshot-reward/mobile/sidebar.webp",
       caption: "Barre latérale de navigation mobile",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/settings.jpg",
+      url: "/images/projects/winshot-reward/mobile/settings.webp",
       caption: "Interface des paramètres mobile",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/profile.jpg",
+      url: "/images/projects/winshot-reward/mobile/profile.webp",
       caption: "Gestion du profil mobile",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/change-password.jpg",
+      url: "/images/projects/winshot-reward/mobile/change-password.webp",
       caption: "Interface de changement de mot de passe mobile",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/language.jpg",
+      url: "/images/projects/winshot-reward/mobile/language.webp",
       caption: "Sélection de la langue mobile",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/home-en.jpg",
+      url: "/images/projects/winshot-reward/mobile/home-en.webp",
       caption: "Tableau de bord d'accueil mobile (Anglais)",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/forgot-password-1.jpg",
+      url: "/images/projects/winshot-reward/mobile/forgot-password-1.webp",
       caption: "Mot de passe oublié - Saisie email",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/forgot-password-2.jpg",
+      url: "/images/projects/winshot-reward/mobile/forgot-password-2.webp",
       caption: "Mot de passe oublié - Confirmation",
       placeholder: false,
       isMobile: true,
@@ -802,73 +802,73 @@ const winshotReward: InternshipProject = {
 
     // Sprint 6 - Application Mobile (Objectifs & Récompenses)
     {
-      url: "/images/projects/winshot-reward/mobile/goals-list.jpg",
+      url: "/images/projects/winshot-reward/mobile/goals-list.webp",
       caption: "Liste des objectifs avec filtres",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/goals-filter.jpg",
+      url: "/images/projects/winshot-reward/mobile/goals-filter.webp",
       caption: "Filtrage des objectifs",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/goal-details.jpg",
+      url: "/images/projects/winshot-reward/mobile/goal-details.webp",
       caption: "Détails d'un objectif",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/increment-progress.jpg",
+      url: "/images/projects/winshot-reward/mobile/increment-progress.webp",
       caption: "Incrémentation de la progression d'un objectif",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/rankings-teams.jpg",
+      url: "/images/projects/winshot-reward/mobile/rankings-teams.webp",
       caption: "Classements par équipe",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/rankings-employees.jpg",
+      url: "/images/projects/winshot-reward/mobile/rankings-employees.webp",
       caption: "Classements par employé",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/rewards-list.jpg",
+      url: "/images/projects/winshot-reward/mobile/rewards-list.webp",
       caption: "Catalogue des récompenses",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/rewards-filter.jpg",
+      url: "/images/projects/winshot-reward/mobile/rewards-filter.webp",
       caption: "Filtrage des récompenses",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/reward-details.jpg",
+      url: "/images/projects/winshot-reward/mobile/reward-details.webp",
       caption: "Détails d'une récompense",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/order-reward.jpg",
+      url: "/images/projects/winshot-reward/mobile/order-reward.webp",
       caption: "Confirmation de commande de récompense",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/orders-list.jpg",
+      url: "/images/projects/winshot-reward/mobile/orders-list.webp",
       caption: "Mes commandes de récompenses",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/winshot-reward/mobile/orders-filter.jpg",
+      url: "/images/projects/winshot-reward/mobile/orders-filter.webp",
       caption: "Filtrage des commandes de récompenses",
       placeholder: false,
       isMobile: true,
@@ -918,7 +918,7 @@ const financeTracker: InternshipProject = {
   company: "VisualDev",
   location: "Manouba, Tunisie",
   placeholder: false,
-  imageUrl: "/images/projects/finance-tracker/logoWallet.png",
+  imageUrl: "/images/projects/finance-tracker/logoWallet.webp",
 
   mission:
     "Développer une application mobile cross-platform intuitive pour la gestion des finances personnelles avec modes invité et authentifié, incluant le suivi des transactions, des statistiques visuelles et la synchronisation cloud.",
@@ -971,55 +971,55 @@ const financeTracker: InternshipProject = {
 
   screenshots: [
     {
-      url: "/images/projects/finance-tracker/splash.jpg",
+      url: "/images/projects/finance-tracker/splash.webp",
       caption: "Écran de démarrage (Login/Register/Invite)",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/finance-tracker/login.png",
+      url: "/images/projects/finance-tracker/login.webp",
       caption: "Interface d'authentification (Email + Google)",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/finance-tracker/register.png",
+      url: "/images/projects/finance-tracker/register.webp",
       caption: "Interface d'inscription",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/finance-tracker/home.png",
+      url: "/images/projects/finance-tracker/home.webp",
       caption: "Tableau de bord d'accueil",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/finance-tracker/add-transaction.png",
+      url: "/images/projects/finance-tracker/add-transaction.webp",
       caption: "Ajout d'une transaction",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/finance-tracker/stats-weekly.png",
+      url: "/images/projects/finance-tracker/stats-weekly.webp",
       caption: "Statistiques hebdomadaires",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/finance-tracker/stats-monthly.png",
+      url: "/images/projects/finance-tracker/stats-monthly.webp",
       caption: "Statistiques mensuelles",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/finance-tracker/stats-yearly.png",
+      url: "/images/projects/finance-tracker/stats-yearly.webp",
       caption: "Statistiques annuelles",
       placeholder: false,
       isMobile: true,
     },
     {
-      url: "/images/projects/finance-tracker/profile.jpg",
+      url: "/images/projects/finance-tracker/profile.webp",
       caption: "Gestion du profil",
       placeholder: false,
       isMobile: true,
@@ -1088,67 +1088,67 @@ Plus : Pipeline Jenkins CI/CD pour déploiement automatisé à chaque push.`,
 
   screenshots: [
     {
-      url: "/images/projects/pfa/architecture.png",
+      url: "/images/projects/pfa/architecture.webp",
       caption: "Architecture Cloud Hybride (SaaS + PaaS + IaaS)",
       placeholder: false,
     },
     {
-      url: "/images/projects/pfa/login.png",
+      url: "/images/projects/pfa/login.webp",
       caption: "Interface de connexion",
       placeholder: false,
     },
     {
-      url: "/images/projects/pfa/user-list.png",
+      url: "/images/projects/pfa/user-list.webp",
       caption: "Gestion des utilisateurs",
       placeholder: false,
     },
     {
-      url: "/images/projects/pfa/add-user.png",
+      url: "/images/projects/pfa/add-user.webp",
       caption: "Ajout d'un employé",
       placeholder: false,
     },
     {
-      url: "/images/projects/pfa/edit-user.png",
+      url: "/images/projects/pfa/edit-user.webp",
       caption: "Modification d'un employé",
       placeholder: false,
     },
     {
-      url: "/images/projects/pfa/delete-user.png",
+      url: "/images/projects/pfa/delete-user.webp",
       caption: "Suppression d'un employé",
       placeholder: false,
     },
     {
-      url: "/images/projects/pfa/add-department.png",
+      url: "/images/projects/pfa/add-department.webp",
       caption: "Ajout d'un département",
       placeholder: false,
     },
     {
-      url: "/images/projects/pfa/add-project.png",
+      url: "/images/projects/pfa/add-project.webp",
       caption: "Ajout d'un projet",
       placeholder: false,
     },
     {
-      url: "/images/projects/pfa/add-task.jpg",
+      url: "/images/projects/pfa/add-task.webp",
       caption: "Ajout d'une tâche",
       placeholder: false,
     },
     {
-      url: "/images/projects/pfa/company-dashboard.png",
+      url: "/images/projects/pfa/company-dashboard.webp",
       caption: "Tableau de bord Entreprise (Kibana)",
       placeholder: false,
     },
     {
-      url: "/images/projects/pfa/department-dashboard.png",
+      url: "/images/projects/pfa/department-dashboard.webp",
       caption: "Tableau de bord Département (Kibana)",
       placeholder: false,
     },
     {
-      url: "/images/projects/pfa/project-dashboard.png",
+      url: "/images/projects/pfa/project-dashboard.webp",
       caption: "Tableau de bord Projet (Kibana)",
       placeholder: false,
     },
   ],
-  imageUrl: "/images/projects/pfa/architecture.png",
+  imageUrl: "/images/projects/pfa/architecture.webp",
 };
 
 const easyPlant: InternshipProject = {
@@ -1185,7 +1185,7 @@ const easyPlant: InternshipProject = {
   company: "EASY Technology",
   location: "Tunis, Tunisie",
   placeholder: false,
-  imageUrl: "/images/projects/easyplant/login.png",
+  imageUrl: "/images/projects/easyplant/login.webp",
 
   mission:
     "Moderniser la gestion d'une pépinière agricole en remplaçant les fichiers Excel et fiches manuscrites par une application web centralisée pour la production, les livraisons, les plannings et les stocks.",
@@ -1233,77 +1233,77 @@ const easyPlant: InternshipProject = {
 
   screenshots: [
     {
-      url: "/images/projects/easyplant/planning-chef.png",
+      url: "/images/projects/easyplant/planning-chef.webp",
       caption: "Planning pour chef d'équipe (filtrage temps/type)",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/planning-responsable.png",
+      url: "/images/projects/easyplant/planning-responsable.webp",
       caption: "Planning pour responsable",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/lancement-production.png",
+      url: "/images/projects/easyplant/lancement-production.webp",
       caption: "Interface lancement production",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/valider-comptage.png",
+      url: "/images/projects/easyplant/valider-comptage.webp",
       caption: "Interface validation comptage",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/ajouter-comptage.png",
+      url: "/images/projects/easyplant/ajouter-comptage.webp",
       caption: "Interface ajout comptage aléatoire",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/avancement-production.png",
+      url: "/images/projects/easyplant/avancement-production.webp",
       caption: "Interface avancement production",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/login.png",
+      url: "/images/projects/easyplant/login.webp",
       caption: "Interface authentification",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/livraisons.png",
+      url: "/images/projects/easyplant/livraisons.webp",
       caption: "Interface commandes à livrer",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/valider-livraison.png",
+      url: "/images/projects/easyplant/valider-livraison.webp",
       caption: "Interface validation livraison",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/historiques-livraison.png",
+      url: "/images/projects/easyplant/historiques-livraison.webp",
       caption: "Interface historique livraisons",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/supports-clients.png",
+      url: "/images/projects/easyplant/supports-clients.webp",
       caption: "Interface supports chez clients",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/stock-supports.png",
+      url: "/images/projects/easyplant/stock-supports.webp",
       caption: "Interface stock supports",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/stock-semences.png",
+      url: "/images/projects/easyplant/stock-semences.webp",
       caption: "Interface stock semences",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/dashboard-powerbi-p1.png",
+      url: "/images/projects/easyplant/dashboard-powerbi-p1.webp",
       caption: "Tableaux de bord Power BI partie 1",
       placeholder: false,
     },
     {
-      url: "/images/projects/easyplant/dashboard-powerbi-p2.png",
+      url: "/images/projects/easyplant/dashboard-powerbi-p2.webp",
       caption: "Tableaux de bord Power BI partie 2",
       placeholder: false,
     },
@@ -1341,46 +1341,46 @@ const devnetPortal: InternshipProject = {
   company: "DEVNET",
   location: "Tunis, Tunisie",
   placeholder: false,
-  imageUrl: "/images/projects/devnet/admin-dashboard.png",
+  imageUrl: "/images/projects/devnet/admin-dashboard.webp",
 
   screenshots: [
     {
-      url: "/images/projects/devnet/login.png",
+      url: "/images/projects/devnet/login.webp",
       caption: "Interface d'authentification",
       placeholder: false,
     },
     {
-      url: "/images/projects/devnet/admin-dashboard.png",
+      url: "/images/projects/devnet/admin-dashboard.webp",
       caption: "Tableau de bord Administrateur avec statistiques",
       placeholder: false,
     },
     {
-      url: "/images/projects/devnet/agent-dashboard.png",
+      url: "/images/projects/devnet/agent-dashboard.webp",
       caption: "Tableau de bord Agent avec statistiques",
       placeholder: false,
     },
     {
-      url: "/images/projects/devnet/user-management.png",
+      url: "/images/projects/devnet/user-management.webp",
       caption: "Gestion des utilisateurs",
       placeholder: false,
     },
     {
-      url: "/images/projects/devnet/enterprise-management.png",
+      url: "/images/projects/devnet/enterprise-management.webp",
       caption: "Gestion des entreprises publiques",
       placeholder: false,
     },
     {
-      url: "/images/projects/devnet/add-enterprise.png",
+      url: "/images/projects/devnet/add-enterprise.webp",
       caption: "Formulaire d'ajout d'une entreprise",
       placeholder: false,
     },
     {
-      url: "/images/projects/devnet/edit-enterprise.png",
+      url: "/images/projects/devnet/edit-enterprise.webp",
       caption: "Modification d'une entreprise",
       placeholder: false,
     },
     {
-      url: "/images/projects/devnet/single-delete.png",
+      url: "/images/projects/devnet/single-delete.webp",
       caption: "Suppression d'une entreprise",
       placeholder: false,
     },
@@ -1457,7 +1457,7 @@ const sccGlobal: InternshipProject = {
   company: "SCC Global",
   location: "Béja, Tunisie",
   placeholder: false,
-  imageUrl: "/images/projects/sccglobal/login.png",
+  imageUrl: "/images/projects/sccglobal/login.webp",
 
   mission:
     "Remplacer la gestion Excel fragmentée par une application web centralisée pour le suivi du matériel informatique et la gestion des réservations.",
@@ -1506,37 +1506,37 @@ const sccGlobal: InternshipProject = {
 
   screenshots: [
     {
-      url: "/images/projects/sccglobal/login.png",
+      url: "/images/projects/sccglobal/login.webp",
       caption: "Interface d'authentification",
       placeholder: false,
     },
     {
-      url: "/images/projects/sccglobal/agent-dashboard.png",
+      url: "/images/projects/sccglobal/agent-dashboard.webp",
       caption: "Tableau de bord Agent - Liste du matériel",
       placeholder: false,
     },
     {
-      url: "/images/projects/sccglobal/admin-dashboard.png",
+      url: "/images/projects/sccglobal/admin-dashboard.webp",
       caption: "Tableau de bord Admin - Gestion utilisateurs",
       placeholder: false,
     },
     {
-      url: "/images/projects/sccglobal/equipment-details.png",
+      url: "/images/projects/sccglobal/equipment-details.webp",
       caption: "Détails du matériel",
       placeholder: false,
     },
     {
-      url: "/images/projects/sccglobal/equipment-list.png",
+      url: "/images/projects/sccglobal/equipment-list.webp",
       caption: "Gestion du matériel (Admin)",
       placeholder: false,
     },
     {
-      url: "/images/projects/sccglobal/delete-equipment.png",
+      url: "/images/projects/sccglobal/delete-equipment.webp",
       caption: "Confirmation de suppression",
       placeholder: false,
     },
     {
-      url: "/images/projects/sccglobal/add-headset.png",
+      url: "/images/projects/sccglobal/add-headset.webp",
       caption: "Formulaire d'ajout de matériel",
       placeholder: false,
     },
@@ -1600,7 +1600,7 @@ export const languages = [
 ];
 
 export const socialLinks = {
-  linkedIn: "https://linkedin.com/in/mohamed-amine-bouzidi",
+  linkedIn: "https://www.linkedin.com/in/med-amine-bouzidi",
   github: "https://github.com/MedamineBouzidi",
   email: "mailto:bouzidi.amine0301@gmail.com",
 };

@@ -1,11 +1,12 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../context/ThemeContext";
-import { socialLinks, personalInfo } from "../data/portfolioData.index";
+import { usePortfolioData } from "../hooks/usePortfolioData";
 
 const Footer: React.FC = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
+  const { socialLinks, personalInfo } = usePortfolioData();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -33,7 +34,7 @@ const Footer: React.FC = () => {
               </p>
               <p
                 className={`text-sm ${
-                  theme === "dark" ? "text-gray-500" : "text-gray-500"
+                  theme === "dark" ? "text-gray-400" : "text-gray-600"
                 }`}
               >
                 {personalInfo.title}
@@ -52,7 +53,7 @@ const Footer: React.FC = () => {
                   ? "bg-gray-800/50 hover:bg-blue-500/20 border border-gray-700 hover:border-blue-500"
                   : "bg-white hover:bg-blue-500/20 border border-gray-200 hover:border-blue-500 shadow-sm"
               }`}
-              aria-label="LinkedIn"
+              aria-label={t("a11y.linkedin")}
             >
               <svg
                 className={`w-5 h-5 ${theme === "dark" ? "text-gray-400 hover:text-blue-400" : "text-gray-600 hover:text-blue-600"}`}
@@ -71,7 +72,7 @@ const Footer: React.FC = () => {
                   ? "bg-gray-800/50 hover:bg-gray-700/50 border border-gray-700 hover:border-gray-600"
                   : "bg-white hover:bg-gray-100 border border-gray-200 hover:border-gray-300 shadow-sm"
               }`}
-              aria-label="GitHub"
+              aria-label={t("a11y.github")}
             >
               <svg
                 className={`w-5 h-5 ${theme === "dark" ? "text-gray-400 hover:text-white" : "text-gray-600 hover:text-gray-900"}`}
@@ -88,7 +89,7 @@ const Footer: React.FC = () => {
                   ? "bg-gray-800/50 hover:bg-green-500/20 border border-gray-700 hover:border-green-500"
                   : "bg-white hover:bg-green-500/20 border border-gray-200 hover:border-green-500 shadow-sm"
               }`}
-              aria-label="Email"
+              aria-label={t("a11y.email")}
             >
               <svg
                 className={`w-5 h-5 ${theme === "dark" ? "text-gray-400 hover:text-green-400" : "text-gray-600 hover:text-green-600"}`}
@@ -109,7 +110,7 @@ const Footer: React.FC = () => {
           {/* Copyright */}
           <p
             className={`text-sm ${
-              theme === "dark" ? "text-gray-500" : "text-gray-500"
+              theme === "dark" ? "text-gray-400" : "text-gray-600"
             }`}
           >
             © {currentYear} {personalInfo.name}. {t("footer.rights")}

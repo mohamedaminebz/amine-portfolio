@@ -1,17 +1,92 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { useTheme } from "../context/ThemeContext";
-import { personalInfo, socialLinks } from "../data/portfolioData.index";
+import { usePortfolioData } from "../hooks/usePortfolioData";
+
+const contactSchema = z.object({
+  name: z.string().trim().min(2),
+  email: z.string().trim().email(),
+  subject: z.string().trim().min(3),
+  message: z.string().trim().min(10),
+});
+
+type ContactFormValues = z.infer<typeof contactSchema>;
+type SubmitStatus = "idle" | "success" | "error";
+
+const CONTACT_ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT as
+  string | undefined;
 
 const Contact: React.FC = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
+  const { personalInfo, socialLinks } = usePortfolioData();
+  const [status, setStatus] = useState<SubmitStatus>("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission - could integrate with email service
-    alert(t("contact.form.success"));
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<ContactFormValues>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: { name: "", email: "", subject: "", message: "" },
+  });
+
+  const onSubmit = async (values: ContactFormValues) => {
+    setStatus("idle");
+
+    // No backend configured: fall back to a pre-filled email so the form
+    // still does something useful instead of pretending to send.
+    if (!CONTACT_ENDPOINT) {
+      const body = `${values.message}\n\n—\n${values.name} (${values.email})`;
+      window.location.href = `mailto:${personalInfo.email}?subject=${encodeURIComponent(
+        values.subject,
+      )}&body=${encodeURIComponent(body)}`;
+      setStatus("success");
+      reset();
+      return;
+    }
+
+    try {
+      const response = await fetch(CONTACT_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      if (!response.ok) throw new Error(`Request failed: ${response.status}`);
+
+      setStatus("success");
+      reset();
+    } catch {
+      setStatus("error");
+    }
   };
+
+  const inputClasses = (hasError: boolean) =>
+    `w-full px-4 py-3 rounded-xl border transition-all outline-none ${
+      theme === "dark"
+        ? "bg-gray-700/50 text-white placeholder-gray-500"
+        : "bg-gray-50 text-gray-900 placeholder-gray-400"
+    } ${
+      hasError
+        ? "border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20"
+        : theme === "dark"
+          ? "border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+          : "border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+    }`;
+
+  const labelClasses = `block mb-2 text-sm ${
+    theme === "dark" ? "text-gray-400" : "text-gray-600"
+  }`;
+
+  const errorClasses = "mt-1 text-xs text-red-400";
 
   return (
     <section
@@ -21,7 +96,7 @@ const Contact: React.FC = () => {
       }`}
     >
       {/* Background decoration */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0" aria-hidden="true">
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
         <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
       </div>
@@ -33,7 +108,7 @@ const Contact: React.FC = () => {
             className={`inline-block px-4 py-2 rounded-full text-sm font-medium mb-6 ${
               theme === "dark"
                 ? "bg-blue-500/20 text-blue-400"
-                : "bg-blue-100 text-blue-600"
+                : "bg-blue-100 text-blue-700"
             }`}
           >
             {t("contact.subtitle")}
@@ -71,6 +146,7 @@ const Contact: React.FC = () => {
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 flex items-center justify-center group-hover:scale-110 transition-transform">
                   <svg
+                    aria-hidden="true"
                     className="w-7 h-7 text-white"
                     fill="none"
                     stroke="currentColor"
@@ -85,13 +161,13 @@ const Contact: React.FC = () => {
                   </svg>
                 </div>
                 <div>
-                  <h4
+                  <h3
                     className={`font-semibold text-lg ${
                       theme === "dark" ? "text-white" : "text-gray-900"
                     }`}
                   >
                     {t("contact.email")}
-                  </h4>
+                  </h3>
                   <a
                     href={`mailto:${personalInfo.email}`}
                     className={`hover:text-blue-400 transition-colors ${
@@ -115,6 +191,7 @@ const Contact: React.FC = () => {
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 flex items-center justify-center group-hover:scale-110 transition-transform">
                   <svg
+                    aria-hidden="true"
                     className="w-7 h-7 text-white"
                     fill="none"
                     stroke="currentColor"
@@ -129,13 +206,13 @@ const Contact: React.FC = () => {
                   </svg>
                 </div>
                 <div>
-                  <h4
+                  <h3
                     className={`font-semibold text-lg ${
                       theme === "dark" ? "text-white" : "text-gray-900"
                     }`}
                   >
                     {t("contact.phone")}
-                  </h4>
+                  </h3>
                   <a
                     href={`tel:${personalInfo.phone}`}
                     className={`hover:text-green-400 transition-colors ${
@@ -159,6 +236,7 @@ const Contact: React.FC = () => {
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center group-hover:scale-110 transition-transform">
                   <svg
+                    aria-hidden="true"
                     className="w-7 h-7 text-white"
                     fill="none"
                     stroke="currentColor"
@@ -179,13 +257,13 @@ const Contact: React.FC = () => {
                   </svg>
                 </div>
                 <div>
-                  <h4
+                  <h3
                     className={`font-semibold text-lg ${
                       theme === "dark" ? "text-white" : "text-gray-900"
                     }`}
                   >
                     {t("contact.location")}
-                  </h4>
+                  </h3>
                   <span
                     className={
                       theme === "dark" ? "text-gray-400" : "text-gray-600"
@@ -203,6 +281,7 @@ const Contact: React.FC = () => {
                 href={socialLinks.linkedIn}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={t("a11y.linkedin")}
                 className={`w-14 h-14 rounded-xl flex items-center justify-center transition-all duration-300 group ${
                   theme === "dark"
                     ? "bg-gray-800/50 border border-gray-700 hover:border-blue-500 hover:bg-blue-500/20"
@@ -210,6 +289,7 @@ const Contact: React.FC = () => {
                 }`}
               >
                 <svg
+                  aria-hidden="true"
                   className={`w-6 h-6 ${theme === "dark" ? "text-gray-400 group-hover:text-blue-400" : "text-gray-600 group-hover:text-blue-600"}`}
                   fill="currentColor"
                   viewBox="0 0 24 24"
@@ -221,6 +301,7 @@ const Contact: React.FC = () => {
                 href={socialLinks.github}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={t("a11y.github")}
                 className={`w-14 h-14 rounded-xl flex items-center justify-center transition-all duration-300 group ${
                   theme === "dark"
                     ? "bg-gray-800/50 border border-gray-700 hover:border-gray-500 hover:bg-gray-700/50"
@@ -228,6 +309,7 @@ const Contact: React.FC = () => {
                 }`}
               >
                 <svg
+                  aria-hidden="true"
                   className={`w-6 h-6 ${theme === "dark" ? "text-gray-400 group-hover:text-white" : "text-gray-600 group-hover:text-gray-900"}`}
                   fill="currentColor"
                   viewBox="0 0 24 24"
@@ -253,88 +335,125 @@ const Contact: React.FC = () => {
             >
               {t("contact.form.title")}
             </h3>
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="space-y-6"
+              noValidate
+            >
               <div>
-                <label
-                  className={`block mb-2 text-sm ${
-                    theme === "dark" ? "text-gray-400" : "text-gray-600"
-                  }`}
-                >
+                <label className={labelClasses} htmlFor="contact-name">
                   {t("contact.form.name")}
                 </label>
                 <input
+                  id="contact-name"
                   type="text"
-                  required
-                  className={`w-full px-4 py-3 rounded-xl border transition-all outline-none ${
-                    theme === "dark"
-                      ? "bg-gray-700/50 border-gray-600 text-white placeholder-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
-                      : "bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
-                  }`}
+                  autoComplete="name"
+                  aria-invalid={Boolean(errors.name)}
+                  aria-describedby={
+                    errors.name ? "contact-name-error" : undefined
+                  }
+                  className={inputClasses(Boolean(errors.name))}
                   placeholder={t("contact.form.namePlaceholder")}
+                  {...register("name")}
                 />
+                {errors.name && (
+                  <p
+                    id="contact-name-error"
+                    className={errorClasses}
+                    role="alert"
+                  >
+                    {t("contact.form.validation.name")}
+                  </p>
+                )}
               </div>
+
               <div>
-                <label
-                  className={`block mb-2 text-sm ${
-                    theme === "dark" ? "text-gray-400" : "text-gray-600"
-                  }`}
-                >
+                <label className={labelClasses} htmlFor="contact-email">
                   {t("contact.form.email")}
                 </label>
                 <input
+                  id="contact-email"
                   type="email"
-                  required
-                  className={`w-full px-4 py-3 rounded-xl border transition-all outline-none ${
-                    theme === "dark"
-                      ? "bg-gray-700/50 border-gray-600 text-white placeholder-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
-                      : "bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
-                  }`}
+                  autoComplete="email"
+                  aria-invalid={Boolean(errors.email)}
+                  aria-describedby={
+                    errors.email ? "contact-email-error" : undefined
+                  }
+                  className={inputClasses(Boolean(errors.email))}
                   placeholder={t("contact.form.emailPlaceholder")}
+                  {...register("email")}
                 />
+                {errors.email && (
+                  <p
+                    id="contact-email-error"
+                    className={errorClasses}
+                    role="alert"
+                  >
+                    {t("contact.form.validation.email")}
+                  </p>
+                )}
               </div>
+
               <div>
-                <label
-                  className={`block mb-2 text-sm ${
-                    theme === "dark" ? "text-gray-400" : "text-gray-600"
-                  }`}
-                >
+                <label className={labelClasses} htmlFor="contact-subject">
                   {t("contact.form.subject")}
                 </label>
                 <input
+                  id="contact-subject"
                   type="text"
-                  required
-                  className={`w-full px-4 py-3 rounded-xl border transition-all outline-none ${
-                    theme === "dark"
-                      ? "bg-gray-700/50 border-gray-600 text-white placeholder-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
-                      : "bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
-                  }`}
+                  autoComplete="off"
+                  aria-invalid={Boolean(errors.subject)}
+                  aria-describedby={
+                    errors.subject ? "contact-subject-error" : undefined
+                  }
+                  className={inputClasses(Boolean(errors.subject))}
                   placeholder={t("contact.form.subjectPlaceholder")}
+                  {...register("subject")}
                 />
+                {errors.subject && (
+                  <p
+                    id="contact-subject-error"
+                    className={errorClasses}
+                    role="alert"
+                  >
+                    {t("contact.form.validation.subject")}
+                  </p>
+                )}
               </div>
+
               <div>
-                <label
-                  className={`block mb-2 text-sm ${
-                    theme === "dark" ? "text-gray-400" : "text-gray-600"
-                  }`}
-                >
+                <label className={labelClasses} htmlFor="contact-message">
                   {t("contact.form.message")}
                 </label>
                 <textarea
-                  required
+                  id="contact-message"
                   rows={5}
-                  className={`w-full px-4 py-3 rounded-xl border transition-all outline-none resize-none ${
-                    theme === "dark"
-                      ? "bg-gray-700/50 border-gray-600 text-white placeholder-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
-                      : "bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
-                  }`}
+                  aria-invalid={Boolean(errors.message)}
+                  aria-describedby={
+                    errors.message ? "contact-message-error" : undefined
+                  }
+                  className={`${inputClasses(Boolean(errors.message))} resize-none`}
                   placeholder={t("contact.form.messagePlaceholder")}
+                  {...register("message")}
                 />
+                {errors.message && (
+                  <p
+                    id="contact-message-error"
+                    className={errorClasses}
+                    role="alert"
+                  >
+                    {t("contact.form.validation.message")}
+                  </p>
+                )}
               </div>
+
               <button
                 type="submit"
-                className="w-full px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg shadow-blue-500/30 flex items-center justify-center gap-2"
+                disabled={isSubmitting}
+                className="w-full px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg shadow-blue-500/30 flex items-center justify-center gap-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
               >
                 <svg
+                  aria-hidden="true"
                   className="w-5 h-5"
                   fill="none"
                   stroke="currentColor"
@@ -347,8 +466,34 @@ const Contact: React.FC = () => {
                     d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
                   />
                 </svg>
-                {t("contact.form.submit")}
+                {isSubmitting
+                  ? t("contact.form.sending")
+                  : t("contact.form.submit")}
               </button>
+
+              {/* Live region so screen readers announce the result. */}
+              <p
+                role="status"
+                aria-live="polite"
+                className={`min-h-[1.25rem] text-sm ${
+                  status === "error" ? "text-red-400" : "text-green-400"
+                }`}
+              >
+                {status === "success" && t("contact.form.success")}
+                {status === "error" && t("contact.form.error")}
+              </p>
+
+              {!CONTACT_ENDPOINT && (
+                <p
+                  className={`text-xs ${
+                    theme === "dark" ? "text-gray-500" : "text-gray-500"
+                  }`}
+                >
+                  {t("contact.form.mailtoNote", {
+                    email: personalInfo.email,
+                  })}
+                </p>
+              )}
             </form>
           </div>
         </div>
