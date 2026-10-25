@@ -8,7 +8,6 @@ import React, {
 } from "react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../context/ThemeContext";
-import { usePortfolioData } from "../hooks/usePortfolioData";
 import { asset } from "../lib/asset";
 import {
   AcademicProject,
@@ -136,7 +135,6 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
 }) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
-  const { personalInfo } = usePortfolioData();
   const isDark = theme === "dark";
 
   const screenshots = useMemo(
@@ -1098,14 +1096,6 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
             </div>
 
             <div className="flex items-center gap-2">
-              <a
-                href={`mailto:${personalInfo.email}?subject=${encodeURIComponent(
-                  project.title,
-                )}`}
-                className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
-              >
-                {t("projectDetail.discussProject")}
-              </a>
               <button
                 type="button"
                 onClick={onClose}

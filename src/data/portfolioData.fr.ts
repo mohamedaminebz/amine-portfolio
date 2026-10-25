@@ -29,7 +29,7 @@ export const personalInfo: PersonalInfo = {
 export const timelineItems: TimelineItem[] = [
   {
     id: "work-sbg",
-    date: "Août 2025 - Avr 2026",
+    date: "Août 2025 - Présent",
     title: "Ingénieur Full-Stack",
     company: "SBG TECHELECTRO",
     location: "Tunisie",
@@ -213,7 +213,7 @@ const pyrojsRefonte: ProfessionalProject = {
   // 6. CHAMPS DE BASE
   // ============================================
   role: "Ingénieur Full-Stack",
-  period: "Août 2025 - Avr 2026",
+  period: "Août 2025 - Présent",
   company: "SBG TECHELECTRO",
   location: "Tunisie",
   placeholder: true,
@@ -283,7 +283,7 @@ const iotReportingService: ProfessionalProject = {
   // 6. CHAMPS DE BASE
   // ============================================
   role: "Ingénieur Full-Stack",
-  period: "Août 2025 - Avr 2026",
+  period: "Août 2025 - Présent",
   company: "SBG TECHELECTRO",
   location: "Tunisie",
   placeholder: true,
@@ -353,7 +353,7 @@ const clickhouseMigration: ProfessionalProject = {
   // 6. CHAMPS DE BASE
   // ============================================
   role: "Ingénieur Full-Stack",
-  period: "Août 2025 - Avr 2026",
+  period: "Août 2025 - Présent",
   company: "SBG TECHELECTRO",
   location: "Tunisie",
   placeholder: true,
