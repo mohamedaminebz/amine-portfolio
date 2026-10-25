@@ -1,5 +1,11 @@
 // src/components/ProjectDetail.tsx
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../context/ThemeContext";
 import { usePortfolioData } from "../hooks/usePortfolioData";
@@ -145,10 +151,26 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
 
   const dialogRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const lightboxRef = useRef<HTMLDivElement>(null);
+  const lightboxTrigger = useRef<HTMLElement | null>(null);
   const previouslyFocused = useRef<HTMLElement | null>(null);
 
   const selectedImage =
     lightboxIndex === null ? null : (screenshots[lightboxIndex] ?? null);
+  const isLightboxOpen = lightboxIndex !== null;
+
+  const openScreenshot = useCallback((index: number) => {
+    if (index < 0) return;
+    lightboxTrigger.current = document.activeElement as HTMLElement | null;
+    setLightboxIndex(index);
+  }, []);
+
+  const closeLightbox = useCallback(() => {
+    setLightboxIndex(null);
+    if (lightboxTrigger.current?.isConnected) {
+      lightboxTrigger.current.focus();
+    }
+  }, []);
 
   const webScreenshots = useMemo(
     () => screenshots.filter((screenshot) => !screenshot.isMobile),
@@ -216,6 +238,15 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
     scrollRef.current?.scrollTo({ top: 0 });
   }, [project.id]);
 
+  // Move focus into the lightbox when it opens so keyboard users are not left
+  // behind the overlay.
+  useEffect(() => {
+    if (!isLightboxOpen) return;
+    lightboxRef.current
+      ?.querySelector<HTMLButtonElement>("[data-lightbox-autofocus]")
+      ?.focus();
+  }, [isLightboxOpen]);
+
   const scrollToSection = (id: string) => {
     const scroller = scrollRef.current;
     const node = document.getElementById(`case-${id}`);
@@ -261,18 +292,23 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
   }, [sectionIds, sections]);
 
   // Keyboard navigation: Escape closes the lightbox or the dialog, arrows
-  // move through screenshots and Tab stays inside the dialog.
+  // move through screenshots and Tab stays inside the active overlay.
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        if (selectedImage) setLightboxIndex(null);
+        if (isLightboxOpen) closeLightbox();
         else onClose();
         return;
       }
 
-      if (lightboxIndex === null && event.key === "Tab" && dialogRef.current) {
+      if (event.key === "Tab") {
+        const container = isLightboxOpen
+          ? lightboxRef.current
+          : dialogRef.current;
+        if (!container) return;
+
         const focusable = Array.from(
-          dialogRef.current.querySelectorAll<HTMLElement>(
+          container.querySelectorAll<HTMLElement>(
             'button:not([disabled]), a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
           ),
         );
@@ -288,6 +324,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
           event.preventDefault();
           first.focus();
         }
+        return;
       }
 
       if (lightboxIndex === null) return;
@@ -304,7 +341,13 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [lightboxIndex, onClose, screenshots.length, selectedImage]);
+  }, [
+    closeLightbox,
+    isLightboxOpen,
+    lightboxIndex,
+    onClose,
+    screenshots.length,
+  ]);
 
   const getTypeBadge = () => {
     switch (project.type) {
@@ -439,7 +482,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
           type="button"
           disabled={isPlaceholder}
           aria-label={screenshot.caption || t("projectDetail.preview")}
-          onClick={() => setLightboxIndex(screenshots.indexOf(screenshot))}
+          onClick={() => openScreenshot(screenshots.indexOf(screenshot))}
           className={`group block w-full overflow-hidden rounded-lg border text-left transition-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ${
             isDark ? "border-gray-800" : "border-gray-200"
           } ${isPlaceholder ? "cursor-default" : "cursor-zoom-in hover:shadow-lg"}`}
@@ -1081,11 +1124,12 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
 
       {selectedImage && (
         <div
+          ref={lightboxRef}
           role="dialog"
           aria-modal="true"
           aria-label={t("projectDetail.screenshots")}
           className="fixed inset-0 z-[60] flex items-center justify-center bg-black/95 p-4 backdrop-blur-md"
-          onClick={() => setLightboxIndex(null)}
+          onClick={closeLightbox}
         >
           <div
             className="relative w-full max-w-6xl"
@@ -1093,7 +1137,8 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
           >
             <button
               type="button"
-              onClick={() => setLightboxIndex(null)}
+              onClick={closeLightbox}
+              data-lightbox-autofocus
               aria-label={t("a11y.closeImage")}
               className="absolute -top-11 right-0 rounded-full bg-white/10 p-2 text-white transition hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
             >
