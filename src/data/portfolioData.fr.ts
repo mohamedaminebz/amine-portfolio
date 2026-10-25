@@ -82,7 +82,7 @@ export const timelineItems: TimelineItem[] = [
     id: "internship-easy",
     date: "Mars 2021 - Juin 2021",
     title: "Développeur Web & Reporting - Stage PFE",
-    company: "EASY Technology",
+    company: "Easy Computers & Technologies",
     location: "Tunisie",
     description:
       "EASY PLANT - application de gestion de pépinière agricole, tableaux de bord Power BI",
@@ -97,7 +97,7 @@ export const timelineItems: TimelineItem[] = [
   },
   {
     id: "internship-scc",
-    date: "Fév 2021 - Mars 2021",
+    date: "Fév 2021",
     title: "Développeur Web - Stagiaire",
     company: "SCC Global",
     location: "Tunisie",
@@ -440,11 +440,11 @@ const winshotReward: InternshipProject = {
   type: "internship",
   title: "Winshot Reward",
   subtitle:
-    "Plateforme multi-tenant de gestion des performances et récompenses",
+    "Plateforme multi-tenant de gestion des objectifs de performance et des récompenses",
   description:
-    "Application web admin et application mobile pour la gestion des performances des équipes terrain et des récompenses. Projet de fin d'études avec architecture multi-tenant et pipelines CI/CD automatisés.",
+    "Plateforme web et mobile multi-tenant permettant aux entreprises en franchise de gérer les objectifs de performance, les points, les classements et l'échange de récompenses de leurs équipes terrain.",
   longDescription:
-    "Winshot Reward est une solution complète pour la gestion des objectifs de performance et des récompenses des employés. Développée lors de mon stage de fin d'études chez GOFIELD, cette plateforme multi-tenant répond aux besoins des entreprises fonctionnant en franchise. Elle se compose d'une application web pour les administrateurs (gestion des objectifs, récompenses, équipes et employés) et d'une application mobile pour les employés terrain (suivi de leur progression, accumulation de points, et échange de récompenses). L'ensemble du cycle de développement est automatisé via des pipelines CI/CD, garantissant un déploiement fiable et efficace.",
+    "Winshot Reward est une plateforme SaaS multi-tenant développée chez GOFIELD pour des entreprises fonctionnant en franchise. Les administrateurs gèrent les entreprises, équipes, employés, objectifs et récompenses depuis une application web React, tandis que les employés terrain suivent leur progression, cumulent des points et échangent leurs récompenses depuis une application React Native. J'ai travaillé sur toute la stack — isolation des données par tenant, plateforme d'administration, expérience mobile et pipeline CI/CD Jenkins — sur deux releases et six sprints Scrum.",
 
   technologies: [
     createTech("React.js", "frontend"),
@@ -456,33 +456,42 @@ const winshotReward: InternshipProject = {
     createTech("SonarQube", "devops"),
   ],
 
-  role: "Développeur Full-Stack Web & Mobile - Stage PFE",
+  role: "Développeur Full-Stack Web & Mobile — Stage PFE",
   period: "Fév 2024 - Août 2024",
-  company: "GOFIELD (WINSHOT)",
+  company: "GOFIELD",
   location: "Tunis, Tunisie",
+  status: "2 releases livrées",
+  teamSize: 1,
   placeholder: false,
   imageUrl: "/images/projects/winshot-reward/web-login.webp",
 
+  quickStats: [
+    { value: "6", label: "Sprints Scrum" },
+    { value: "2", label: "Releases livrées" },
+    { value: "2", label: "Applications web + mobile" },
+    { value: "5", label: "Services intégrés" },
+  ],
+
   mission:
-    "Concevoir et développer une plateforme SaaS multi-tenant pour la gestion des objectifs de performance (OKRs) et des récompenses pour les équipes terrain, en intégrant des pipelines CI/CD pour automatiser le cycle de développement.",
+    "Donner aux entreprises en franchise une plateforme multi-tenant unique pour définir des objectifs de performance, suivre la progression des équipes terrain et gérer l'échange de récompenses — sans mélanger les données entre tenants.",
 
   tasks: [
     {
-      title: "Architecture Backend Multi-Tenant",
+      title: "Architecture backend multi-tenant",
       description:
-        "Conception et implémentation d'une architecture backend multi-tenant scalable avec Node.js et MongoDB, permettant une résolution dynamique des connexions aux bases de données. Réalisation d'un isolement complet des données offrant aux entreprises clientes le choix entre une infrastructure hébergée par GOFIELD ou leurs propres serveurs dédiés (base de données + FTP) — pattern BYOF (Bring Your Own FTP).",
+        "Conception d'un backend Node.js et MongoDB avec résolution dynamique des connexions par tenant, afin d'isoler les données de chaque client. Les entreprises peuvent utiliser l'infrastructure hébergée par GOFIELD ou connecter leur propre base de données et leurs serveurs FTP.",
       technologies: ["Node.js", "MongoDB", "Mongoose", "JWT"],
     },
     {
-      title: "Plateforme Web Administrateur",
+      title: "Plateforme web d'administration",
       description:
-        "Développement d'un tableau de bord React.js complet pour les administrateurs d'entreprise incluant : gestion hiérarchique des équipes, opérations CRUD sur les employés, configuration des objectifs (catégories, niveaux, récompenses en points), catalogue de récompenses, et workflows d'approbation administrative pour les soumissions de progression et les demandes de récompenses.",
+        "Développement de l'application d'administration React : gestion des entreprises et tenants, équipes hiérarchiques, fiches employés, objectifs avec catégories et niveaux, catalogue de récompenses, et workflows d'approbation des progressions et des commandes de récompenses.",
       technologies: ["React.js", "React Router", "Axios", "i18n"],
     },
     {
-      title: "Application Mobile Cross-Platform",
+      title: "Application mobile cross-platform",
       description:
-        "Développement d'une solution mobile React Native pour les employés terrain avec des fonctionnalités incluant : tableaux de bord personnalisés des objectifs, suivi de progression avec saisie manuelle/automatique, accumulation de points en temps réel, classements gamifiés (par équipe et individuel), et boutique de récompenses intégrée pour l'échange de points.",
+        "Développement de l'application React Native pour les employés terrain : tableaux de bord d'objectifs personnels, saisie de progression, cumul de points, classements par équipe et individuels, et boutique de récompenses.",
       technologies: [
         "React Native",
         "Redux Toolkit",
@@ -493,7 +502,7 @@ const winshotReward: InternshipProject = {
     {
       title: "Automatisation CI/CD",
       description:
-        "Ingénierie de pipelines CI/CD complets avec Jenkins sur VM Azure Linux. Intégration de webhooks GitLab pour les builds automatiques sur les demandes de fusion et les branches de release. Implémentation de SonarQube pour l'inspection continue de la qualité du code, conteneurisation Docker pour la cohérence des environnements, et déploiement automatisé via Docker Compose avec stockage des images sur AWS ECR.",
+        "Mise en place de pipelines Jenkins sur une VM Azure Linux, avec webhooks GitLab déclenchant les builds sur les merge requests et branches de release, contrôles qualité SonarQube, images Docker stockées sur AWS ECR et déploiement automatisé via Docker Compose.",
       technologies: [
         "Jenkins",
         "Docker",
@@ -505,371 +514,76 @@ const winshotReward: InternshipProject = {
       ],
     },
     {
-      title: "Intégration Gestion des Identités",
+      title: "Gestion des identités et des accès",
       description:
-        "Intégration du fournisseur d'identité (IDP) interne de GOFIELD pour fournir une authentification unifiée et un contrôle d'accès basé sur les rôles (RBAC) sur les applications web et mobile, supportant les profils Super Admin, Admin et Employé avec une gestion de session basée sur JWT.",
+        "Intégration du fournisseur d'identité interne de GOFIELD pour une authentification unifiée et un contrôle d'accès basé sur les rôles sur le web et le mobile, avec les profils Super Admin, Admin et Employé et des sessions JWT.",
       technologies: ["OAuth2", "JWT", "Identity Provider"],
     },
   ],
 
-  learnings: [
-    "Architecturation et mise en production d'une infrastructure SaaS multi-tenant avec routage dynamique des bases de données et options flexibles de souveraineté des données (BYOF).",
-    "Mise en place complète de l'automatisation DevOps incluant pipelines CI/CD, conteneurisation, intégration de registre cloud, et surveillance continue de la qualité du code avec SonarQube.",
-    "Livraison d'une solution mobile cross-platform avec React Native, permettant la réutilisation du code entre iOS et Android tout en maintenant des performances natives.",
-    "Application réussie de Scrum dans un contexte de stage industriel, avec livraison de deux releases majeures sur 6 sprints et intégration continue des retours parties prenantes.",
-    "Conception et implémentation d'un moteur de gamification (récompenses basées sur points, progression par niveaux, suivi des réalisations) aligné avec la méthodologie OKR (Objectives and Key Results).",
-    "Intégration de cinq services hétérogènes dans une plateforme cohérente : fournisseur d'identité, clusters MongoDB, serveurs FTP, stockage AWS S3, et services de notification par email.",
+  results: [
+    "Deux releases livrées sur six sprints Scrum — sprints de 21 jours pour la release 1, de 14 jours pour la release 2.",
+    "Livraison d'une application web d'administration et d'une application React Native iOS et Android à partir d'une seule base de code.",
+    "Isolation des données par tenant au niveau de la base, avec option de base de données et de serveurs FTP propres au client.",
+    "Automatisation du build, de l'analyse qualité et du déploiement avec un pipeline Jenkins.",
+    "Connexion de cinq services : fournisseur d'identité, MongoDB, FTP, AWS S3 et notifications email.",
   ],
 
-  deliverables: [],
+  learnings: [
+    "Conception de l'isolation multi-tenant et du routage dynamique des connexions.",
+    "Mise en place d'un cycle CI/CD complet avec Jenkins, Docker et SonarQube.",
+    "Livraison d'une base de code React Native unique pour iOS et Android.",
+    "Travail en Scrum sur deux releases, avec retours des parties prenantes entre les sprints.",
+  ],
+
+  deliverables: [
+    "Application web d'administration (entreprises, équipes, employés, objectifs, récompenses)",
+    "Application React Native (progression, points, classements, récompenses)",
+    "Pipeline CI/CD Jenkins avec contrôles qualité SonarQube",
+    "Backlogs de sprint et documentation technique",
+  ],
 
   screenshots: [
-    // Sprint 1 - Application Web
     {
       url: "/images/projects/winshot-reward/web-login.webp",
-      caption: "Interface d'authentification (Application Web)",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-tenants-list.webp",
-      caption: "Gestion des Tenants - Vue Liste",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-add-tenant.webp",
-      caption: "Ajout d'un nouveau Tenant - Assistant de configuration",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-delete-tenant.webp",
-      caption: "Suppression d'un Tenant - Confirmation de sécurité",
+      caption: "Interface d'authentification (application web)",
       placeholder: false,
     },
     {
       url: "/images/projects/winshot-reward/web-companies-list.webp",
-      caption: "Gestion des Entreprises - Vue Liste",
+      caption: "Gestion des entreprises",
       placeholder: false,
     },
-    {
-      url: "/images/projects/winshot-reward/web-add-company.webp",
-      caption:
-        "Ajout d'une nouvelle entreprise - Formulaire en deux étapes (Entreprise + Admin)",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-delete-company.webp",
-      caption: "Suppression d'une entreprise - Avertissement final",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-language.webp",
-      caption: "Support multi-langues (i18n)",
-      placeholder: false,
-    },
-
-    // Sprint 2 - Application Web (Équipes, Niveaux, Employés)
-    {
-      url: "/images/projects/winshot-reward/web-profile.webp",
-      caption: "Gestion du profil",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-change-password.webp",
-      caption: "Interface de changement de mot de passe",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-teams-list.webp",
-      caption: "Gestion des équipes - Vue Liste",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-add-team.webp",
-      caption: "Ajout d'une nouvelle équipe",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-edit-team.webp",
-      caption: "Modification d'une équipe",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-delete-team.webp",
-      caption: "Confirmation de suppression d'équipe",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-levels-list.webp",
-      caption: "Personnalisation des niveaux - Vue Liste",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-add-level.webp",
-      caption: "Ajout d'un nouveau niveau",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-edit-level.webp",
-      caption: "Modification d'un niveau",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-employees-list.webp",
-      caption: "Gestion des employés - Vue Liste",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-add-employee.webp",
-      caption: "Ajout d'un employé (Sélection d'équipe + auto-affectation)",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-edit-employee.webp",
-      caption: "Modification d'un employé",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-delete-employee.webp",
-      caption: "Confirmation de suppression d'employé",
-      placeholder: false,
-    },
-
-    // Sprint 3 - Application Web (Objectifs, Catégories, Récompenses)
     {
       url: "/images/projects/winshot-reward/web-goals-list.webp",
-      caption: "Gestion des objectifs - Vue Liste avec filtres",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-add-goal.webp",
-      caption:
-        "Création d'un nouvel objectif (Titre, Catégorie, Niveaux, Instructions)",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-edit-goal.webp",
-      caption: "Modification d'un objectif",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-delete-goal.webp",
-      caption: "Confirmation de suppression d'objectif",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-goal-assignments-users.webp",
-      caption: "Affectations des objectifs - Vue employés",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-assign-goal-users.webp",
-      caption: "Affecter un objectif à des employés",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-unassign-goal-user.webp",
-      caption: "Désaffecter un objectif d'un employé",
+      caption: "Objectifs de performance",
       placeholder: false,
     },
     {
       url: "/images/projects/winshot-reward/web-goal-assignments-teams.webp",
-      caption: "Affectations des objectifs - Vue équipes avec progression",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-assign-goal-teams.webp",
-      caption: "Affecter un objectif à des équipes (Sélection multiple)",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-unassign-goal-team.webp",
-      caption: "Désaffecter un objectif d'une équipe",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-goal-progress.webp",
-      caption: "Suivi des progressions d'objectif - Vue Liste",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-approve-progress.webp",
-      caption: "Approuver la progression d'un employé",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-reject-progress.webp",
-      caption: "Rejeter la progression d'un employé avec commentaire",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-rewards-list.webp",
-      caption: "Gestion des récompenses - Vue Liste avec filtres",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-add-reward.webp",
-      caption:
-        "Création d'une nouvelle récompense (Titre, Points, Type de validation)",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-edit-reward.webp",
-      caption: "Modification d'une récompense",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-delete-reward.webp",
-      caption: "Confirmation de suppression de récompense",
+      caption: "Affectation des objectifs et progression par équipe",
       placeholder: false,
     },
     {
       url: "/images/projects/winshot-reward/web-orders-list.webp",
-      caption: "Gestion des commandes de récompenses - Vue Liste",
+      caption: "Gestion des commandes de récompenses",
       placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-approve-order.webp",
-      caption: "Approuver une commande de récompense",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/winshot-reward/web-reject-order.webp",
-      caption: "Rejeter une commande de récompense avec commentaire",
-      placeholder: false,
-    },
-
-    // Sprint 5 - Application Mobile
-    {
-      url: "/images/projects/winshot-reward/mobile/login.webp",
-      caption: "Écran d'authentification mobile",
-      placeholder: false,
-      isMobile: true,
     },
     {
       url: "/images/projects/winshot-reward/mobile/home.webp",
-      caption: "Tableau de bord d'accueil mobile",
-      placeholder: false,
-      isMobile: true,
-    },
-    {
-      url: "/images/projects/winshot-reward/mobile/sidebar.webp",
-      caption: "Barre latérale de navigation mobile",
-      placeholder: false,
-      isMobile: true,
-    },
-    {
-      url: "/images/projects/winshot-reward/mobile/settings.webp",
-      caption: "Interface des paramètres mobile",
-      placeholder: false,
-      isMobile: true,
-    },
-    {
-      url: "/images/projects/winshot-reward/mobile/profile.webp",
-      caption: "Gestion du profil mobile",
-      placeholder: false,
-      isMobile: true,
-    },
-    {
-      url: "/images/projects/winshot-reward/mobile/change-password.webp",
-      caption: "Interface de changement de mot de passe mobile",
-      placeholder: false,
-      isMobile: true,
-    },
-    {
-      url: "/images/projects/winshot-reward/mobile/language.webp",
-      caption: "Sélection de la langue mobile",
-      placeholder: false,
-      isMobile: true,
-    },
-    {
-      url: "/images/projects/winshot-reward/mobile/home-en.webp",
-      caption: "Tableau de bord d'accueil mobile (Anglais)",
-      placeholder: false,
-      isMobile: true,
-    },
-    {
-      url: "/images/projects/winshot-reward/mobile/forgot-password-1.webp",
-      caption: "Mot de passe oublié - Saisie email",
-      placeholder: false,
-      isMobile: true,
-    },
-    {
-      url: "/images/projects/winshot-reward/mobile/forgot-password-2.webp",
-      caption: "Mot de passe oublié - Confirmation",
-      placeholder: false,
-      isMobile: true,
-    },
-
-    // Sprint 6 - Application Mobile (Objectifs & Récompenses)
-    {
-      url: "/images/projects/winshot-reward/mobile/goals-list.webp",
-      caption: "Liste des objectifs avec filtres",
-      placeholder: false,
-      isMobile: true,
-    },
-    {
-      url: "/images/projects/winshot-reward/mobile/goals-filter.webp",
-      caption: "Filtrage des objectifs",
+      caption: "Tableau de bord mobile",
       placeholder: false,
       isMobile: true,
     },
     {
       url: "/images/projects/winshot-reward/mobile/goal-details.webp",
-      caption: "Détails d'un objectif",
-      placeholder: false,
-      isMobile: true,
-    },
-    {
-      url: "/images/projects/winshot-reward/mobile/increment-progress.webp",
-      caption: "Incrémentation de la progression d'un objectif",
+      caption: "Détails d'un objectif sur mobile",
       placeholder: false,
       isMobile: true,
     },
     {
       url: "/images/projects/winshot-reward/mobile/rankings-teams.webp",
-      caption: "Classements par équipe",
-      placeholder: false,
-      isMobile: true,
-    },
-    {
-      url: "/images/projects/winshot-reward/mobile/rankings-employees.webp",
-      caption: "Classements par employé",
-      placeholder: false,
-      isMobile: true,
-    },
-    {
-      url: "/images/projects/winshot-reward/mobile/rewards-list.webp",
-      caption: "Catalogue des récompenses",
-      placeholder: false,
-      isMobile: true,
-    },
-    {
-      url: "/images/projects/winshot-reward/mobile/rewards-filter.webp",
-      caption: "Filtrage des récompenses",
-      placeholder: false,
-      isMobile: true,
-    },
-    {
-      url: "/images/projects/winshot-reward/mobile/reward-details.webp",
-      caption: "Détails d'une récompense",
-      placeholder: false,
-      isMobile: true,
-    },
-    {
-      url: "/images/projects/winshot-reward/mobile/order-reward.webp",
-      caption: "Confirmation de commande de récompense",
-      placeholder: false,
-      isMobile: true,
-    },
-    {
-      url: "/images/projects/winshot-reward/mobile/orders-list.webp",
-      caption: "Mes commandes de récompenses",
-      placeholder: false,
-      isMobile: true,
-    },
-    {
-      url: "/images/projects/winshot-reward/mobile/orders-filter.webp",
-      caption: "Filtrage des commandes de récompenses",
+      caption: "Classement par équipe",
       placeholder: false,
       isMobile: true,
     },
@@ -881,26 +595,11 @@ const financeTracker: InternshipProject = {
   type: "internship",
   title: "Application de Suivi Financier Personnel",
   subtitle:
-    "Application mobile cross-platform pour le suivi des revenus, dépenses et statistiques financières avec Firebase",
+    "Application mobile cross-platform pour les revenus, dépenses et tendances de solde",
   description:
-    "Développement d'une application mobile Flutter pour la gestion des finances personnelles avec authentification Firebase, stockage cloud et synchronisation des données en temps réel. Fonctionnalités incluant mode invité, gestion des transactions et tableaux de bord interactifs.",
-  longDescription: `**Problème :** Le client avait besoin d'une solution mobile moderne pour suivre ses finances personnelles. Les méthodes existantes manquaient de persistance des données, d'interfaces utilisateur conviviales et de fonctionnalités de visualisation avancées.
-
-**Solution :** Construction d'une application Flutter cross-platform avec :
-- Mode invité pour une utilisation temporaire (stockage local avec Hive)
-- Mode authentifié (Firebase Auth + Google Sign-In)
-- Gestion des transactions (revenus/dépenses avec catégories)
-- Tableaux de bord interactifs avec graphiques (vues hebdomadaires/mensuelles/annuelles)
-- Synchronisation des données cloud entre appareils
-- Gestion du profil avec téléchargement d'image
-
-**Fonctionnalités clés :**
-- 🔐 Authentification Email/Mot de passe + Google
-- 💰 Ajout, modification, suppression de transactions financières
-- 📊 Statistiques visuelles avec graphiques linéaires
-- ☁️ Sauvegarde cloud avec Firestore
-- 🖼️ Téléchargement de photo de profil vers Firebase Storage
-- 🌙 Stockage local avec Hive pour le mode invité`,
+    "Application Flutter développée dans le cadre d'un projet de formation interne chez Visual Dev : modes invité et authentifié, suivi des transactions et graphiques de solde hebdomadaires, mensuels et annuels.",
+  longDescription:
+    "Il s'agissait d'un projet de formation interne chez Visual Dev, destiné à construire un produit mobile complet de zéro plutôt qu'à répondre à un brief client. J'ai développé une application Flutter cross-platform avec deux modes — un mode invité reposant sur le stockage local Hive et un mode authentifié utilisant Firebase Auth et Google Sign-In. L'utilisateur ajoute, modifie et supprime ses revenus et dépenses par catégorie, puis suit son solde via des graphiques hebdomadaires, mensuels et annuels. Firestore synchronise les données entre appareils et Firebase Storage gère les images de profil.",
 
   technologies: [
     createTech("Flutter", "mobile"),
@@ -913,58 +612,72 @@ const financeTracker: InternshipProject = {
     createTech("Flutter Charts", "design"),
   ],
 
-  role: "Développeur Mobile - Stage d'été",
+  role: "Développeur Mobile — Stage d'été",
   period: "Juil 2023 - Août 2023",
-  company: "VisualDev",
+  company: "Visual Dev",
   location: "Manouba, Tunisie",
+  status: "Projet de formation interne",
   placeholder: false,
   imageUrl: "/images/projects/finance-tracker/logoWallet.webp",
 
+  quickStats: [
+    { value: "1", label: "Base de code Flutter" },
+    { value: "2", label: "Modes d'utilisation" },
+    { value: "3", label: "Vues de solde" },
+    { value: "iOS + Android", label: "Plateformes" },
+  ],
+
   mission:
-    "Développer une application mobile cross-platform intuitive pour la gestion des finances personnelles avec modes invité et authentifié, incluant le suivi des transactions, des statistiques visuelles et la synchronisation cloud.",
+    "Construire une application complète de finances personnelles dans le cadre d'un projet de formation interne, avec un mode invité sans compte et un mode authentifié synchronisé dans le cloud.",
 
   tasks: [
     {
       title: "Système d'authentification",
       description:
-        "Implémentation de l'authentification email/mot de passe et Google Sign-In avec Firebase Auth. Création du mode invité avec persistance locale des données pour les utilisateurs sans compte.",
+        "Implémentation de l'authentification email/mot de passe et de Google Sign-In avec Firebase Auth, ainsi qu'un mode invité persistant les données localement pour les utilisateurs sans compte.",
       technologies: ["Flutter", "Firebase Auth", "Google Sign-In"],
     },
     {
       title: "Gestion des transactions",
       description:
-        "Construction d'opérations CRUD complètes pour les transactions de revenus et dépenses avec sélection de catégorie, sélecteur de date et validation des montants.",
+        "Développement des opérations CRUD pour les revenus et dépenses avec sélection de catégorie, choix de la date et validation du montant.",
       technologies: ["Flutter", "Firestore", "Hive"],
     },
     {
       title: "Visualisation des données",
       description:
-        "Création de tableaux de bord interactifs avec graphiques linéaires montrant l'évolution du solde. Implémentation des vues statistiques hebdomadaires, mensuelles et annuelles.",
+        "Création de tableaux de bord avec graphiques linéaires montrant l'évolution du solde, en vues hebdomadaire, mensuelle et annuelle.",
       technologies: ["Flutter Charts", "Dart", "Firestore"],
     },
     {
       title: "Stockage cloud et synchronisation",
       description:
-        "Intégration de Firestore pour la persistance sécurisée des données et Firebase Storage pour les images de profil. Activation de la synchronisation en temps réel entre plusieurs appareils.",
+        "Intégration de Firestore pour la persistance des données et de Firebase Storage pour les images de profil, avec synchronisation entre appareils.",
       technologies: ["Firestore", "Firebase Storage", "Flutter"],
     },
   ],
 
+  results: [
+    "Livraison d'une base de code Flutter unique fonctionnant sur iOS et Android.",
+    "Mise en place de deux modes : invité avec stockage local Hive, et authentifié avec Firebase.",
+    "Gestion des transactions avec catégories, dates et validation des montants.",
+    "Graphiques de solde hebdomadaires, mensuels et annuels avec synchronisation cloud entre appareils.",
+  ],
+
   learnings: [
-    "Développement mobile cross-platform avec le framework Flutter",
-    "Écosystème Firebase (Authentification, Firestore, Storage)",
-    "Gestion d'état avec le pattern Provider",
-    "Persistance locale des données avec Hive (base de données NoSQL)",
-    "Intégration de Google Sign-In",
-    "Visualisation de données avec Flutter Charts",
+    "Développement mobile cross-platform avec Flutter.",
+    "Firebase Authentication, Firestore et Storage.",
+    "Gestion d'état avec le pattern Provider.",
+    "Persistance locale avec la base NoSQL Hive.",
+    "Visualisation de données avec Flutter Charts.",
   ],
 
   deliverables: [
-    "Application Flutter complète pour iOS et Android",
-    "Authentification Email/Mot de passe + Google",
+    "Application Flutter pour iOS et Android",
+    "Authentification email/mot de passe et Google",
     "Mode invité avec stockage local",
-    "Gestion des transactions (revenus/dépenses)",
-    "Tableaux de bord interactifs avec graphiques",
+    "Gestion des revenus et dépenses",
+    "Graphiques interactifs hebdomadaires, mensuels et annuels",
     "Sauvegarde et synchronisation cloud",
     "Gestion du profil avec téléchargement d'image",
   ],
@@ -972,19 +685,7 @@ const financeTracker: InternshipProject = {
   screenshots: [
     {
       url: "/images/projects/finance-tracker/splash.webp",
-      caption: "Écran de démarrage (Login/Register/Invite)",
-      placeholder: false,
-      isMobile: true,
-    },
-    {
-      url: "/images/projects/finance-tracker/login.webp",
-      caption: "Interface d'authentification (Email + Google)",
-      placeholder: false,
-      isMobile: true,
-    },
-    {
-      url: "/images/projects/finance-tracker/register.webp",
-      caption: "Interface d'inscription",
+      caption: "Écran de démarrage (connexion, inscription, invité)",
       placeholder: false,
       isMobile: true,
     },
@@ -997,12 +698,6 @@ const financeTracker: InternshipProject = {
     {
       url: "/images/projects/finance-tracker/add-transaction.webp",
       caption: "Ajout d'une transaction",
-      placeholder: false,
-      isMobile: true,
-    },
-    {
-      url: "/images/projects/finance-tracker/stats-weekly.webp",
-      caption: "Statistiques hebdomadaires",
       placeholder: false,
       isMobile: true,
     },
@@ -1032,16 +727,16 @@ const pfaCloud: AcademicProject = {
   type: "academic",
   title: "Plateforme de Gestion de Projets et de Ressources",
   subtitle:
-    "Application full-stack avec déploiement cloud (SaaS + PaaS + IaaS) et Elastic Stack",
+    "Application full-stack déployée sur trois modèles cloud avec Elastic Stack",
   description:
-    "Première expérience de déploiement cloud utilisant 3 modèles (SaaS, PaaS, IaaS) avec Azure Cloud, Elasticsearch, Kibana et Jenkins CI/CD.",
-  longDescription: `Ma première expérience de déploiement cloud. Construction d'une application full-stack et déploiement utilisant TROIS modèles cloud dans un SEUL projet :
+    "PFA académique réalisé en binôme : une application de gestion de projets et de ressources déployée avec les modèles SaaS, PaaS et IaaS, Elasticsearch, Kibana et un pipeline Jenkins.",
+  longDescription: `Projet de fin d'année (PFA) réalisé en binôme à l'ISAMM. Nous avons développé une application full-stack de gestion de projets et de ressources, puis l'avons déployée avec trois modèles cloud dans le même projet :
 
-☁️ SaaS : Elastic Cloud (Elasticsearch + Kibana) - analytiques gérées
-☁️ PaaS : Azure App Service (backend Node.js) - auto-scaling
-☁️ IaaS : Azure VM (frontend React + Jenkins) - contrôle total
+☁️ SaaS : Elastic Cloud (Elasticsearch + Kibana) pour la recherche et les tableaux de bord
+☁️ PaaS : Azure App Service pour le backend Node.js
+☁️ IaaS : machine virtuelle Azure pour le frontend React et Jenkins
 
-Plus : Pipeline Jenkins CI/CD pour déploiement automatisé à chaque push.`,
+Un pipeline Jenkins redéploie le frontend après chaque push Git.`,
 
   technologies: [
     createTech("Azure Cloud", "cloud"),
@@ -1055,31 +750,40 @@ Plus : Pipeline Jenkins CI/CD pour déploiement automatisé à chaque push.`,
     createTech("Node.js", "backend"),
   ],
 
-  role: "Développeur Full-Stack & Architecte Cloud",
+  role: "Développeur Full-Stack — PFA (binôme)",
   period: "Fév 2023 - Mai 2023",
   company: "ISAMM",
   location: "Tunisie",
+  status: "PFA académique · 3 modèles cloud",
+  teamSize: 2,
   placeholder: false,
 
+  quickStats: [
+    { value: "3", label: "Modèles cloud" },
+    { value: "3", label: "Tableaux de bord Kibana" },
+    { value: "16", label: "Panneaux de dashboard" },
+    { value: "1", label: "Pipeline Jenkins" },
+  ],
+
   responsibilities: [
-    "Déploiement d'Elasticsearch + Kibana sur Elastic Cloud (SaaS) pour l'analytique en temps réel",
-    "Déploiement du backend Node.js sur Azure App Service (PaaS) avec auto-scaling",
-    "Déploiement du frontend React sur Azure VM avec Jenkins CI/CD (IaaS)",
-    "Configuration du pipeline Jenkins pour un déploiement automatisé à chaque push Git",
-    "Intégration d'Elasticsearch avec Node.js pour l'indexation et la recherche de données",
-    "Création de 3 tableaux de bord Kibana interactifs (Entreprise, Département, Projet)",
-    "Construction d'une application full-stack avec des opérations CRUD complètes",
+    "Déploiement d'Elasticsearch et Kibana sur Elastic Cloud (SaaS) pour la recherche et les tableaux de bord",
+    "Déploiement du backend Node.js sur Azure App Service (PaaS)",
+    "Déploiement du frontend React sur une machine virtuelle Azure avec Jenkins (IaaS)",
+    "Configuration d'un pipeline Jenkins pour redéployer le frontend à chaque push Git",
+    "Intégration d'Elasticsearch avec Node.js pour l'indexation et la recherche",
+    "Création de trois tableaux de bord Kibana : entreprise, département et projet",
+    "Développement de l'application full-stack avec les opérations CRUD complètes",
   ],
 
   results: [
-    "✅ Première expérience de déploiement cloud (Azure + Elastic Cloud)",
-    "✅ 3 modèles cloud dans un SEUL projet (SaaS + PaaS + IaaS)",
-    "✅ Pipeline CI/CD automatisé avec Jenkins",
-    "✅ 15+ visualisations en temps réel dans Kibana",
+    "Déploiement d'une application sur trois modèles cloud : SaaS, PaaS et IaaS.",
+    "Création de trois tableaux de bord Kibana — entreprise, département et projet — totalisant 16 panneaux.",
+    "Automatisation du redéploiement du frontend avec un pipeline Jenkins déclenché à chaque push Git.",
+    "Indexation des données de l'application dans Elasticsearch pour la recherche et les tableaux de bord.",
   ],
 
   keySkills: [
-    "Azure Cloud (App Service, VM)",
+    "Azure Cloud (App Service, machines virtuelles)",
     "Elastic Cloud (SaaS)",
     "Elasticsearch & Kibana",
     "Jenkins CI/CD",
@@ -1089,7 +793,7 @@ Plus : Pipeline Jenkins CI/CD pour déploiement automatisé à chaque push.`,
   screenshots: [
     {
       url: "/images/projects/pfa/architecture.webp",
-      caption: "Architecture Cloud Hybride (SaaS + PaaS + IaaS)",
+      caption: "Architecture cloud hybride (SaaS + PaaS + IaaS)",
       placeholder: false,
     },
     {
@@ -1099,52 +803,27 @@ Plus : Pipeline Jenkins CI/CD pour déploiement automatisé à chaque push.`,
     },
     {
       url: "/images/projects/pfa/user-list.webp",
-      caption: "Gestion des utilisateurs",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/pfa/add-user.webp",
-      caption: "Ajout d'un employé",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/pfa/edit-user.webp",
-      caption: "Modification d'un employé",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/pfa/delete-user.webp",
-      caption: "Suppression d'un employé",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/pfa/add-department.webp",
-      caption: "Ajout d'un département",
+      caption: "Gestion des employés",
       placeholder: false,
     },
     {
       url: "/images/projects/pfa/add-project.webp",
-      caption: "Ajout d'un projet",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/pfa/add-task.webp",
-      caption: "Ajout d'une tâche",
+      caption: "Création d'un projet",
       placeholder: false,
     },
     {
       url: "/images/projects/pfa/company-dashboard.webp",
-      caption: "Tableau de bord Entreprise (Kibana)",
+      caption: "Tableau de bord entreprise (Kibana)",
       placeholder: false,
     },
     {
       url: "/images/projects/pfa/department-dashboard.webp",
-      caption: "Tableau de bord Département (Kibana)",
+      caption: "Tableau de bord département (Kibana)",
       placeholder: false,
     },
     {
       url: "/images/projects/pfa/project-dashboard.webp",
-      caption: "Tableau de bord Projet (Kibana)",
+      caption: "Tableau de bord projet (Kibana)",
       placeholder: false,
     },
   ],
@@ -1156,19 +835,19 @@ const easyPlant: InternshipProject = {
   type: "internship",
   title: "Application de Gestion de Pépinière Agricole",
   subtitle:
-    "Module de gestion de production, livraisons et statistiques avec Power BI",
+    "Module de production, livraisons et reporting pour une pépinière agricole",
   description:
-    "Développement d'un module web pour la gestion de production, des plannings, des livraisons et des stocks d'une pépinière agricole, avec tableaux de bord Power BI.",
-  longDescription: `**Problématique :** La pépinière gérait ses activités (commandes, productions, plannings, livraisons) avec des fichiers Excel et des fiches manuscrites, causant une absence de vision globale, des problèmes de planification, et un traitement lent des données.
+    "Module web couvrant la production, les plannings, les livraisons et les stocks d'une pépinière agricole, avec des tableaux de bord Power BI pour les décisions quotidiennes.",
+  longDescription: `**Problématique :** La pépinière gérait ses commandes, productions, plannings et livraisons avec des fichiers Excel et des fiches manuscrites, sans vision globale, avec des difficultés de planification et un traitement lent des données.
 
-**Solution :** Développement d'une application web avec ASP.NET MVC 5 (C#), SQL Server, Entity Framework (Database First), Bootstrap, jQuery, et Power BI pour :
-- Gestion des productions (lancement, greffage, porte-greffe, comptages planifiés/aléatoires, clôture)
-- Gestion des plannings (consultation avec filtres, validation des tâches)
-- Gestion des livraisons (validation, historique, suivi des supports chez les clients)
-- Suivi des stocks (semences clients, semences pépinière, supports)
-- Tableaux de bord Power BI (capacité production, productivité, top clients, top variétés)
+**Solution :** Une application web développée avec ASP.NET MVC 5 (C#), SQL Server, Entity Framework (Database First), Bootstrap, jQuery et Power BI, couvrant :
+- La gestion des productions (lancement, greffage, porte-greffe, comptages planifiés et aléatoires, clôture)
+- La gestion des plannings avec filtres et validation des tâches
+- La gestion des livraisons avec validation, historique et suivi des supports chez les clients
+- Le suivi des stocks de semences clients, semences pépinière et supports
+- Des tableaux de bord Power BI (capacité de production, productivité, top clients, top variétés)
 
-**Méthodologie :** Projet développé avec la méthode agile Scrum sur 3 sprints (3 mois).`,
+**Méthodologie :** Agile Scrum sur trois sprints.`,
 
   technologies: [
     createTech("ASP.NET MVC 5", "backend"),
@@ -1180,131 +859,111 @@ const easyPlant: InternshipProject = {
     createTech("jQuery", "frontend"),
   ],
 
-  role: "Développeur Full-Stack - Projet de Fin d'Études",
+  role: "Développeur Full-Stack — Stage PFE",
   period: "Mars 2021 - Juin 2021",
-  company: "EASY Technology",
+  company: "Easy Computers & Technologies",
   location: "Tunis, Tunisie",
+  status: "3 sprints livrés",
   placeholder: false,
   imageUrl: "/images/projects/easyplant/login.webp",
 
+  quickStats: [
+    { value: "3", label: "Sprints Scrum" },
+    { value: "5", label: "Domaines fonctionnels" },
+    { value: "1", label: "Pépinière cliente" },
+    { value: "Power BI", label: "Couche de reporting" },
+  ],
+
   mission:
-    "Moderniser la gestion d'une pépinière agricole en remplaçant les fichiers Excel et fiches manuscrites par une application web centralisée pour la production, les livraisons, les plannings et les stocks.",
+    "Moderniser la gestion de la pépinière en remplaçant les fichiers Excel et fiches manuscrites par une application web unique pour la production, les livraisons, les plannings et les stocks.",
 
   tasks: [
     {
       title: "Gestion de production",
       description:
-        "Développement d'un système complet de suivi de production : lancement, greffage, porte-greffe, comptages planifiés et aléatoires. Implémentation d'un filtrage dynamique (période, type de tâche, mot-clé) pour une planification efficace.",
+        "Développement du suivi de production : lancement, greffage, porte-greffe, comptages planifiés et aléatoires, avec filtrage dynamique par période, type de tâche et mot-clé.",
       technologies: ["ASP.NET MVC", "C#", "SQL Server", "jQuery"],
     },
     {
-      title: "Planification et monitoring",
+      title: "Planification et suivi",
       description:
-        "Création de tableaux de bord de planning pour chef d'équipe et responsable avec validation des tâches. Ajout d'un filtrage par date et type de tâche pour une meilleure visibilité.",
+        "Création de vues de planning pour les chefs d'équipe et les responsables avec validation des tâches, et filtrage par date et type de tâche.",
       technologies: ["ASP.NET MVC", "C#", "SQL Server"],
     },
     {
       title: "Gestion des livraisons",
       description:
-        "Implémentation d'un workflow complet de livraison : liste des commandes en attente, validation avec saisie des données, historique des livraisons, suivi des supports clients, et validation de réception.",
+        "Implémentation du workflow de livraison : commandes en attente, validation avec saisie, historique, suivi des supports clients et validation de réception.",
       technologies: ["ASP.NET MVC", "C#", "Entity Framework"],
     },
     {
       title: "Tableaux de bord Power BI",
       description:
-        "Création de tableaux de bord interactifs avec KPIs : capacité de production, matrice de productivité par chef d'équipe, évolution du chiffre d'affaires, top 5 produits et top 5 clients. Intégrés directement dans l'application web.",
+        "Création de tableaux de bord pour la capacité de production, la productivité des chefs d'équipe, l'évolution du chiffre d'affaires, le top 5 produits et le top 5 clients, intégrés à l'application web.",
       technologies: ["Power BI", "DAX", "SQL Server"],
     },
   ],
 
+  results: [
+    "Module livré en trois sprints Scrum.",
+    "Couverture de la production, des plannings, des livraisons, des stocks et du reporting dans une seule application web.",
+    "Remplacement des fichiers Excel et fiches manuscrites par une base SQL Server centralisée.",
+    "Tableaux de bord Power BI pour la capacité de production, la productivité, le top produits et le top clients.",
+  ],
+
   learnings: [
-    "Méthodologie agile Scrum (planification, sprints, backlog)",
-    "Framework ASP.NET MVC 5 et Entity Framework (Database First)",
-    "Création de tableaux de bord interactifs avec Power BI (KPIs, jauges, graphiques)",
-    "Gestion de projet en environnement professionnel",
+    "Agile Scrum : planification des sprints, backlog et livraison.",
+    "ASP.NET MVC 5 et Entity Framework (Database First).",
+    "Tableaux de bord Power BI interactifs avec KPIs, jauges et graphiques.",
+    "Travail direct avec l'équipe opérationnelle d'un client.",
   ],
 
   deliverables: [
-    "3 sprints livrés (production, livraisons, stocks/statistiques)",
-    "Application web complète avec interfaces planning, production, livraison",
-    "Tableaux de bord Power BI intégrés (capacité production, top 5 variétés, top 5 clients, productivité chefs d'équipe)",
+    "Trois sprints livrés (production, livraisons, stocks et reporting)",
+    "Application web avec les interfaces planning, production, livraison et stock",
+    "Tableaux de bord Power BI (capacité, productivité, top produits, top clients)",
     "Base de données SQL Server centralisée",
   ],
 
   screenshots: [
     {
       url: "/images/projects/easyplant/planning-chef.webp",
-      caption: "Planning pour chef d'équipe (filtrage temps/type)",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/easyplant/planning-responsable.webp",
-      caption: "Planning pour responsable",
+      caption: "Planning chef d'équipe avec filtres",
       placeholder: false,
     },
     {
       url: "/images/projects/easyplant/lancement-production.webp",
-      caption: "Interface lancement production",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/easyplant/valider-comptage.webp",
-      caption: "Interface validation comptage",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/easyplant/ajouter-comptage.webp",
-      caption: "Interface ajout comptage aléatoire",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/easyplant/avancement-production.webp",
-      caption: "Interface avancement production",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/easyplant/login.webp",
-      caption: "Interface authentification",
+      caption: "Lancement de production",
       placeholder: false,
     },
     {
       url: "/images/projects/easyplant/livraisons.webp",
-      caption: "Interface commandes à livrer",
+      caption: "Commandes à livrer",
       placeholder: false,
     },
     {
       url: "/images/projects/easyplant/valider-livraison.webp",
-      caption: "Interface validation livraison",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/easyplant/historiques-livraison.webp",
-      caption: "Interface historique livraisons",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/easyplant/supports-clients.webp",
-      caption: "Interface supports chez clients",
+      caption: "Validation de livraison",
       placeholder: false,
     },
     {
       url: "/images/projects/easyplant/stock-supports.webp",
-      caption: "Interface stock supports",
+      caption: "Stock des supports",
       placeholder: false,
     },
     {
       url: "/images/projects/easyplant/stock-semences.webp",
-      caption: "Interface stock semences",
+      caption: "Stock des semences",
       placeholder: false,
     },
     {
       url: "/images/projects/easyplant/dashboard-powerbi-p1.webp",
-      caption: "Tableaux de bord Power BI partie 1",
+      caption: "Tableaux de bord Power BI, partie 1",
       placeholder: false,
     },
     {
       url: "/images/projects/easyplant/dashboard-powerbi-p2.webp",
-      caption: "Tableaux de bord Power BI partie 2",
+      caption: "Tableaux de bord Power BI, partie 2",
       placeholder: false,
     },
   ],
@@ -1317,16 +976,18 @@ const devnetPortal: InternshipProject = {
   subtitle:
     "Gestion centralisée des secteurs, domaines et entreprises publiques",
   description:
-    "Remplaçant un système Excel fragmenté, ce portail web centralise la gestion des données du secteur public avec contrôle d'accès Admin/Agent.",
-  longDescription: `**Problématique :** L'entreprise gérait ses données sur Excel avec des fichiers dupliqués et des informations non à jour, causant une absence de vision globale et des risques d'erreur.
+    "Portail du secteur public remplaçant des fichiers Excel fragmentés par une source de vérité MySQL unique, deux rôles d'accès et des tableaux de bord statistiques.",
+  longDescription: `**Contexte :** Stage de perfectionnement de deux mois chez DEVNET, réalisé en groupe.
 
-**Solution :** Développement d'un portail web avec October CMS (Laravel) permettant :
+**Problématique :** Les données étaient réparties dans des fichiers Excel dupliqués et obsolètes, sans vision globale et avec un risque d'erreur réel.
+
+**Solution :** Un portail web développé avec October CMS (Laravel), offrant :
 - Une base de données MySQL centralisée
-- Deux niveaux d'accès (Admin: accès total / Agent: gestion limitée)
-- Des tableaux de bord statistiques en temps réel
-- Une interface utilisateur intuitive pour la gestion CRUD
+- Deux niveaux d'accès : Administrateur (accès complet) et Agent (gestion limitée)
+- Des tableaux de bord statistiques
+- Une interface simple pour la gestion CRUD
 
-**Résultat :** Une solution fiable, centralisée et facile à maintenir, remplaçant complètement l'ancien système Excel.`,
+**Résultat :** Un portail fiable et centralisé, qui remplace complètement les fichiers Excel.`,
 
   technologies: [
     createTech("October CMS", "backend"),
@@ -1336,12 +997,65 @@ const devnetPortal: InternshipProject = {
     createTech("Power AMC", "design"),
   ],
 
-  role: "Développeur Web - Stagiaire",
+  role: "Développeur Web — Stagiaire",
   period: "Jan 2020 - Fév 2020",
   company: "DEVNET",
   location: "Tunis, Tunisie",
+  status: "Projet de groupe",
   placeholder: false,
   imageUrl: "/images/projects/devnet/admin-dashboard.webp",
+
+  quickStats: [
+    { value: "9", label: "Interfaces" },
+    { value: "2", label: "Rôles d'accès" },
+    { value: "2", label: "Tableaux de bord" },
+    { value: "1", label: "Base centralisée" },
+  ],
+
+  mission:
+    "Remplacer une gestion Excel fragmentée par un portail web centralisé avec contrôle d'accès et tableaux de bord.",
+
+  tasks: [
+    {
+      title: "Migration Excel vers base de données",
+      description:
+        "Analyse des fichiers existants et conception d'une base de données MySQL centralisée.",
+      technologies: ["MySQL", "Power AMC", "UML"],
+    },
+    {
+      title: "Développement du portail",
+      description:
+        "Création d'un thème personnalisé et développement des modules CRUD sous October CMS.",
+      technologies: ["October CMS", "Laravel", "PHP", "Twig"],
+    },
+    {
+      title: "Contrôle d'accès",
+      description:
+        "Mise en place de deux profils : Administrateur avec accès complet et Agent avec gestion limitée.",
+      technologies: ["Laravel Auth", "Session Management"],
+    },
+  ],
+
+  results: [
+    "Remplacement des fichiers Excel dupliqués par une base MySQL centralisée.",
+    "Livraison de neuf interfaces couvrant l'authentification, les tableaux de bord et la gestion CRUD.",
+    "Mise en place de deux niveaux d'accès : Administrateur (accès complet) et Agent (gestion limitée).",
+    "Création des tableaux de bord Admin et Agent pour les statistiques des secteurs, domaines et entreprises publiques.",
+  ],
+
+  learnings: [
+    "Première expérience professionnelle en entreprise.",
+    "October CMS et le framework Laravel.",
+    "Centralisation et migration de données depuis des tableurs.",
+    "Travail en groupe avec des délais et une hiérarchie administrative.",
+  ],
+
+  deliverables: [
+    "Portail web avec neuf interfaces",
+    "Base de données MySQL centralisée",
+    "Deux tableaux de bord (Admin et Agent)",
+    "Documentation utilisateur",
+  ],
 
   screenshots: [
     {
@@ -1360,68 +1074,20 @@ const devnetPortal: InternshipProject = {
       placeholder: false,
     },
     {
-      url: "/images/projects/devnet/user-management.webp",
-      caption: "Gestion des utilisateurs",
-      placeholder: false,
-    },
-    {
       url: "/images/projects/devnet/enterprise-management.webp",
       caption: "Gestion des entreprises publiques",
       placeholder: false,
     },
     {
       url: "/images/projects/devnet/add-enterprise.webp",
-      caption: "Formulaire d'ajout d'une entreprise",
+      caption: "Formulaire d'ajout d'entreprise",
       placeholder: false,
     },
     {
-      url: "/images/projects/devnet/edit-enterprise.webp",
-      caption: "Modification d'une entreprise",
+      url: "/images/projects/devnet/user-management.webp",
+      caption: "Gestion des utilisateurs",
       placeholder: false,
     },
-    {
-      url: "/images/projects/devnet/single-delete.webp",
-      caption: "Suppression d'une entreprise",
-      placeholder: false,
-    },
-  ],
-
-  mission:
-    "Remplacer la gestion Excel fragmentée par un portail web centralisé avec contrôle d'accès et tableaux de bord.",
-
-  tasks: [
-    {
-      title: "Migration Excel → Base de données",
-      description:
-        "Analyse du système existant et conception d'une base de données MySQL centralisée",
-      technologies: ["MySQL", "Power AMC", "UML"],
-    },
-    {
-      title: "Développement du portail",
-      description:
-        "Création d'un thème personnalisé et développement des modules CRUD sous October CMS",
-      technologies: ["October CMS", "Laravel", "PHP", "Twig"],
-    },
-    {
-      title: "Contrôle d'accès",
-      description:
-        "Implémentation de deux profils: Administrateur (accès complet) et Agent (gestion limitée)",
-      technologies: ["Laravel Auth", "Session Management"],
-    },
-  ],
-
-  learnings: [
-    "Première expérience professionnelle en environnement d'entreprise",
-    "Maîtrise d'October CMS et du framework Laravel",
-    "Compréhension des enjeux de la centralisation des données",
-    "Gestion de projet et respect des délais",
-  ],
-
-  deliverables: [
-    "Portail web complet (9 interfaces)",
-    "Base de données MySQL centralisée",
-    "2 tableaux de bord (Admin + Agent)",
-    "Documentation utilisateur",
   ],
 };
 
@@ -1429,19 +1095,20 @@ const sccGlobal: InternshipProject = {
   id: "scc-global",
   type: "internship",
   title: "Application Web de Gestion de Matériel",
-  subtitle:
-    "Application web pour la gestion d'inventaire et réservation de matériel informatique",
+  subtitle: "Suivi d'inventaire et réservation de matériel informatique",
   description:
-    "Remplacement du suivi Excel fragmenté par une application web avec gestion d'inventaire, réservation de matériel et accès basé sur les rôles (Admin/Agent).",
-  longDescription: `**Problématique :** L'entreprise gérait son inventaire de matériel informatique sur Excel avec saisie manuelle, causant un manque de visibilité globale et des problèmes de fiabilité des informations.
+    "Stage d'initiation d'un mois : application web pour suivre le matériel informatique et les réservations, en remplacement d'Excel par une base MySQL centralisée.",
+  longDescription: `**Contexte :** Stage d'initiation d'un mois chez SCC Global, avec une méthode de développement classique plutôt que Scrum.
 
-**Solution :** Développement d'une application web avec Spring Boot (backend) et Angular (frontend) permettant :
-- Une base de données MySQL centralisée pour le suivi du matériel
-- Deux niveaux d'accès (Admin: gestion complète / Agent: consultation et réservation)
-- Consultation des détails, liste et suppression du matériel
-- Système de réservation pour le matériel disponible
+**Problématique :** Le matériel informatique était suivi dans Excel avec une saisie manuelle, sans vision fiable des disponibilités.
 
-**Résultat :** Une solution fiable et centralisée remplaçant la gestion Excel manuelle, avec suivi en temps réel de la disponibilité du matériel.`,
+**Solution :** Une application web développée avec Spring Boot et Angular, offrant :
+- Une base MySQL centralisée pour le suivi du matériel
+- Deux niveaux d'accès : Admin (gestion complète) et Agent (consultation et réservation)
+- La liste, les détails et la suppression du matériel
+- Un parcours de réservation du matériel disponible
+
+**Résultat :** Un remplacement centralisé du suivi Excel manuel.`,
 
   technologies: [
     createTech("Spring Boot", "backend"),
@@ -1452,53 +1119,67 @@ const sccGlobal: InternshipProject = {
     createTech("HTML/CSS", "frontend"),
   ],
 
-  role: "Développeur Web - Stagiaire",
-  period: "Fév 2021 - Mars 2021",
+  role: "Développeur Web — Stagiaire",
+  period: "Fév 2021",
   company: "SCC Global",
   location: "Béja, Tunisie",
+  status: "Stage d'initiation d'un mois",
   placeholder: false,
   imageUrl: "/images/projects/sccglobal/login.webp",
 
+  quickStats: [
+    { value: "1", label: "Mois" },
+    { value: "7", label: "Interfaces" },
+    { value: "2", label: "Rôles d'accès" },
+    { value: "1", label: "Parcours de réservation" },
+  ],
+
   mission:
-    "Remplacer la gestion Excel fragmentée par une application web centralisée pour le suivi du matériel informatique et la gestion des réservations.",
+    "Remplacer une gestion de matériel fragmentée sous Excel par une application web centralisée pour le suivi du matériel informatique et la gestion des réservations.",
 
   tasks: [
     {
-      title: "Développement Backend",
+      title: "Développement backend",
       description:
-        "Création d'une API REST avec Spring Boot pour la gestion du matériel et des utilisateurs",
+        "Création d'une API REST avec Spring Boot pour la gestion du matériel et des utilisateurs.",
       technologies: ["Spring Boot", "Java", "MySQL"],
     },
     {
-      title: "Développement Frontend",
+      title: "Développement frontend",
       description:
-        "Création d'une interface responsive avec Angular pour la liste et les détails du matériel",
+        "Création d'une interface Angular responsive pour la liste et les détails du matériel.",
       technologies: ["Angular", "TypeScript", "HTML/CSS"],
     },
     {
-      title: "Système de Réservation",
+      title: "Système de réservation",
       description:
-        "Implémentation de la fonctionnalité de réservation de matériel pour les agents",
+        "Implémentation de la réservation de matériel pour les agents.",
       technologies: ["Spring Boot", "Angular", "MySQL"],
     },
     {
-      title: "Contrôle d'accès",
+      title: "Accès basé sur les rôles",
       description:
-        "Implémentation de deux rôles utilisateurs: Admin (CRUD complet) et Agent (consultation + réservation)",
+        "Mise en place de deux rôles : Admin avec CRUD complet et Agent avec consultation et réservation.",
       technologies: ["Spring Security", "JWT"],
     },
   ],
 
+  results: [
+    "Application livrée dans le cadre d'un stage d'initiation d'un mois.",
+    "Remplacement du suivi Excel par une base MySQL centralisée.",
+    "Sept interfaces pour la liste, les détails, la réservation et l'administration du matériel.",
+    "Deux rôles, Admin et Agent, avec Spring Security et JWT.",
+  ],
+
   learnings: [
-    "Première expérience avec Spring Boot et Angular",
-    "Compréhension du développement d'API REST",
-    "Conception de base de données MySQL",
-    "Implémentation du contrôle d'accès basé sur les rôles",
-    "Intégration frontend-backend",
+    "Première expérience avec Spring Boot et Angular.",
+    "Développement d'API REST et intégration frontend-backend.",
+    "Conception de base de données MySQL.",
+    "Contrôle d'accès basé sur les rôles.",
   ],
 
   deliverables: [
-    "Application web complète avec 7+ interfaces",
+    "Application web avec sept interfaces",
     "Base de données MySQL centralisée",
     "Système de réservation de matériel",
     "Tableaux de bord Admin et Agent",
@@ -1512,12 +1193,7 @@ const sccGlobal: InternshipProject = {
     },
     {
       url: "/images/projects/sccglobal/agent-dashboard.webp",
-      caption: "Tableau de bord Agent - Liste du matériel",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/sccglobal/admin-dashboard.webp",
-      caption: "Tableau de bord Admin - Gestion utilisateurs",
+      caption: "Tableau de bord Agent — liste du matériel",
       placeholder: false,
     },
     {
@@ -1528,11 +1204,6 @@ const sccGlobal: InternshipProject = {
     {
       url: "/images/projects/sccglobal/equipment-list.webp",
       caption: "Gestion du matériel (Admin)",
-      placeholder: false,
-    },
-    {
-      url: "/images/projects/sccglobal/delete-equipment.webp",
-      caption: "Confirmation de suppression",
       placeholder: false,
     },
     {

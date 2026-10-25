@@ -50,6 +50,7 @@
     "viewGithub": "Voir sur GitHub",
     "viewSite": "Voir le site",
     "viewDetails": "Voir les détails",
+    "viewCaseStudy": "Voir l'étude de cas",
     "placeholder": "Placeholder - Photo à venir",
     "noProjects": "Aucun projet trouvé dans cette catégorie",
     "type": {
@@ -135,7 +136,17 @@
     "mobileScreenshots": "Captures de l'application mobile",
     "whatIDid": "Ce que j'ai fait",
     "whatILearned": "Ce que j'ai appris",
-    "swipeToSee": "Glisser pour voir plus"
+    "swipeToSee": "Glisser pour voir plus",
+    "overview": "Vue d'ensemble",
+    "context": "Contexte",
+    "gallery": "Galerie",
+    "status": "Statut",
+    "team": "Équipe",
+    "solo": "Solo",
+    "previousProject": "Projet précédent",
+    "nextProject": "Projet suivant",
+    "discussProject": "Discuter de ce projet",
+    "caseStudySections": "Sections de l'étude de cas"
   },
   "skills": {
     "title": "Compétences",

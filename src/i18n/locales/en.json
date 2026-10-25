@@ -50,6 +50,7 @@
     "viewGithub": "View on GitHub",
     "viewSite": "View Site",
     "viewDetails": "View Details",
+    "viewCaseStudy": "View case study",
     "placeholder": "Placeholder - Photo coming soon",
     "noProjects": "No projects found in this category",
     "type": {
@@ -135,7 +136,17 @@
     "mobileScreenshots": "Mobile Application Screenshots",
     "whatIDid": "What I Did",
     "whatILearned": "What I Learned",
-    "swipeToSee": "Swipe to see more"
+    "swipeToSee": "Swipe to see more",
+    "overview": "Overview",
+    "context": "Context",
+    "gallery": "Gallery",
+    "status": "Status",
+    "team": "Team",
+    "solo": "Solo",
+    "previousProject": "Previous project",
+    "nextProject": "Next project",
+    "discussProject": "Discuss this project",
+    "caseStudySections": "Case study sections"
   },
   "skills": {
     "title": "Skills",

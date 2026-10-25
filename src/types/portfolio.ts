@@ -107,6 +107,14 @@ interface BaseProject {
   imageUrl?: string;
   placeholder: boolean;
   screenshots?: ProjectScreenshot[];
+  /** Short, factual delivery status shown in the case-study header. */
+  status?: string;
+  /** Scope metrics only — never invented business numbers. */
+  quickStats?: {
+    value: string;
+    label: string;
+  }[];
+  teamSize?: number;
 }
 
 /** Work experience projects. */
@@ -118,12 +126,7 @@ export interface ProfessionalProject extends BaseProject {
     action: string;
     result: string;
   };
-  quickStats?: {
-    value: string;
-    label: string;
-  }[];
   achievements: string[];
-  teamSize?: number;
   architecture?: {
     type: string;
     description: string;
@@ -163,6 +166,7 @@ export interface InternshipProject extends BaseProject {
   }[];
   learnings: string[];
   deliverables: string[];
+  results?: string[];
   evaluation?: string;
 }
 

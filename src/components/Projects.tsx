@@ -1,5 +1,5 @@
 // src/components/Projects.tsx
-import React, { lazy, Suspense, useState } from "react";
+import React, { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { TFunction } from "i18next";
 import { useTheme } from "../context/ThemeContext";
@@ -20,8 +20,18 @@ const Projects: React.FC = () => {
   const { projects } = usePortfolioData();
   const { t } = useTranslation();
   const { theme } = useTheme();
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(
+    null,
+  );
   const [filterCategory, setFilterCategory] = useState<string>("all");
+
+  // Resolve the open project from the current locale data so the case study
+  // switches language with the rest of the page instead of holding a stale
+  // object reference.
+  const selectedProject = useMemo(
+    () => projects.find((project) => project.id === selectedProjectId) ?? null,
+    [projects, selectedProjectId],
+  );
 
   const categories = [
     { key: "all", label: t("projects.filter.all"), icon: "🎯" },
@@ -41,6 +51,41 @@ const Projects: React.FC = () => {
   };
 
   const filteredProjects = getProjectsByCategory();
+
+  const openProject = (project: Project) => {
+    setSelectedProjectId(project.id);
+    if (typeof window !== "undefined") {
+      window.history.replaceState(null, "", `#project=${project.id}`);
+    }
+  };
+
+  const closeProject = () => {
+    setSelectedProjectId(null);
+    if (
+      typeof window !== "undefined" &&
+      window.location.hash.startsWith("#project=")
+    ) {
+      window.history.replaceState(
+        null,
+        "",
+        `${window.location.pathname}${window.location.search}`,
+      );
+    }
+  };
+
+  // Allow a case study to be shared, pasted or reopened from a direct link.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const syncFromHash = () => {
+      const match = /^#project=(.+)$/.exec(window.location.hash);
+      setSelectedProjectId(match ? decodeURIComponent(match[1]) : null);
+    };
+
+    syncFromHash();
+    window.addEventListener("hashchange", syncFromHash);
+    return () => window.removeEventListener("hashchange", syncFromHash);
+  }, []);
 
   return (
     <section
@@ -101,7 +146,7 @@ const Projects: React.FC = () => {
               key={project.id}
               project={project}
               index={index}
-              onClick={() => setSelectedProject(project)}
+              onClick={() => openProject(project)}
               theme={theme}
               t={t}
             />
@@ -138,7 +183,9 @@ const Projects: React.FC = () => {
         <Suspense fallback={null}>
           <ProjectDetail
             project={selectedProject}
-            onClose={() => setSelectedProject(null)}
+            projects={projects}
+            onClose={closeProject}
+            onNavigate={openProject}
           />
         </Suspense>
       )}
@@ -252,11 +299,20 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
   return (
     <div
+      role="button"
+      tabIndex={0}
+      aria-label={`${t("projects.viewCaseStudy")} — ${project.title}`}
       onClick={onClick}
-      className={`group relative rounded-2xl overflow-hidden border transition-all duration-300 cursor-pointer hover:-translate-y-2 ${
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onClick();
+        }
+      }}
+      className={`group relative rounded-2xl overflow-hidden border transition-all duration-300 cursor-pointer hover:-translate-y-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${
         theme === "dark"
-          ? "bg-gray-800/80 backdrop-blur-sm border-gray-700 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/10"
-          : "bg-white border-gray-200 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/10 shadow-sm"
+          ? "bg-gray-800/80 backdrop-blur-sm border-gray-700 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/10 focus-visible:ring-offset-gray-950"
+          : "bg-white border-gray-200 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/10 shadow-sm focus-visible:ring-offset-gray-50"
       }`}
       style={{ animationDelay: `${index * 100}ms` }}
     >
@@ -394,7 +450,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         ></div>
 
         {/* View button */}
-        <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="absolute top-3 right-3 opacity-100 transition-opacity duration-300 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100">
           <div className="w-10 h-10 rounded-full bg-blue-500/90 flex items-center justify-center backdrop-blur-sm">
             <svg
               className="w-5 h-5 text-white"
@@ -476,18 +532,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             </span>
           )}
         </div>{" "}
-        <button
-          type="button"
-          onClick={onClick}
-          className={`flex items-center gap-1.5 text-xs font-medium ${
+        <span
+          className={`inline-flex items-center gap-1.5 text-xs font-medium ${
             theme === "dark" ? "text-blue-400" : "text-blue-600"
-          } opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded transition-opacity duration-300`}
+          }`}
         >
-          <span>{t("projects.viewDetails")}</span>
+          <span>{t("projects.viewCaseStudy")}</span>
           <span className="sr-only"> — {project.title}</span>
           <svg
             aria-hidden="true"
-            className="w-3 h-3"
+            className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-0.5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -499,7 +553,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               d="M9 5l7 7-7 7"
             />
           </svg>
-        </button>
+        </span>
       </div>
     </div>
   );
