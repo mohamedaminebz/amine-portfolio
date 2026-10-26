@@ -1,10 +1,27 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import {
+  FiArrowUpRight,
+  FiBriefcase,
+  FiCheck,
+  FiClock,
+  FiCopy,
+  FiGithub,
+  FiLinkedin,
+  FiMail,
+  FiMapPin,
+  FiPhone,
+  FiSend,
+  FiZap,
+} from "react-icons/fi";
 import { z } from "zod";
-import { useTheme } from "../context/ThemeContext";
+import { useLocalTime } from "../hooks/useLocalTime";
 import { usePortfolioData } from "../hooks/usePortfolioData";
+import { copyToClipboard } from "../lib/clipboard";
+import { Reveal } from "./ui/Reveal";
+import { SectionHeading } from "./ui/SectionHeading";
 
 const contactSchema = z.object({
   name: z.string().trim().min(2),
@@ -13,33 +30,59 @@ const contactSchema = z.object({
   message: z.string().trim().min(10),
 });
 
-type ContactFormValues = z.infer<typeof contactSchema>;
+type ContactValues = z.infer<typeof contactSchema>;
 type SubmitStatus = "idle" | "success" | "error";
 
 const CONTACT_ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT as
-  string | undefined;
+  | string
+  | undefined;
 
-const Contact: React.FC = () => {
-  const { t } = useTranslation();
-  const { theme } = useTheme();
+export const Contact = () => {
+  const { t, i18n } = useTranslation();
   const { personalInfo, socialLinks } = usePortfolioData();
+  const localTime = useLocalTime("Africa/Tunis", i18n.language);
+
   const [status, setStatus] = useState<SubmitStatus>("idle");
+  const [copied, setCopied] = useState(false);
+  const [intent, setIntent] = useState<number | null>(null);
+  const copiedTimer = useRef<number | null>(null);
+
+  const intents = t("v21.contact.intents", { returnObjects: true }) as string[];
 
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors, isSubmitting },
-  } = useForm<ContactFormValues>({
+  } = useForm<ContactValues>({
     resolver: zodResolver(contactSchema),
     defaultValues: { name: "", email: "", subject: "", message: "" },
   });
 
-  const onSubmit = async (values: ContactFormValues) => {
+  useEffect(
+    () => () => {
+      if (copiedTimer.current) window.clearTimeout(copiedTimer.current);
+    },
+    [],
+  );
+
+  const handleCopy = async () => {
+    const success = await copyToClipboard(personalInfo.email);
+    if (!success) return;
+    setCopied(true);
+    if (copiedTimer.current) window.clearTimeout(copiedTimer.current);
+    copiedTimer.current = window.setTimeout(() => setCopied(false), 2200);
+  };
+
+  const handleIntent = (index: number, label: string) => {
+    setIntent(index);
+    setValue("subject", label, { shouldValidate: true, shouldDirty: true });
+  };
+
+  const onSubmit = async (values: ContactValues) => {
     setStatus("idle");
 
-    // No backend configured: fall back to a pre-filled email so the form
-    // still does something useful instead of pretending to send.
     if (!CONTACT_ENDPOINT) {
       const body = `${values.message}\n\n—\n${values.name} (${values.email})`;
       window.location.href = `mailto:${personalInfo.email}?subject=${encodeURIComponent(
@@ -47,6 +90,7 @@ const Contact: React.FC = () => {
       )}&body=${encodeURIComponent(body)}`;
       setStatus("success");
       reset();
+      setIntent(null);
       return;
     }
 
@@ -64,442 +108,383 @@ const Contact: React.FC = () => {
 
       setStatus("success");
       reset();
+      setIntent(null);
     } catch {
       setStatus("error");
     }
   };
 
   const inputClasses = (hasError: boolean) =>
-    `w-full px-4 py-3 rounded-xl border transition-all outline-none ${
-      theme === "dark"
-        ? "bg-gray-700/50 text-white placeholder-gray-500"
-        : "bg-gray-50 text-gray-900 placeholder-gray-400"
-    } ${
+    `w-full rounded-xl border bg-canvas/60 px-3.5 py-3 text-sm text-ink outline-none transition-colors placeholder:text-muted/60 ${
       hasError
-        ? "border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20"
-        : theme === "dark"
-          ? "border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
-          : "border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+        ? "border-red-500/70 focus:border-red-500"
+        : "border-line focus:border-acid"
     }`;
 
-  const labelClasses = `block mb-2 text-sm ${
-    theme === "dark" ? "text-gray-400" : "text-gray-600"
-  }`;
+  const labelClasses =
+    "mb-1.5 block font-mono text-[8px] uppercase tracking-[0.14em] text-muted";
 
-  const errorClasses = "mt-1 text-xs text-red-400";
+  const contactRows = [
+    {
+      label: t("v21.contact.emailLabel"),
+      value: personalInfo.email,
+      href: `mailto:${personalInfo.email}`,
+      icon: FiMail,
+    },
+    {
+      label: t("v21.contact.phoneLabel"),
+      value: personalInfo.phone,
+      href: `tel:${personalInfo.phone}`,
+      icon: FiPhone,
+    },
+    {
+      label: t("v21.contact.locationLabel"),
+      value: personalInfo.location,
+      icon: FiMapPin,
+    },
+    {
+      label: t("v21.contact.timeLabel"),
+      value: `${localTime} · GMT+1`,
+      icon: FiClock,
+    },
+  ];
 
   return (
-    <section
-      id="contact"
-      className={`py-24 relative overflow-hidden ${
-        theme === "dark" ? "bg-gray-900" : "bg-gray-50"
-      }`}
-    >
-      {/* Background decoration */}
-      <div className="absolute inset-0" aria-hidden="true">
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
-        <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
-      </div>
+    <section id="contact" className="section-shell relative overflow-hidden border-t border-line">
+      <div
+        className="pointer-events-none absolute -left-40 top-20 h-[420px] w-[420px] rounded-full bg-acid-soft blur-[130px]"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute -right-32 bottom-0 h-[360px] w-[360px] rounded-full bg-acid-soft blur-[120px]"
+        aria-hidden="true"
+      />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <span
-            className={`inline-block px-4 py-2 rounded-full text-sm font-medium mb-6 ${
-              theme === "dark"
-                ? "bg-blue-500/20 text-blue-400"
-                : "bg-blue-100 text-blue-700"
-            }`}
-          >
-            {t("contact.subtitle")}
-          </span>
-          <h2
-            className={`text-4xl md:text-5xl font-bold mb-4 ${
-              theme === "dark" ? "text-white" : "text-gray-900"
-            }`}
-          >
-            {t("contact.title1")}{" "}
-            <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-              {t("contact.title2")}
-            </span>
-          </h2>
-          <p
-            className={`text-lg max-w-2xl mx-auto ${
-              theme === "dark" ? "text-gray-400" : "text-gray-600"
-            }`}
-          >
-            {t("contact.description")}
-          </p>
-        </div>
+      <div className="wrap relative">
+        <SectionHeading
+          label={t("v21.contact.label")}
+          title={t("v21.contact.title")}
+          accent={t("v21.contact.titleAccent")}
+          description={t("v21.contact.subtitle")}
+        />
 
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Info */}
-          <div className="space-y-6">
-            {/* Email Card */}
-            <div
-              className={`rounded-2xl p-6 border transition-all duration-300 group ${
-                theme === "dark"
-                  ? "bg-gray-800/50 backdrop-blur-sm border-gray-700 hover:border-blue-500/50"
-                  : "bg-white border-gray-200 hover:border-blue-500/50 shadow-sm"
-              }`}
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <svg
-                    aria-hidden="true"
-                    className="w-7 h-7 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                    />
-                  </svg>
+        <div className="mt-14 grid gap-4 lg:grid-cols-12 lg:gap-5">
+          <div className="grid gap-4 lg:col-span-5 lg:gap-5">
+            <Reveal>
+              <div className="card-surface rounded-[1.75rem] p-6 md:p-7">
+                <div className="flex items-center justify-between gap-3">
+                  <p className="eyebrow">{t("v21.contact.openTo")}</p>
+                  <span className="flex items-center gap-1.5 rounded-full border border-acid/30 bg-acid-soft px-2.5 py-1 font-mono text-[8px] uppercase tracking-[0.12em] text-acid-text">
+                    <span className="h-1.5 w-1.5 rounded-full bg-acid" />
+                    {t("v21.contact.availability")}
+                  </span>
                 </div>
-                <div>
-                  <h3
-                    className={`font-semibold text-lg ${
-                      theme === "dark" ? "text-white" : "text-gray-900"
-                    }`}
-                  >
-                    {t("contact.email")}
-                  </h3>
+
+                <p className="mt-4 font-display text-2xl font-medium leading-tight tracking-[-0.03em] md:text-3xl">
+                  {t("v21.contact.scopeLine")}
+                </p>
+
+                <div className="mt-6 space-y-0">
+                  {contactRows.map((row) => {
+                    const Icon = row.icon;
+                    const content = (
+                      <>
+                        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-line bg-surface-2 text-acid-text">
+                          <Icon className="h-3.5 w-3.5" aria-hidden="true" />
+                        </span>
+                        <span className="min-w-0">
+                          <span className="block font-mono text-[8px] uppercase tracking-[0.14em] text-muted">
+                            {row.label}
+                          </span>
+                          <span className="mt-0.5 block truncate text-sm font-medium text-ink">
+                            {row.value}
+                          </span>
+                        </span>
+                      </>
+                    );
+
+                    return row.href ? (
+                      <a
+                        key={row.label}
+                        href={row.href}
+                        className="group flex items-center gap-3 border-b border-line py-3 transition-colors hover:text-acid-text last:border-0"
+                      >
+                        {content}
+                        <FiArrowUpRight
+                          className="ml-auto h-3.5 w-3.5 shrink-0 text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-acid-text"
+                          aria-hidden="true"
+                        />
+                      </a>
+                    ) : (
+                      <div
+                        key={row.label}
+                        className="flex items-center gap-3 border-b border-line py-3 last:border-0"
+                      >
+                        {content}
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div className="mt-5 flex items-center gap-2">
                   <a
-                    href={`mailto:${personalInfo.email}`}
-                    className={`hover:text-blue-400 transition-colors ${
-                      theme === "dark" ? "text-gray-400" : "text-gray-600"
-                    }`}
+                    href={socialLinks.linkedIn}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={t("a11y.linkedin")}
+                    className="grid h-10 w-10 place-items-center rounded-full border border-line text-muted transition-colors hover:border-acid hover:bg-acid hover:text-acid-ink"
                   >
-                    {personalInfo.email}
+                    <FiLinkedin className="h-4 w-4" aria-hidden="true" />
                   </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Phone Card */}
-            <div
-              className={`rounded-2xl p-6 border transition-all duration-300 group ${
-                theme === "dark"
-                  ? "bg-gray-800/50 backdrop-blur-sm border-gray-700 hover:border-green-500/50"
-                  : "bg-white border-gray-200 hover:border-green-500/50 shadow-sm"
-              }`}
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <svg
-                    aria-hidden="true"
-                    className="w-7 h-7 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <h3
-                    className={`font-semibold text-lg ${
-                      theme === "dark" ? "text-white" : "text-gray-900"
-                    }`}
-                  >
-                    {t("contact.phone")}
-                  </h3>
                   <a
-                    href={`tel:${personalInfo.phone}`}
-                    className={`hover:text-green-400 transition-colors ${
-                      theme === "dark" ? "text-gray-400" : "text-gray-600"
-                    }`}
+                    href={socialLinks.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={t("a11y.github")}
+                    className="grid h-10 w-10 place-items-center rounded-full border border-line text-muted transition-colors hover:border-acid hover:bg-acid hover:text-acid-ink"
                   >
-                    {personalInfo.phone}
+                    <FiGithub className="h-4 w-4" aria-hidden="true" />
                   </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Location Card */}
-            <div
-              className={`rounded-2xl p-6 border transition-all duration-300 group ${
-                theme === "dark"
-                  ? "bg-gray-800/50 backdrop-blur-sm border-gray-700 hover:border-purple-500/50"
-                  : "bg-white border-gray-200 hover:border-purple-500/50 shadow-sm"
-              }`}
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <svg
-                    aria-hidden="true"
-                    className="w-7 h-7 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <h3
-                    className={`font-semibold text-lg ${
-                      theme === "dark" ? "text-white" : "text-gray-900"
-                    }`}
-                  >
-                    {t("contact.location")}
-                  </h3>
-                  <span
-                    className={
-                      theme === "dark" ? "text-gray-400" : "text-gray-600"
-                    }
-                  >
-                    {personalInfo.location}
+                  <span className="ml-2 font-mono text-[8px] uppercase tracking-[0.12em] text-muted">
+                    {t("v21.contact.or")}
                   </span>
                 </div>
               </div>
-            </div>
+            </Reveal>
 
-            {/* Social Links */}
-            <div className="flex gap-4 pt-4">
-              <a
-                href={socialLinks.linkedIn}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={t("a11y.linkedin")}
-                className={`w-14 h-14 rounded-xl flex items-center justify-center transition-all duration-300 group ${
-                  theme === "dark"
-                    ? "bg-gray-800/50 border border-gray-700 hover:border-blue-500 hover:bg-blue-500/20"
-                    : "bg-white border border-gray-200 hover:border-blue-500 hover:bg-blue-500/20 shadow-sm"
-                }`}
-              >
-                <svg
+            <Reveal delay={0.08}>
+              <div className="relative overflow-hidden rounded-[1.75rem] bg-acid p-6 text-acid-ink">
+                <div
+                  className="absolute inset-0 opacity-[0.12]"
+                  style={{
+                    backgroundImage:
+                      "radial-gradient(circle at 2px 2px, currentColor 1px, transparent 1px)",
+                    backgroundSize: "18px 18px",
+                  }}
                   aria-hidden="true"
-                  className={`w-6 h-6 ${theme === "dark" ? "text-gray-400 group-hover:text-blue-400" : "text-gray-600 group-hover:text-blue-600"}`}
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                </svg>
-              </a>
-              <a
-                href={socialLinks.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={t("a11y.github")}
-                className={`w-14 h-14 rounded-xl flex items-center justify-center transition-all duration-300 group ${
-                  theme === "dark"
-                    ? "bg-gray-800/50 border border-gray-700 hover:border-gray-500 hover:bg-gray-700/50"
-                    : "bg-white border border-gray-200 hover:border-gray-400 hover:bg-gray-100 shadow-sm"
-                }`}
+                />
+                <div className="relative flex items-start justify-between gap-4">
+                  <div>
+                    <p className="font-mono text-[9px] uppercase tracking-[0.18em] opacity-60">
+                      {t("v21.contact.responseTime")}
+                    </p>
+                    <p className="mt-2 max-w-[230px] font-display text-xl font-semibold leading-snug tracking-tight">
+                      {t("v21.contact.response")}
+                    </p>
+                  </div>
+                  <FiZap className="h-6 w-6" aria-hidden="true" />
+                </div>
+                <p className="relative mt-5 flex items-center gap-2 font-mono text-[8px] uppercase tracking-[0.12em] opacity-60">
+                  <FiMapPin className="h-3 w-3" aria-hidden="true" />
+                  {t("v21.contact.basedIn")} · {localTime}
+                </p>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.12}>
+              <button
+                type="button"
+                onClick={handleCopy}
+                className="group flex w-full items-center justify-between gap-4 rounded-[1.75rem] border border-line bg-surface px-5 py-4 text-left transition-colors hover:border-acid"
               >
-                <svg
+                <span className="flex min-w-0 items-center gap-3">
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-line bg-surface-2 text-acid-text">
+                    {copied ? (
+                      <FiCheck className="h-3.5 w-3.5" aria-hidden="true" />
+                    ) : (
+                      <FiCopy className="h-3.5 w-3.5" aria-hidden="true" />
+                    )}
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block font-mono text-[8px] uppercase tracking-[0.14em] text-muted">
+                      {copied ? t("v21.contact.copied") : t("v21.contact.copy")}
+                    </span>
+                    <span className="mt-0.5 block truncate text-sm font-medium text-ink">
+                      {personalInfo.email}
+                    </span>
+                  </span>
+                </span>
+                <FiArrowUpRight
+                  className="h-4 w-4 shrink-0 text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-acid-text"
                   aria-hidden="true"
-                  className={`w-6 h-6 ${theme === "dark" ? "text-gray-400 group-hover:text-white" : "text-gray-600 group-hover:text-gray-900"}`}
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                </svg>
-              </a>
-            </div>
+                />
+              </button>
+            </Reveal>
           </div>
 
-          {/* Contact Form */}
-          <div
-            className={`rounded-2xl p-8 border ${
-              theme === "dark"
-                ? "bg-gray-800/50 backdrop-blur-sm border-gray-700"
-                : "bg-white border-gray-200 shadow-sm"
-            }`}
-          >
-            <h3
-              className={`text-2xl font-bold mb-6 ${
-                theme === "dark" ? "text-white" : "text-gray-900"
-              }`}
-            >
-              {t("contact.form.title")}
-            </h3>
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="space-y-6"
-              noValidate
-            >
-              <div>
-                <label className={labelClasses} htmlFor="contact-name">
-                  {t("contact.form.name")}
-                </label>
-                <input
-                  id="contact-name"
-                  type="text"
-                  autoComplete="name"
-                  aria-invalid={Boolean(errors.name)}
-                  aria-describedby={
-                    errors.name ? "contact-name-error" : undefined
-                  }
-                  className={inputClasses(Boolean(errors.name))}
-                  placeholder={t("contact.form.namePlaceholder")}
-                  {...register("name")}
-                />
-                {errors.name && (
-                  <p
-                    id="contact-name-error"
-                    className={errorClasses}
-                    role="alert"
-                  >
-                    {t("contact.form.validation.name")}
-                  </p>
-                )}
+          <Reveal delay={0.05} className="lg:col-span-7">
+            <div className="card-surface h-full rounded-[1.75rem] p-6 md:p-8">
+              <div className="flex items-center justify-between gap-4 border-b border-line pb-4">
+                <h3 className="font-display text-xl font-medium tracking-tight">
+                  {t("v21.contact.formTitle")}
+                </h3>
+                <span className="flex items-center gap-2 font-mono text-[8px] uppercase tracking-[0.12em] text-muted">
+                  <span className="h-1.5 w-1.5 rounded-full bg-acid" />
+                  {t("v21.contact.ctaNote")}
+                </span>
               </div>
 
-              <div>
-                <label className={labelClasses} htmlFor="contact-email">
-                  {t("contact.form.email")}
-                </label>
-                <input
-                  id="contact-email"
-                  type="email"
-                  autoComplete="email"
-                  aria-invalid={Boolean(errors.email)}
-                  aria-describedby={
-                    errors.email ? "contact-email-error" : undefined
-                  }
-                  className={inputClasses(Boolean(errors.email))}
-                  placeholder={t("contact.form.emailPlaceholder")}
-                  {...register("email")}
-                />
-                {errors.email && (
-                  <p
-                    id="contact-email-error"
-                    className={errorClasses}
-                    role="alert"
-                  >
-                    {t("contact.form.validation.email")}
-                  </p>
-                )}
-              </div>
+              <form onSubmit={handleSubmit(onSubmit)} className="mt-5" noValidate>
+                <p className={labelClasses}>{t("v21.contact.intentLabel")}</p>
+                <div className="mb-5 flex flex-wrap gap-2">
+                  {intents.map((label, index) => (
+                    <button
+                      key={label}
+                      type="button"
+                      onClick={() => handleIntent(index, label)}
+                      aria-pressed={intent === index}
+                      className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[9px] tracking-[0.02em] transition-colors ${
+                        intent === index
+                          ? "bg-acid text-acid-ink"
+                          : "border border-line text-muted hover:border-ink hover:text-ink"
+                      }`}
+                    >
+                      <FiBriefcase className="h-3 w-3" aria-hidden="true" />
+                      {label}
+                    </button>
+                  ))}
+                </div>
 
-              <div>
-                <label className={labelClasses} htmlFor="contact-subject">
-                  {t("contact.form.subject")}
-                </label>
-                <input
-                  id="contact-subject"
-                  type="text"
-                  autoComplete="off"
-                  aria-invalid={Boolean(errors.subject)}
-                  aria-describedby={
-                    errors.subject ? "contact-subject-error" : undefined
-                  }
-                  className={inputClasses(Boolean(errors.subject))}
-                  placeholder={t("contact.form.subjectPlaceholder")}
-                  {...register("subject")}
-                />
-                {errors.subject && (
-                  <p
-                    id="contact-subject-error"
-                    className={errorClasses}
-                    role="alert"
-                  >
-                    {t("contact.form.validation.subject")}
-                  </p>
-                )}
-              </div>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="contact-name" className={labelClasses}>
+                      {t("v21.contact.name")}
+                    </label>
+                    <input
+                      id="contact-name"
+                      type="text"
+                      autoComplete="name"
+                      placeholder={t("v21.contact.namePlaceholder")}
+                      aria-invalid={Boolean(errors.name)}
+                      aria-describedby={errors.name ? "contact-name-error" : undefined}
+                      className={inputClasses(Boolean(errors.name))}
+                      {...register("name")}
+                    />
+                    {errors.name && (
+                      <p id="contact-name-error" role="alert" className="mt-1 text-[11px] text-red-500">
+                        {t("contact.form.validation.name")}
+                      </p>
+                    )}
+                  </div>
 
-              <div>
-                <label className={labelClasses} htmlFor="contact-message">
-                  {t("contact.form.message")}
-                </label>
-                <textarea
-                  id="contact-message"
-                  rows={5}
-                  aria-invalid={Boolean(errors.message)}
-                  aria-describedby={
-                    errors.message ? "contact-message-error" : undefined
-                  }
-                  className={`${inputClasses(Boolean(errors.message))} resize-none`}
-                  placeholder={t("contact.form.messagePlaceholder")}
-                  {...register("message")}
-                />
-                {errors.message && (
-                  <p
-                    id="contact-message-error"
-                    className={errorClasses}
-                    role="alert"
-                  >
-                    {t("contact.form.validation.message")}
-                  </p>
-                )}
-              </div>
+                  <div>
+                    <label htmlFor="contact-email" className={labelClasses}>
+                      {t("v21.contact.email")}
+                    </label>
+                    <input
+                      id="contact-email"
+                      type="email"
+                      autoComplete="email"
+                      placeholder={t("v21.contact.emailPlaceholder")}
+                      aria-invalid={Boolean(errors.email)}
+                      aria-describedby={errors.email ? "contact-email-error" : undefined}
+                      className={inputClasses(Boolean(errors.email))}
+                      {...register("email")}
+                    />
+                    {errors.email && (
+                      <p id="contact-email-error" role="alert" className="mt-1 text-[11px] text-red-500">
+                        {t("contact.form.validation.email")}
+                      </p>
+                    )}
+                  </div>
 
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg shadow-blue-500/30 flex items-center justify-center gap-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
-              >
-                <svg
-                  aria-hidden="true"
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+                  <div className="sm:col-span-2">
+                    <label htmlFor="contact-subject" className={labelClasses}>
+                      {t("v21.contact.subject")}
+                    </label>
+                    <input
+                      id="contact-subject"
+                      type="text"
+                      autoComplete="off"
+                      placeholder={t("v21.contact.subjectPlaceholder")}
+                      aria-invalid={Boolean(errors.subject)}
+                      aria-describedby={errors.subject ? "contact-subject-error" : undefined}
+                      className={inputClasses(Boolean(errors.subject))}
+                      {...register("subject")}
+                    />
+                    {errors.subject && (
+                      <p id="contact-subject-error" role="alert" className="mt-1 text-[11px] text-red-500">
+                        {t("contact.form.validation.subject")}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="sm:col-span-2">
+                    <label htmlFor="contact-message" className={labelClasses}>
+                      {t("v21.contact.message")}
+                    </label>
+                    <textarea
+                      id="contact-message"
+                      rows={5}
+                      placeholder={t("v21.contact.messagePlaceholder")}
+                      aria-invalid={Boolean(errors.message)}
+                      aria-describedby={errors.message ? "contact-message-error" : undefined}
+                      className={`${inputClasses(Boolean(errors.message))} resize-none`}
+                      {...register("message")}
+                    />
+                    {errors.message && (
+                      <p id="contact-message-error" role="alert" className="mt-1 text-[11px] text-red-500">
+                        {t("contact.form.validation.message")}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="group mt-5 flex w-full items-center justify-between gap-3 rounded-full bg-acid px-5 py-3.5 text-sm font-semibold text-acid-ink transition-colors hover:bg-ink hover:text-canvas disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
-                  />
-                </svg>
-                {isSubmitting
-                  ? t("contact.form.sending")
-                  : t("contact.form.submit")}
-              </button>
+                  <span className="flex items-center gap-2">
+                    <FiSend className="h-4 w-4" aria-hidden="true" />
+                    {isSubmitting ? t("v21.contact.sending") : t("v21.contact.submit")}
+                  </span>
+                  <span className="grid h-7 w-7 place-items-center rounded-full bg-acid-ink/10">
+                    <FiArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+                  </span>
+                </button>
 
-              {/* Live region so screen readers announce the result. */}
-              <p
-                role="status"
-                aria-live="polite"
-                className={`min-h-[1.25rem] text-sm ${
-                  status === "error" ? "text-red-400" : "text-green-400"
-                }`}
-              >
-                {status === "success" && t("contact.form.success")}
-                {status === "error" && t("contact.form.error")}
-              </p>
-
-              {!CONTACT_ENDPOINT && (
                 <p
-                  className={`text-xs ${
-                    theme === "dark" ? "text-gray-500" : "text-gray-500"
+                  role="status"
+                  aria-live="polite"
+                  className={`min-h-[1.1rem] pt-2 text-xs ${
+                    status === "error" ? "text-red-500" : "text-acid-text"
                   }`}
                 >
-                  {t("contact.form.mailtoNote", {
-                    email: personalInfo.email,
-                  })}
+                  {status === "success" && t("v21.contact.success")}
+                  {status === "error" &&
+                    t("v21.contact.error", { email: personalInfo.email })}
                 </p>
-              )}
-            </form>
-          </div>
+
+                {!CONTACT_ENDPOINT && (
+                  <p className="mt-1 text-[10px] leading-relaxed text-muted">
+                    {t("v21.contact.note", { email: personalInfo.email })}
+                  </p>
+                )}
+              </form>
+            </div>
+          </Reveal>
         </div>
+
+        <Reveal className="mt-14">
+          <a
+            href={`mailto:${personalInfo.email}`}
+            className="group flex flex-col justify-between gap-5 border-y border-line py-8 md:flex-row md:items-center"
+          >
+            <div>
+              <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-muted">
+                {t("v21.contact.emailLabel")}
+              </p>
+              <p className="mt-2 break-all font-display text-[clamp(1.25rem,3.4vw,3rem)] font-medium tracking-[-0.04em] transition-colors group-hover:text-acid-text">
+                {personalInfo.email}
+              </p>
+            </div>
+            <span className="grid h-14 w-14 shrink-0 place-items-center rounded-full border border-line transition-colors group-hover:border-acid group-hover:bg-acid group-hover:text-acid-ink">
+              <FiArrowUpRight className="h-5 w-5" aria-hidden="true" />
+            </span>
+          </a>
+        </Reveal>
       </div>
     </section>
   );
 };
-
-export default Contact;

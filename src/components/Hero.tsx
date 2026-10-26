@@ -1,174 +1,364 @@
-import React from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import {
+  FiArrowDown,
+  FiArrowRight,
+  FiArrowUpRight,
+  FiClock,
+  FiMapPin,
+  FiZap,
+} from "react-icons/fi";
 import { useTheme } from "../context/ThemeContext";
+import { useLocalTime } from "../hooks/useLocalTime";
 import { usePortfolioData } from "../hooks/usePortfolioData";
+import { asset } from "../lib/asset";
+import { HeroField } from "./HeroField";
+import { Magnetic } from "./ui/Magnetic";
+import { Marquee } from "./ui/Marquee";
 
-const Hero: React.FC = () => {
-  const { t } = useTranslation();
+export const Hero = () => {
+  const { t, i18n } = useTranslation();
   const { theme } = useTheme();
-  const { personalInfo, socialLinks } = usePortfolioData();
+  const { personalInfo, projects, skills } = usePortfolioData();
+  const reduce = useReducedMotion();
+  const localTime = useLocalTime("Africa/Tunis", i18n.language);
+
+  const [roleIndex, setRoleIndex] = useState(0);
+  const roles = t("v21.hero.roles", { returnObjects: true }) as string[];
+
+  useEffect(() => {
+    if (reduce) return;
+    const interval = window.setInterval(
+      () => setRoleIndex((index) => (index + 1) % roles.length),
+      2800,
+    );
+    return () => window.clearInterval(interval);
+  }, [reduce, roles.length]);
+
+  const stats = useMemo(() => {
+    const apiProject = projects.find((project) => project.id === "pyrojs-refonte");
+    const iotProject = projects.find(
+      (project) => project.id === "iot-reporting-service",
+    );
+    const migrationProject = projects.find(
+      (project) => project.id === "clickhouse-migration",
+    );
+
+    return [
+      {
+        value: apiProject?.quickStats?.[0]?.value ?? "150+",
+        label: t("v21.hero.apiLabel"),
+      },
+      {
+        value: iotProject?.quickStats?.[0]?.value ?? "2,000+",
+        label: t("v21.hero.devicesLabel"),
+      },
+      {
+        value: migrationProject?.quickStats?.[0]?.value ?? "20M",
+        label: t("v21.hero.rowsLabel"),
+      },
+    ];
+  }, [projects, t]);
+
+  const stack = useMemo(
+    () => Array.from(new Set(skills.map((skill) => skill.name))).slice(0, 14),
+    [skills],
+  );
 
   return (
     <section
-      className={`min-h-screen flex items-center justify-center relative overflow-hidden ${
-        theme === "dark"
-          ? "bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900"
-          : "bg-gradient-to-br from-blue-50 via-white to-cyan-50"
-      }`}
+      id="top"
+      className="relative overflow-hidden bg-canvas pb-0 pt-28 md:pt-32"
     >
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
-        <div
-          className="absolute top-3/4 right-1/4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"
-          style={{ animationDelay: "1s" }}
-        ></div>
-        <div
-          className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"
-          style={{ animationDelay: "2s" }}
-        ></div>
+      <HeroField theme={theme} />
+      <div
+        className="pointer-events-none absolute inset-0 grid-lines opacity-50 dark:opacity-40"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute -right-40 top-20 h-[520px] w-[520px] rounded-full bg-acid-soft blur-[110px]"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute -left-52 bottom-0 h-[380px] w-[380px] rounded-full bg-acid-soft blur-[120px]"
+        aria-hidden="true"
+      />
+
+      <div className="wrap relative z-10">
+        <div className="flex min-h-[calc(100svh-8rem)] flex-col justify-between">
+          <div className="grid items-start gap-12 lg:grid-cols-12 lg:gap-8">
+            <div className="lg:col-span-8">
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+                <span className="flex items-center gap-2 rounded-full border border-line bg-surface/60 px-3 py-1.5 backdrop-blur-sm">
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-acid opacity-60" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-acid" />
+                  </span>
+                  <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-ink">
+                    {t("v21.hero.available")}
+                  </span>
+                </span>
+                <span className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.16em] text-muted">
+                  <FiMapPin className="h-3 w-3 text-acid-text" aria-hidden="true" />
+                  {t("v21.hero.based")}
+                </span>
+                <span className="hidden items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.16em] text-muted sm:flex">
+                  <FiClock className="h-3 w-3 text-acid-text" aria-hidden="true" />
+                  {localTime} · GMT+1
+                </span>
+              </div>
+
+              <h1 className="mt-7">
+                <span className="sr-only">
+                  {personalInfo.name} — {personalInfo.title}
+                </span>
+                <span aria-hidden="true" className="display block">
+                  <span className="hero-name-line">
+                    <motion.span
+                      initial={reduce ? false : { y: "110%" }}
+                      animate={{ y: "0%" }}
+                      transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                      className="text-[clamp(3.6rem,10.5vw,9.6rem)]"
+                    >
+                      Mohamed
+                    </motion.span>
+                  </span>
+                  <span className="hero-name-line">
+                    <motion.span
+                      initial={reduce ? false : { y: "110%" }}
+                      animate={{ y: "0%" }}
+                      transition={{
+                        duration: 0.9,
+                        delay: 0.08,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      className="outline-text text-[clamp(3.6rem,10.5vw,9.6rem)]"
+                    >
+                      Amine
+                    </motion.span>
+                  </span>
+                  <span className="hero-name-line">
+                    <motion.span
+                      initial={reduce ? false : { y: "110%" }}
+                      animate={{ y: "0%" }}
+                      transition={{
+                        duration: 0.9,
+                        delay: 0.16,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      className="text-[clamp(3.6rem,10.5vw,9.6rem)]"
+                    >
+                      Bouzidi<span className="text-acid">.</span>
+                    </motion.span>
+                  </span>
+                </span>
+              </h1>
+
+              <div className="mt-6 flex items-center gap-3">
+                <span className="h-px w-8 bg-acid" aria-hidden="true" />
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+                  {personalInfo.title}
+                </span>
+                <span className="hidden h-px w-8 bg-line sm:block" aria-hidden="true" />
+                <span
+                  className="relative hidden h-5 min-w-[150px] overflow-hidden sm:inline-block"
+                  aria-hidden="true"
+                >
+                  <AnimatePresence mode="wait">
+                    <motion.span
+                      key={roleIndex}
+                      initial={reduce ? false : { y: 16, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={reduce ? undefined : { y: -16, opacity: 0 }}
+                      transition={{ duration: 0.35, ease: "easeOut" }}
+                      className="absolute inset-0 font-mono text-[10px] uppercase tracking-[0.2em] text-acid-text"
+                    >
+                      {roles[roleIndex]}
+                    </motion.span>
+                  </AnimatePresence>
+                </span>
+              </div>
+
+              <motion.p
+                initial={reduce ? false : { opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35, duration: 0.7 }}
+                className="mt-7 max-w-xl text-[15px] leading-relaxed text-muted md:text-lg"
+              >
+                {t("v21.hero.tagline")}
+              </motion.p>
+
+              <motion.div
+                initial={reduce ? false : { opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.48, duration: 0.7 }}
+                className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4"
+              >
+                <Magnetic>
+                  <a
+                    href="#projects"
+                    className="group flex items-center gap-3 rounded-full bg-acid px-6 py-3.5 text-sm font-semibold text-acid-ink transition-colors hover:bg-ink hover:text-canvas"
+                  >
+                    {t("v21.hero.ctaWork")}
+                    <span className="grid h-6 w-6 place-items-center rounded-full bg-acid-ink/10 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                      <FiArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+                    </span>
+                  </a>
+                </Magnetic>
+
+                <a
+                  href="#contact"
+                  className="group flex items-center gap-2 text-sm font-medium text-ink"
+                >
+                  <span className="link-line">{t("v21.hero.ctaContact")}</span>
+                  <FiArrowRight
+                    className="h-4 w-4 text-acid-text transition-transform duration-300 group-hover:translate-x-1"
+                    aria-hidden="true"
+                  />
+                </a>
+              </motion.div>
+            </div>
+
+            <motion.div
+              initial={reduce ? false : { opacity: 0, y: 30, rotate: 1.5 }}
+              animate={{ opacity: 1, y: 0, rotate: 0 }}
+              transition={{ delay: 0.2, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              className="relative mx-auto w-full max-w-[370px] lg:col-span-4 lg:ml-auto lg:mr-0"
+            >
+              <div
+                className="absolute -inset-3 rotate-2 rounded-[2rem] border border-line"
+                aria-hidden="true"
+              />
+              <div className="relative overflow-hidden rounded-[1.6rem] border border-line bg-surface">
+                <div className="relative aspect-[4/5] overflow-hidden">
+                  <div className="portrait-tone absolute inset-0">
+                    <img
+                      src={asset("/images/MAB2.webp")}
+                      alt={t("v21.hero.portraitAlt")}
+                      width={1119}
+                      height={1120}
+                      loading="eager"
+                      decoding="async"
+                      className="h-full w-full object-cover object-[50%_18%]"
+                    />
+                  </div>
+                  <div
+                    className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-black/20"
+                    aria-hidden="true"
+                  />
+
+                  <div className="absolute inset-x-0 top-0 flex items-center justify-between p-4 font-mono text-[9px] uppercase tracking-[0.18em] text-white/70">
+                    <span>Portrait / 01</span>
+                    <span className="flex items-center gap-1.5">
+                      <span className="h-1.5 w-1.5 rounded-full bg-acid" />
+                      Available
+                    </span>
+                  </div>
+
+                  <div className="absolute inset-x-0 bottom-0 p-5">
+                    <p className="font-display text-xl font-medium tracking-tight text-white">
+                      {personalInfo.name}
+                    </p>
+                    <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.18em] text-white/60">
+                      {t("v21.hero.based")} · {localTime}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between gap-3 px-4 py-3">
+                  <span className="flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.14em] text-muted">
+                    <FiZap className="h-3 w-3 text-acid-text" aria-hidden="true" />
+                    {t("v21.hero.openCard")}
+                  </span>
+                  <span className="rounded-full border border-line px-2.5 py-1 font-mono text-[8px] uppercase tracking-[0.14em] text-muted">
+                    {t("v21.hero.remote")}
+                  </span>
+                </div>
+              </div>
+
+              <div
+                className="absolute -bottom-8 -left-6 grid h-[104px] w-[104px] place-items-center rounded-full bg-acid text-acid-ink shadow-xl sm:-left-10"
+                aria-hidden="true"
+              >
+                <svg
+                  viewBox="0 0 120 120"
+                  className="absolute inset-0 h-full w-full animate-[spin_26s_linear_infinite]"
+                >
+                  <defs>
+                    <path
+                      id="hero-stamp-path"
+                      d="M60,60 m-43,0 a43,43 0 1,1 86,0 a43,43 0 1,1 -86,0"
+                    />
+                  </defs>
+                  <text className="fill-acid-ink font-mono text-[8px] uppercase tracking-[0.34em]">
+                    <textPath href="#hero-stamp-path" startOffset="0%">
+                      Open to work · Open to work ·
+                    </textPath>
+                  </text>
+                </svg>
+                <FiArrowUpRight className="h-7 w-7" />
+              </div>
+
+              <div className="glass absolute -right-3 top-[42%] hidden rounded-2xl px-3.5 py-2.5 shadow-lg sm:block">
+                <p className="font-display text-lg font-semibold leading-none">
+                  {stats[1].value}
+                </p>
+                <p className="mt-1 max-w-[92px] font-mono text-[8px] uppercase leading-relaxed tracking-[0.12em] text-muted">
+                  {stats[1].label}
+                </p>
+              </div>
+            </motion.div>
+          </div>
+
+          <div className="mt-14 border-t border-line pt-6 md:mt-20">
+            <div className="flex flex-wrap items-end justify-between gap-8">
+              <div className="grid flex-1 grid-cols-3 gap-4 sm:gap-8 lg:max-w-2xl">
+                {stats.map((stat) => (
+                  <div key={stat.label}>
+                    <p className="display text-[clamp(1.7rem,3.6vw,2.8rem)]">
+                      {stat.value}
+                    </p>
+                    <p className="mt-1 max-w-[130px] font-mono text-[8px] uppercase leading-relaxed tracking-[0.14em] text-muted">
+                      {stat.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+                <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-muted">
+                  {t("v21.hero.since")}
+                </span>
+                <a
+                  href="#about"
+                  aria-label={t("v21.hero.scroll")}
+                  className="group flex items-center gap-3 rounded-full border border-line px-3 py-2 font-mono text-[9px] uppercase tracking-[0.16em] text-muted transition-colors hover:border-acid hover:text-ink"
+                >
+                  <span className="grid h-6 w-6 place-items-center rounded-full bg-acid text-acid-ink">
+                    <FiArrowDown className="h-3 w-3 animate-bounce" aria-hidden="true" />
+                  </span>
+                  {t("v21.hero.scroll")}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Grid pattern overlay */}
-      <div
-        className={`absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px] ${theme === "light" ? "opacity-30" : ""}`}
-      ></div>
-
-      <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
-        {/* Name with animated gradient */}
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent animate-gradient-x">
-          {personalInfo.name}
-        </h1>
-
-        {/* Title */}
-        <p
-          className={`text-xl md:text-2xl mb-8 font-light ${
-            theme === "dark" ? "text-gray-300" : "text-gray-600"
-          }`}
-        >
-          {personalInfo.title}
-        </p>
-
-        {/* Description */}
-        <p
-          className={`text-lg max-w-3xl mx-auto mb-12 leading-relaxed ${
-            theme === "dark" ? "text-gray-400" : "text-gray-500"
-          }`}
-        >
-          {personalInfo.description}
-        </p>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-wrap gap-4 justify-center mb-12">
-          <a
-            href="#projects"
-            className="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-full hover:from-blue-700 hover:to-cyan-700 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/30"
-          >
-            {t("hero.cta")}
-          </a>
-          <a
-            href="#contact"
-            className={`px-8 py-4 font-semibold rounded-full transition-all duration-300 ${
-              theme === "dark"
-                ? "border-2 border-gray-600 text-white hover:border-blue-500 hover:bg-blue-500/10"
-                : "border-2 border-gray-300 text-gray-900 hover:border-blue-500 hover:bg-blue-500/10"
-            }`}
-          >
-            {t("hero.hire")}
-          </a>
-        </div>
-
-        {/* Social Links */}
-        <div className="flex justify-center gap-6">
-          <a
-            href={socialLinks.linkedIn}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`p-3 rounded-full transition-all duration-300 ${
-              theme === "dark"
-                ? "bg-gray-800/50 hover:bg-blue-600/20 border border-gray-700 hover:border-blue-500"
-                : "bg-white/50 hover:bg-blue-600/20 border border-gray-200 hover:border-blue-500 shadow-sm"
-            }`}
-            aria-label={t("a11y.linkedin")}
-          >
-            <svg
-              aria-hidden="true"
-              className={`w-6 h-6 ${theme === "dark" ? "text-gray-400 hover:text-blue-400" : "text-gray-600 hover:text-blue-600"}`}
-              fill="currentColor"
-              viewBox="0 0 24 24"
+      <div className="relative z-10 mt-12 border-y border-line bg-surface/40 py-4 backdrop-blur-sm">
+        <Marquee
+          duration={48}
+          items={stack.map((name) => (
+            <span
+              key={name}
+              className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted"
             >
-              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-            </svg>
-          </a>
-          <a
-            href={socialLinks.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`p-3 rounded-full transition-all duration-300 ${
-              theme === "dark"
-                ? "bg-gray-800/50 hover:bg-gray-700/50 border border-gray-700 hover:border-gray-600"
-                : "bg-white/50 hover:bg-gray-100 border border-gray-200 shadow-sm"
-            }`}
-            aria-label={t("a11y.github")}
-          >
-            <svg
-              aria-hidden="true"
-              className={`w-6 h-6 ${theme === "dark" ? "text-gray-400 hover:text-white" : "text-gray-600 hover:text-gray-900"}`}
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-            </svg>
-          </a>
-          <a
-            href={socialLinks.email}
-            className={`p-3 rounded-full transition-all duration-300 ${
-              theme === "dark"
-                ? "bg-gray-800/50 hover:bg-green-600/20 border border-gray-700 hover:border-green-500"
-                : "bg-white/50 hover:bg-green-600/20 border border-gray-200 hover:border-green-500 shadow-sm"
-            }`}
-            aria-label={t("a11y.email")}
-          >
-            <svg
-              aria-hidden="true"
-              className={`w-6 h-6 ${theme === "dark" ? "text-gray-400 hover:text-green-400" : "text-gray-600 hover:text-green-600"}`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-              />
-            </svg>
-          </a>
-        </div>
-
-        {/* Scroll indicator */}
-        <div
-          className={`absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce ${
-            theme === "dark" ? "text-gray-500" : "text-gray-400"
-          }`}
-        >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 14l-7 7m0 0l-7-7m7 7V3"
-            />
-          </svg>
-        </div>
+              {name}
+            </span>
+          ))}
+        />
       </div>
     </section>
   );
 };
-
-export default Hero;

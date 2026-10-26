@@ -12,6 +12,20 @@ module.exports = {
     },
     extend: {
       colors: {
+        // v2.1 design system (RGB channels allow Tailwind alpha modifiers).
+        canvas: "rgb(var(--canvas-rgb) / <alpha-value>)",
+        surface: "rgb(var(--surface-rgb) / <alpha-value>)",
+        "surface-2": "rgb(var(--surface-2-rgb) / <alpha-value>)",
+        ink: "rgb(var(--ink-rgb) / <alpha-value>)",
+        muted: "rgb(var(--muted-rgb) / <alpha-value>)",
+        line: "var(--line)",
+        acid: "rgb(var(--accent-rgb) / <alpha-value>)",
+        "acid-text": "rgb(var(--accent-text-rgb) / <alpha-value>)",
+        "acid-display": "rgb(var(--accent-display-rgb) / <alpha-value>)",
+        "acid-ink": "rgb(var(--accent-ink-rgb) / <alpha-value>)",
+        "acid-soft": "var(--accent-soft)",
+
+        // Legacy tokens kept for compatibility with older components.
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -29,13 +43,13 @@ module.exports = {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
         accent: {
-          DEFAULT: "hsl(var(--accent))",
+          DEFAULT: "hsl(var(--accent-legacy))",
           foreground: "hsl(var(--accent-foreground))",
+        },
+        mutedLegacy: {
+          DEFAULT: "hsl(var(--muted-legacy))",
+          foreground: "hsl(var(--muted-foreground))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -46,10 +60,16 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      fontFamily: {
+        display: ["Space Grotesk", "Inter", "system-ui", "sans-serif"],
+        sans: ["Inter", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
+        mono: ["JetBrains Mono", "ui-monospace", "SFMono-Regular", "monospace"],
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        "4xl": "2rem",
       },
       keyframes: {
         float: {
@@ -72,6 +92,10 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "pulse-ring": {
+          "0%": { transform: "scale(0.85)", opacity: "0.7" },
+          "80%, 100%": { transform: "scale(1.6)", opacity: "0" },
+        },
       },
       animation: {
         float: "float 6s ease-in-out infinite",
@@ -79,6 +103,7 @@ module.exports = {
         shimmer: "shimmer 2.5s infinite",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "pulse-ring": "pulse-ring 2.4s cubic-bezier(0.2, 0.6, 0.4, 1) infinite",
       },
     },
   },

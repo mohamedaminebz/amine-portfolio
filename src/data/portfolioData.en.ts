@@ -1227,6 +1227,13 @@ export const skills: Skill[] = [
       "Type-safe JavaScript for scalable and maintainable applications",
   },
   {
+    name: "HTML/CSS",
+    category: "frontend",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+    description:
+      "Accessible, responsive interfaces with semantic HTML, modern CSS, and design systems",
+  },
+  {
     name: "Angular",
     category: "frontend",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg",
@@ -1308,6 +1315,12 @@ export const skills: Skill[] = [
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
     description:
       "Distributed version control with Git Flow, rebasing, and collaborative workflows",
+  },
+  {
+    name: "CI/CD",
+    category: "devops",
+    description:
+      "Automated build, test, and deployment pipelines with quality gates and reliable releases",
   },
   {
     name: "SonarQube",
