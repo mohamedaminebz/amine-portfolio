@@ -1,8 +1,9 @@
 import { useEffect, useRef } from "react";
 import { useReducedMotion } from "framer-motion";
+import type { ThemeId } from "../lib/themes";
 
 interface HeroFieldProps {
-  theme: "light" | "dark";
+  theme: ThemeId;
 }
 
 interface Particle {
@@ -31,18 +32,17 @@ export const HeroField = ({ theme }: HeroFieldProps) => {
     const context = canvas.getContext("2d");
     if (!context) return;
 
-    const palette =
-      theme === "dark"
-        ? {
-            node: "143, 154, 255",
-            line: "238, 241, 250",
-            active: "238, 241, 250",
-          }
-        : {
-            node: "47, 59, 255",
-            line: "10, 14, 28",
-            active: "10, 14, 28",
-          };
+    const styles = getComputedStyle(document.documentElement);
+    const readRgb = (name: string, fallback: string) => {
+      const value = styles.getPropertyValue(name).trim();
+      return value ? value.replace(/\s+/g, ", ") : fallback;
+    };
+
+    const palette = {
+      node: readRgb("--brand-display-rgb", "47, 59, 255"),
+      line: readRgb("--ink-rgb", "10, 14, 28"),
+      active: readRgb("--ink-rgb", "10, 14, 28"),
+    };
 
     let width = 0;
     let height = 0;
@@ -110,8 +110,10 @@ export const HeroField = ({ theme }: HeroFieldProps) => {
 
           const nearPointer =
             pointer.active &&
-            Math.hypot((a.x + b.x) / 2 - pointer.x, (a.y + b.y) / 2 - pointer.y) <
-              185;
+            Math.hypot(
+              (a.x + b.x) / 2 - pointer.x,
+              (a.y + b.y) / 2 - pointer.y,
+            ) < 185;
 
           context.beginPath();
           context.strokeStyle = nearPointer
@@ -125,7 +127,9 @@ export const HeroField = ({ theme }: HeroFieldProps) => {
       }
 
       particles.forEach((particle) => {
-        const pulse = moving ? 0.55 + Math.sin(time * 0.001 + particle.phase) * 0.25 : 0.66;
+        const pulse = moving
+          ? 0.55 + Math.sin(time * 0.001 + particle.phase) * 0.25
+          : 0.66;
         context.beginPath();
         context.fillStyle = `rgba(${palette.node}, ${pulse})`;
         context.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);

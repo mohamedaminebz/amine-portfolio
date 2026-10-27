@@ -134,8 +134,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
   onNavigate,
 }) => {
   const { t } = useTranslation();
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
+  const { isDark } = useTheme();
 
   const screenshots = useMemo(
     () => project.screenshots ?? [],

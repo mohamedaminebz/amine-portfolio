@@ -166,7 +166,10 @@ export const Work = () => {
                 <div className="relative p-6 md:p-9 lg:col-span-7 lg:p-10">
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <span className="inline-flex items-center gap-2 rounded-full border border-brand/25 bg-brand-soft px-2.5 py-1 font-mono text-[8px] uppercase tracking-[0.16em] text-brand-text">
-                      <span className="h-1.5 w-1.5 bg-brand" aria-hidden="true" />
+                      <span
+                        className="h-1.5 w-1.5 bg-brand"
+                        aria-hidden="true"
+                      />
                       {t("v21.work.flagship")}
                     </span>
                     <span className="font-mono text-[8px] uppercase tracking-[0.14em] text-muted">
@@ -182,7 +185,11 @@ export const Work = () => {
                   </p>
 
                   <div className="mt-8 grid grid-cols-3 gap-px overflow-hidden rounded-lg border border-line bg-line">
-                    {[migrationStats[0], migrationStats[2], migrationStats[3]].map(
+                    {[
+                      migrationStats[0],
+                      migrationStats[2],
+                      migrationStats[3],
+                    ].map(
                       (stat) =>
                         stat && (
                           <div
@@ -203,14 +210,17 @@ export const Work = () => {
                   <span className="mt-8 inline-flex items-center gap-2.5 text-sm font-medium text-brand-text">
                     {t("v21.work.viewCase")}
                     <span className="grid h-8 w-8 place-items-center rounded-full bg-brand text-brand-ink transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                      <FiArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+                      <FiArrowUpRight
+                        className="h-3.5 w-3.5"
+                        aria-hidden="true"
+                      />
                     </span>
                   </span>
                 </div>
 
-                <div className="relative overflow-hidden border-t border-line bg-[#080b15] text-white lg:col-span-5 lg:border-l lg:border-t-0">
+                <div className="relative overflow-hidden border-t border-line bg-[var(--console-bg)] text-white lg:col-span-5 lg:border-l lg:border-t-0">
                   <div
-                    className="pointer-events-none absolute -right-16 -top-20 h-64 w-64 rounded-full bg-[#2f3bff]/40 blur-[80px]"
+                    className="pointer-events-none absolute -right-16 -top-20 h-64 w-64 rounded-full bg-[var(--console-glow)] blur-[80px]"
                     aria-hidden="true"
                   />
 
@@ -220,9 +230,9 @@ export const Work = () => {
                         <FiDatabase className="h-3 w-3" aria-hidden="true" />
                         {t("v21.work.migrationConsole")}
                       </span>
-                      <span className="flex items-center gap-1.5 text-[#a5aeff]">
+                      <span className="flex items-center gap-1.5 text-[var(--console-accent)]">
                         <span
-                          className="h-1.5 w-1.5 rounded-full bg-[#7c88ff]"
+                          className="h-1.5 w-1.5 rounded-full bg-[var(--console-cell)]"
                           aria-hidden="true"
                         />
                         {t("v21.work.verified")}
@@ -235,7 +245,7 @@ export const Work = () => {
                           <span className="text-white/55">
                             {t("v21.work.source")}
                           </span>
-                          <span className="text-[#a5aeff]">
+                          <span className="text-[var(--console-accent)]">
                             {t("v21.work.target")}
                           </span>
                         </div>
@@ -249,7 +259,7 @@ export const Work = () => {
                               key={index}
                               className={`aspect-square rounded-[2px] ${
                                 index >= 67
-                                  ? "bg-[#7c88ff]"
+                                  ? "bg-[var(--console-cell)]"
                                   : "bg-white/[0.08]"
                               }`}
                             />
@@ -258,7 +268,9 @@ export const Work = () => {
 
                         <div className="mt-2.5 flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.12em]">
                           <span className="text-white/80">{fromStorage}</span>
-                          <span className="text-[#a5aeff]">{toStorage}</span>
+                          <span className="text-[var(--console-accent)]">
+                            {toStorage}
+                          </span>
                         </div>
 
                         <p className="mt-2 font-mono text-[8px] uppercase tracking-[0.12em] text-white/45">
@@ -275,7 +287,7 @@ export const Work = () => {
                             {t("v21.work.zeroLoss")}
                           </p>
                         </div>
-                        <span className="display text-[clamp(2.4rem,5vw,3.5rem)] leading-none text-[#a5aeff]">
+                        <span className="display text-[clamp(2.4rem,5vw,3.5rem)] leading-none text-[var(--console-accent)]">
                           {migrationStats[2]?.value ?? "95%+"}
                         </span>
                       </div>
@@ -331,7 +343,9 @@ export const Work = () => {
         </div>
 
         {filtered.length === 0 ? (
-          <p className="py-24 text-center text-muted">{t("v21.work.noResults")}</p>
+          <p className="py-24 text-center text-muted">
+            {t("v21.work.noResults")}
+          </p>
         ) : (
           <div className="mt-10 grid gap-x-6 gap-y-12 md:grid-cols-2">
             {filtered.map((project) => {

@@ -9,14 +9,12 @@ import {
   FiMail,
   FiMapPin,
   FiMenu,
-  FiMoon,
-  FiSun,
   FiX,
 } from "react-icons/fi";
-import { useTheme } from "../../context/ThemeContext";
 import { usePortfolioData } from "../../hooks/usePortfolioData";
 import { Magnetic } from "../ui/Magnetic";
 import { Mark } from "../ui/Mark";
+import { ThemeGrid, ThemePicker } from "./ThemePicker";
 
 interface NavigationProps {
   onOpenCommand: () => void;
@@ -33,7 +31,6 @@ const navItems = [
 
 export const Navigation = ({ onOpenCommand }: NavigationProps) => {
   const { t, i18n } = useTranslation();
-  const { theme, toggleTheme } = useTheme();
   const { personalInfo, socialLinks } = usePortfolioData();
   const reduce = useReducedMotion();
 
@@ -182,18 +179,7 @@ export const Navigation = ({ onOpenCommand }: NavigationProps) => {
                 ))}
               </div>
 
-              <button
-                type="button"
-                onClick={toggleTheme}
-                aria-label={t("a11y.toggleTheme")}
-                className="grid h-9 w-9 place-items-center rounded-md border border-line text-muted transition-colors hover:border-ink hover:text-ink"
-              >
-                {theme === "dark" ? (
-                  <FiSun className="h-4 w-4" aria-hidden="true" />
-                ) : (
-                  <FiMoon className="h-4 w-4" aria-hidden="true" />
-                )}
-              </button>
+              <ThemePicker />
 
               <Magnetic className="hidden md:inline-block">
                 <a
@@ -213,9 +199,7 @@ export const Navigation = ({ onOpenCommand }: NavigationProps) => {
                 onClick={() => setMenuOpen((open) => !open)}
                 aria-expanded={menuOpen}
                 aria-controls="mobile-menu"
-                aria-label={
-                  menuOpen ? t("a11y.closeMenu") : t("a11y.openMenu")
-                }
+                aria-label={menuOpen ? t("a11y.closeMenu") : t("a11y.openMenu")}
                 className="grid h-9 w-9 place-items-center rounded-md border border-line text-ink xl:hidden"
               >
                 {menuOpen ? (
@@ -268,16 +252,34 @@ export const Navigation = ({ onOpenCommand }: NavigationProps) => {
                 ))}
               </nav>
 
+              <div className="mt-7 border-t border-line pt-5">
+                <div className="flex items-center justify-between gap-3">
+                  <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-muted">
+                    {t("v21.theme.label")}
+                  </p>
+                  <span className="font-mono text-[8px] uppercase tracking-[0.12em] text-brand-text">
+                    {t("v21.theme.pickerHint")}
+                  </span>
+                </div>
+                <ThemeGrid className="mt-3" compact />
+              </div>
+
               <div className="mt-8 grid gap-4">
                 <a
                   href={socialLinks.email}
                   className="flex items-center gap-3 text-sm text-muted"
                 >
-                  <FiMail className="h-4 w-4 text-brand-text" aria-hidden="true" />
+                  <FiMail
+                    className="h-4 w-4 text-brand-text"
+                    aria-hidden="true"
+                  />
                   {personalInfo.email}
                 </a>
                 <span className="flex items-center gap-3 text-sm text-muted">
-                  <FiMapPin className="h-4 w-4 text-brand-text" aria-hidden="true" />
+                  <FiMapPin
+                    className="h-4 w-4 text-brand-text"
+                    aria-hidden="true"
+                  />
                   {personalInfo.location}
                 </span>
               </div>
@@ -325,18 +327,6 @@ export const Navigation = ({ onOpenCommand }: NavigationProps) => {
                       </button>
                     ))}
                   </div>
-                  <button
-                    type="button"
-                    onClick={toggleTheme}
-                    aria-label={t("a11y.toggleTheme")}
-                    className="grid h-10 w-10 place-items-center rounded-md border border-line text-muted"
-                  >
-                    {theme === "dark" ? (
-                      <FiSun className="h-4 w-4" aria-hidden="true" />
-                    ) : (
-                      <FiMoon className="h-4 w-4" aria-hidden="true" />
-                    )}
-                  </button>
                 </div>
               </div>
             </div>

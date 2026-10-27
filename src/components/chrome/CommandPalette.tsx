@@ -25,8 +25,9 @@ import {
 import { useTheme } from "../../context/ThemeContext";
 import { usePortfolioData } from "../../hooks/usePortfolioData";
 import { copyToClipboard } from "../../lib/clipboard";
+import { themes } from "../../lib/themes";
 
-type CommandGroup = "navigation" | "actions" | "elsewhere";
+type CommandGroup = "navigation" | "actions" | "themes" | "elsewhere";
 
 interface Command {
   id: string;
@@ -46,7 +47,7 @@ interface CommandPaletteProps {
 export const CommandPalette = ({ open, onClose }: CommandPaletteProps) => {
   const { t, i18n } = useTranslation();
   const { personalInfo, socialLinks } = usePortfolioData();
-  const { theme, toggleTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const reduce = useReducedMotion();
 
   const [query, setQuery] = useState("");
@@ -73,12 +74,54 @@ export const CommandPalette = ({ open, onClose }: CommandPaletteProps) => {
 
   const commands = useMemo<Command[]>(() => {
     const nav: Command[] = [
-      { id: "nav-work", label: t("v21.nav.work"), hint: "02", group: "navigation", icon: FiCommand, run: () => scrollTo("projects") },
-      { id: "nav-about", label: t("v21.nav.about"), hint: "01", group: "navigation", icon: FiCommand, run: () => scrollTo("about") },
-      { id: "nav-fit", label: t("v21.nav.fit"), hint: "03", group: "navigation", icon: FiCommand, run: () => scrollTo("fit") },
-      { id: "nav-journey", label: t("v21.nav.journey"), hint: "04", group: "navigation", icon: FiCommand, run: () => scrollTo("timeline") },
-      { id: "nav-skills", label: t("v21.nav.skills"), hint: "05", group: "navigation", icon: FiCommand, run: () => scrollTo("skills") },
-      { id: "nav-contact", label: t("v21.nav.contact"), hint: "06", group: "navigation", icon: FiCommand, run: () => scrollTo("contact") },
+      {
+        id: "nav-work",
+        label: t("v21.nav.work"),
+        hint: "02",
+        group: "navigation",
+        icon: FiCommand,
+        run: () => scrollTo("projects"),
+      },
+      {
+        id: "nav-about",
+        label: t("v21.nav.about"),
+        hint: "01",
+        group: "navigation",
+        icon: FiCommand,
+        run: () => scrollTo("about"),
+      },
+      {
+        id: "nav-fit",
+        label: t("v21.nav.fit"),
+        hint: "03",
+        group: "navigation",
+        icon: FiCommand,
+        run: () => scrollTo("fit"),
+      },
+      {
+        id: "nav-journey",
+        label: t("v21.nav.journey"),
+        hint: "04",
+        group: "navigation",
+        icon: FiCommand,
+        run: () => scrollTo("timeline"),
+      },
+      {
+        id: "nav-skills",
+        label: t("v21.nav.skills"),
+        hint: "05",
+        group: "navigation",
+        icon: FiCommand,
+        run: () => scrollTo("skills"),
+      },
+      {
+        id: "nav-contact",
+        label: t("v21.nav.contact"),
+        hint: "06",
+        group: "navigation",
+        icon: FiCommand,
+        run: () => scrollTo("contact"),
+      },
     ];
 
     const actions: Command[] = [
@@ -94,7 +137,10 @@ export const CommandPalette = ({ open, onClose }: CommandPaletteProps) => {
             if (!success) return;
             setCopied(true);
             if (copiedTimer.current) window.clearTimeout(copiedTimer.current);
-            copiedTimer.current = window.setTimeout(() => setCopied(false), 2200);
+            copiedTimer.current = window.setTimeout(
+              () => setCopied(false),
+              2200,
+            );
           });
         },
       },
@@ -108,17 +154,6 @@ export const CommandPalette = ({ open, onClose }: CommandPaletteProps) => {
         run: () => {
           onClose();
           window.location.href = `mailto:${personalInfo.email}`;
-        },
-      },
-      {
-        id: "toggle-theme",
-        label: t("v21.command.toggleTheme"),
-        hint: theme === "dark" ? t("theme.light") : t("theme.dark"),
-        group: "actions",
-        icon: theme === "dark" ? FiSun : FiMoon,
-        keywords: "theme dark light mode",
-        run: () => {
-          toggleTheme();
         },
       },
       {
@@ -144,6 +179,24 @@ export const CommandPalette = ({ open, onClose }: CommandPaletteProps) => {
         },
       },
     ];
+
+    const palette: Command[] = themes.map((definition) => ({
+      id: `theme-${definition.id}`,
+      label: t("v21.command.applyTheme", {
+        name: t(definition.nameKey),
+      }),
+      hint:
+        theme === definition.id
+          ? t("v21.command.active")
+          : t(`v21.theme.mode.${definition.mode}`),
+      group: "themes",
+      icon: definition.mode === "dark" ? FiMoon : FiSun,
+      keywords: `theme palette color colour ${definition.id}`,
+      run: () => {
+        setTheme(definition.id);
+        onClose();
+      },
+    }));
 
     const elsewhere: Command[] = [
       {
@@ -172,18 +225,18 @@ export const CommandPalette = ({ open, onClose }: CommandPaletteProps) => {
       },
     ];
 
-    return [...nav, ...actions, ...elsewhere];
+    return [...nav, ...actions, ...palette, ...elsewhere];
   }, [
     copied,
     i18n,
     onClose,
     personalInfo.email,
     scrollTo,
+    setTheme,
     socialLinks.github,
     socialLinks.linkedIn,
     t,
     theme,
-    toggleTheme,
   ]);
 
   const filtered = useMemo(() => {
@@ -199,6 +252,7 @@ export const CommandPalette = ({ open, onClose }: CommandPaletteProps) => {
   const groups: { key: CommandGroup; label: string }[] = [
     { key: "navigation", label: t("v21.command.navigation") },
     { key: "actions", label: t("v21.command.actions") },
+    { key: "themes", label: t("v21.command.themes") },
     { key: "elsewhere", label: t("v21.command.elsewhere") },
   ];
 
@@ -310,7 +364,10 @@ export const CommandPalette = ({ open, onClose }: CommandPaletteProps) => {
             transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="flex items-center gap-3 border-b border-line px-5 py-4">
-              <FiSearch className="h-4 w-4 shrink-0 text-muted" aria-hidden="true" />
+              <FiSearch
+                className="h-4 w-4 shrink-0 text-muted"
+                aria-hidden="true"
+              />
               <input
                 ref={inputRef}
                 type="text"

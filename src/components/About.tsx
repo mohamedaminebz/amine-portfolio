@@ -22,12 +22,24 @@ const interestIcons: Record<string, IconType> = {
   "book-open": FiBookOpen,
 };
 
-const coreTools = ["React", "Node.js", "TypeScript", "React Native", "ClickHouse"];
+const coreTools = [
+  "React",
+  "Node.js",
+  "TypeScript",
+  "React Native",
+  "ClickHouse",
+];
 
 export const About = () => {
   const { t } = useTranslation();
-  const { personalInfo, interests, languages, projects, skills, timelineItems } =
-    usePortfolioData();
+  const {
+    personalInfo,
+    interests,
+    languages,
+    projects,
+    skills,
+    timelineItems,
+  } = usePortfolioData();
 
   const stats = [
     { value: "150+", label: t("v21.about.stats.apis"), highlight: true },
@@ -100,7 +112,9 @@ export const About = () => {
             <Reveal>
               <div className="card-surface rounded-[1.25rem] p-6 md:p-8">
                 <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line pb-4">
-                  <span className="eyebrow">{t("v21.about.availabilityNote")}</span>
+                  <span className="eyebrow">
+                    {t("v21.about.availabilityNote")}
+                  </span>
                   <span className="chip chip-brand">
                     <span className="h-1.5 w-1.5 rounded-full bg-brand" />
                     {t("v21.about.availability")}
@@ -145,7 +159,10 @@ export const About = () => {
               <div className="card-surface h-full rounded-[1.25rem] p-6">
                 <div className="flex items-center justify-between gap-3">
                   <p className="flex items-center gap-2 eyebrow">
-                    <FiCode className="h-3.5 w-3.5 text-brand-text" aria-hidden="true" />
+                    <FiCode
+                      className="h-3.5 w-3.5 text-brand-text"
+                      aria-hidden="true"
+                    />
                     {t("v21.about.offClock")}
                   </p>
                   <span className="font-mono text-[8px] uppercase tracking-[0.12em] text-muted">
@@ -160,7 +177,10 @@ export const About = () => {
                         key={interest.name}
                         className="flex items-center gap-2 rounded-md border border-line bg-surface-2 px-3 py-1.5 text-sm text-ink"
                       >
-                        <Icon className="h-3.5 w-3.5 text-brand-text" aria-hidden="true" />
+                        <Icon
+                          className="h-3.5 w-3.5 text-brand-text"
+                          aria-hidden="true"
+                        />
                         {interest.name}
                       </span>
                     );
@@ -189,7 +209,10 @@ export const About = () => {
                       <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-white/85">
                         {t("v21.about.currently")}
                       </p>
-                      <span className="h-1.5 w-1.5 bg-white" aria-hidden="true" />
+                      <span
+                        className="h-1.5 w-1.5 bg-white"
+                        aria-hidden="true"
+                      />
                     </div>
                     <p className="mt-4 font-display text-xl font-semibold leading-tight tracking-tight text-white">
                       {currentRole?.title ?? t("v21.about.currently")}
@@ -203,7 +226,7 @@ export const About = () => {
                   </div>
                   <a
                     href="#timeline"
-                    className="group relative mt-6 inline-flex items-center gap-2 self-start rounded-full border border-white/25 px-3 py-1.5 font-mono text-[8px] uppercase tracking-[0.12em] text-white transition-colors hover:bg-white hover:text-[#2f3bff]"
+                    className="group relative mt-6 inline-flex items-center gap-2 self-start rounded-full border border-white/25 px-3 py-1.5 font-mono text-[8px] uppercase tracking-[0.12em] text-white transition-colors hover:bg-white hover:text-panel"
                   >
                     {currentRole?.date ?? "Aug 2025 — Present"}
                     <FiArrowUpRight
@@ -218,7 +241,10 @@ export const About = () => {
             <Reveal delay={0.12}>
               <div className="card-surface rounded-[1.25rem] p-5">
                 <p className="flex items-center gap-2 eyebrow">
-                  <FiGlobe className="h-3.5 w-3.5 text-brand-text" aria-hidden="true" />
+                  <FiGlobe
+                    className="h-3.5 w-3.5 text-brand-text"
+                    aria-hidden="true"
+                  />
                   {t("v21.about.languages")}
                 </p>
                 <ul className="mt-4 space-y-2.5">

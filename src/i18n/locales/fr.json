@@ -196,7 +196,7 @@
   "a11y": {
     "skipToContent": "Aller au contenu",
     "mainNavigation": "Navigation principale",
-    "toggleTheme": "Changer de thème",
+    "toggleTheme": "Changer le thème de couleur",
     "openMenu": "Ouvrir le menu de navigation",
     "closeMenu": "Fermer le menu de navigation",
     "closeProject": "Fermer les détails du projet",
@@ -226,6 +226,24 @@
       "close": "Fermer",
       "command": "Ouvrir le menu de commandes",
       "hire": "Discutons"
+    },
+    "theme": {
+      "label": "Thème",
+      "open": "Changer de thème",
+      "pickerTitle": "Choisir une palette",
+      "pickerHint": "Six ambiances, un index.",
+      "mode": {
+        "light": "Clair",
+        "dark": "Sombre"
+      },
+      "names": {
+        "fog": "Brume",
+        "paper": "Papier",
+        "sage": "Sauge",
+        "ink": "Encre",
+        "carbon": "Carbone",
+        "marine": "Marine"
+      }
     },
     "hero": {
       "eyebrow": "Ingénieur full-stack · Ariana, Tunisie",
@@ -444,7 +462,7 @@
     "footer": {
       "backToTop": "Retour en haut",
       "built": "Conçu et développé avec intention.",
-      "version": "v2.1",
+      "version": "v2.2",
       "elsewhere": "Ailleurs",
       "navigate": "Navigation",
       "status": "Ouvert aux opportunités",
@@ -456,6 +474,7 @@
       "placeholder": "Rechercher des sections, actions et liens…",
       "navigation": "Naviguer",
       "actions": "Actions",
+      "themes": "Thèmes",
       "elsewhere": "Ailleurs",
       "noResults": "Aucune commande trouvée. Essayez autre chose.",
       "hint": "↑↓ naviguer · ↵ sélectionner · échap fermer",
@@ -464,6 +483,8 @@
       "openLinkedIn": "Ouvrir le profil LinkedIn",
       "openGithub": "Ouvrir le profil GitHub",
       "toggleTheme": "Basculer clair / sombre",
+      "applyTheme": "Passer au thème {{name}}",
+      "active": "Actif",
       "switchEnglish": "Passer en anglais",
       "switchFrench": "Passer en français",
       "email": "Email",

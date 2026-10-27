@@ -196,7 +196,7 @@
   "a11y": {
     "skipToContent": "Skip to content",
     "mainNavigation": "Main navigation",
-    "toggleTheme": "Toggle dark mode",
+    "toggleTheme": "Change color theme",
     "openMenu": "Open navigation menu",
     "closeMenu": "Close navigation menu",
     "closeProject": "Close project details",
@@ -227,13 +227,27 @@
       "command": "Open command menu",
       "hire": "Let’s talk"
     },
+    "theme": {
+      "label": "Theme",
+      "open": "Change theme",
+      "pickerTitle": "Choose a palette",
+      "pickerHint": "Six looks, one index.",
+      "mode": {
+        "light": "Light",
+        "dark": "Dark"
+      },
+      "names": {
+        "fog": "Fog",
+        "paper": "Paper",
+        "sage": "Sage",
+        "ink": "Ink",
+        "carbon": "Carbon",
+        "marine": "Marine"
+      }
+    },
     "hero": {
       "eyebrow": "Full-stack engineer · Ariana, Tunisia",
-      "roles": [
-        "Systems thinker",
-        "Product builder",
-        "Problem solver"
-      ],
+      "roles": ["Systems thinker", "Product builder", "Problem solver"],
       "tagline": "I turn data-heavy systems into products that feel effortless — from a 20M-row migration to the API and interface on top.",
       "available": "Available for select projects",
       "ctaWork": "Explore selected work",
@@ -416,11 +430,7 @@
       "response": "I usually reply within 24 hours.",
       "formTitle": "Start a conversation",
       "intentLabel": "I’m reaching out about",
-      "intents": [
-        "A full-time role",
-        "A freelance project",
-        "A quick hello"
-      ],
+      "intents": ["A full-time role", "A freelance project", "A quick hello"],
       "name": "Your name",
       "namePlaceholder": "Amine, Sarah, Alex…",
       "email": "Your email",
@@ -444,7 +454,7 @@
     "footer": {
       "backToTop": "Back to top",
       "built": "Designed & built with intent.",
-      "version": "v2.1",
+      "version": "v2.2",
       "elsewhere": "Elsewhere",
       "navigate": "Navigate",
       "status": "Open to opportunities",
@@ -456,6 +466,7 @@
       "placeholder": "Search sections, actions and links…",
       "navigation": "Navigate",
       "actions": "Actions",
+      "themes": "Themes",
       "elsewhere": "Elsewhere",
       "noResults": "No command found. Try another search.",
       "hint": "↑↓ navigate · ↵ select · esc close",
@@ -464,6 +475,8 @@
       "openLinkedIn": "Open LinkedIn profile",
       "openGithub": "Open GitHub profile",
       "toggleTheme": "Toggle light / dark theme",
+      "applyTheme": "Switch to {{name}} theme",
+      "active": "Active",
       "switchEnglish": "Switch language to English",
       "switchFrench": "Switch language to French",
       "email": "Email",

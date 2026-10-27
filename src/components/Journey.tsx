@@ -1,11 +1,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  FiArrowUpRight,
-  FiAward,
-  FiBriefcase,
-} from "react-icons/fi";
+import { FiArrowUpRight, FiAward, FiBriefcase } from "react-icons/fi";
 import { LuGraduationCap } from "react-icons/lu";
 import { usePortfolioData } from "../hooks/usePortfolioData";
 import type { TimelineItem } from "../types/portfolio";
@@ -31,7 +27,8 @@ export const Journey = () => {
   const counts = {
     all: timelineItems.length,
     work: timelineItems.filter((item) => item.type === "work").length,
-    internship: timelineItems.filter((item) => item.type === "internship").length,
+    internship: timelineItems.filter((item) => item.type === "internship")
+      .length,
   };
 
   const filters: { key: Filter; label: string; count: number }[] = [
@@ -60,7 +57,11 @@ export const Journey = () => {
                 description={t("v21.journey.subtitle")}
               />
 
-              <div className="mt-8 flex flex-wrap gap-2" role="group" aria-label={t("v21.journey.label")}>
+              <div
+                className="mt-8 flex flex-wrap gap-2"
+                role="group"
+                aria-label={t("v21.journey.label")}
+              >
                 {filters.map((item) => (
                   <button
                     key={item.key}
@@ -96,7 +97,7 @@ export const Journey = () => {
                     {[0, 18, 42, 63, 86].map((position, index) => (
                       <span
                         key={position}
-                        className={`absolute top-1/2 h-2 w-2 -translate-y-1/2 rounded-full border border-[#2f3bff] ${
+                        className={`absolute top-1/2 h-2 w-2 -translate-y-1/2 rounded-full border border-brand ${
                           index === 4 ? "bg-white" : "bg-white/55"
                         }`}
                         style={{ left: `${position}%` }}
@@ -157,9 +158,15 @@ export const Journey = () => {
                       <span className="h-1 w-1 rounded-full bg-line" />
                       <span className="flex items-center gap-1">
                         {item.type === "work" ? (
-                          <FiBriefcase className="h-2.5 w-2.5" aria-hidden="true" />
+                          <FiBriefcase
+                            className="h-2.5 w-2.5"
+                            aria-hidden="true"
+                          />
                         ) : (
-                          <LuGraduationCap className="h-2.5 w-2.5" aria-hidden="true" />
+                          <LuGraduationCap
+                            className="h-2.5 w-2.5"
+                            aria-hidden="true"
+                          />
                         )}
                         {t(
                           item.type === "work"
@@ -180,7 +187,10 @@ export const Journey = () => {
                         </p>
                       </div>
                       <span className="mt-1 hidden h-8 w-8 shrink-0 place-items-center rounded-full border border-line text-muted transition-colors group-hover:border-brand group-hover:text-brand-text sm:grid">
-                        <FiArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+                        <FiArrowUpRight
+                          className="h-3.5 w-3.5"
+                          aria-hidden="true"
+                        />
                       </span>
                     </div>
 
@@ -207,7 +217,10 @@ export const Journey = () => {
               <div className="rounded-[1.25rem] border border-line bg-surface p-5 md:p-6">
                 <div className="flex items-center justify-between gap-4">
                   <div className="flex items-center gap-2">
-                    <LuGraduationCap className="h-4 w-4 text-brand-text" aria-hidden="true" />
+                    <LuGraduationCap
+                      className="h-4 w-4 text-brand-text"
+                      aria-hidden="true"
+                    />
                     <p className="eyebrow">{t("v21.journey.education")}</p>
                   </div>
                   <span className="font-mono text-[8px] uppercase tracking-[0.14em] text-muted">
@@ -245,7 +258,10 @@ export const Journey = () => {
                       key={certification.name}
                       className="flex items-center gap-1.5 rounded-md border border-line px-2.5 py-1 font-mono text-[8px] uppercase tracking-[0.1em] text-muted"
                     >
-                      <FiAward className="h-3 w-3 text-brand-text" aria-hidden="true" />
+                      <FiAward
+                        className="h-3 w-3 text-brand-text"
+                        aria-hidden="true"
+                      />
                       {certification.name} · {certification.year}
                     </span>
                   ))}
