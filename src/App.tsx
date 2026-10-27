@@ -6,6 +6,7 @@ import { Navigation } from "./components/chrome/Navigation";
 import { ScrollProgress } from "./components/chrome/ScrollProgress";
 import { Spotlight } from "./components/chrome/Spotlight";
 import { Contact } from "./components/Contact";
+import { Fit } from "./components/Fit";
 import { Footer } from "./components/Footer";
 import { Hero } from "./components/Hero";
 import { Journey } from "./components/Journey";
@@ -47,6 +48,7 @@ const App = () => {
         <Hero />
         <About />
         <Work />
+        <Fit />
         <Journey />
         <Skills />
         <Contact />

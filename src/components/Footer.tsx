@@ -14,6 +14,7 @@ import { Mark } from "./ui/Mark";
 const links = [
   { id: "about", key: "about" },
   { id: "projects", key: "work" },
+  { id: "fit", key: "fit" },
   { id: "timeline", key: "journey" },
   { id: "skills", key: "skills" },
   { id: "contact", key: "contact" },

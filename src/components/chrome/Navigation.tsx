@@ -25,9 +25,10 @@ interface NavigationProps {
 const navItems = [
   { id: "about", key: "about", index: "01" },
   { id: "projects", key: "work", index: "02" },
-  { id: "timeline", key: "journey", index: "03" },
-  { id: "skills", key: "skills", index: "04" },
-  { id: "contact", key: "contact", index: "05" },
+  { id: "fit", key: "fit", index: "03" },
+  { id: "timeline", key: "journey", index: "04" },
+  { id: "skills", key: "skills", index: "05" },
+  { id: "contact", key: "contact", index: "06" },
 ] as const;
 
 export const Navigation = ({ onOpenCommand }: NavigationProps) => {
@@ -75,7 +76,7 @@ export const Navigation = ({ onOpenCommand }: NavigationProps) => {
       if (event.key === "Escape") setMenuOpen(false);
     };
     const onResize = () => {
-      if (window.innerWidth >= 1024) setMenuOpen(false);
+      if (window.innerWidth >= 1280) setMenuOpen(false);
     };
 
     window.addEventListener("keydown", onKeyDown);

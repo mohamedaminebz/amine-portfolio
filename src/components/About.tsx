@@ -54,8 +54,16 @@ export const About = () => {
                 className="absolute -bottom-3 left-3 right-0 top-6 rounded-[1.4rem] bg-brand"
                 aria-hidden="true"
               />
-              <div className="relative h-full min-h-[500px] overflow-hidden rounded-[1.25rem] border border-line bg-surface">
-                <div className="portrait-tone absolute inset-0">
+              <div className="relative flex h-full min-h-[500px] flex-col overflow-hidden rounded-[1.25rem] border border-line bg-surface">
+                <div className="flex items-center justify-between gap-3 border-b border-line px-5 py-3 font-mono text-[8px] uppercase tracking-[0.16em]">
+                  <span className="text-muted">Portrait / 02</span>
+                  <span className="flex items-center gap-1.5 text-brand-text">
+                    <span className="h-1.5 w-1.5 bg-brand" aria-hidden="true" />
+                    {t("v21.about.availability")}
+                  </span>
+                </div>
+
+                <div className="relative min-h-[360px] flex-1 overflow-hidden bg-surface-2">
                   <img
                     src={asset("/images/MAB.webp")}
                     alt={personalInfo.name}
@@ -63,35 +71,23 @@ export const About = () => {
                     height={1601}
                     loading="lazy"
                     decoding="async"
-                    className="h-full w-full object-cover object-[50%_22%] transition-transform duration-700 group-hover:scale-[1.03]"
+                    className="absolute inset-0 h-full w-full object-cover object-[50%_22%] transition-transform duration-700 group-hover:scale-[1.02]"
                   />
                 </div>
-                <div
-                  className="absolute inset-0 bg-gradient-to-t from-[#080b15]/90 via-[#080b15]/5 to-[#080b15]/25"
-                  aria-hidden="true"
-                />
 
-                <div className="absolute inset-x-0 top-0 flex items-center justify-between p-5 font-mono text-[8px] uppercase tracking-[0.18em] text-white/75">
-                  <span>Portrait / 02</span>
-                  <span className="flex items-center gap-1.5">
-                    <span className="h-1.5 w-1.5 bg-brand" />
-                    {t("v21.about.availability")}
-                  </span>
-                </div>
-
-                <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
-                  <p className="font-display text-2xl font-semibold tracking-tight text-white">
+                <div className="border-t border-line px-5 py-4">
+                  <p className="font-display text-xl font-semibold tracking-tight text-ink">
                     {personalInfo.name}
                   </p>
-                  <p className="mt-1 text-sm text-white/85">
+                  <p className="mt-0.5 text-sm text-muted">
                     {personalInfo.title}
                   </p>
-                  <div className="mt-4 flex flex-wrap items-center gap-2">
-                    <span className="flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[8px] uppercase tracking-[0.12em] text-white/80 backdrop-blur-sm">
+                  <div className="mt-3 flex flex-wrap items-center gap-2">
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface-2 px-2.5 py-1 font-mono text-[8px] uppercase tracking-[0.12em] text-muted">
                       <FiMapPin className="h-2.5 w-2.5" aria-hidden="true" />
                       {t("v21.about.photoCaption")}
                     </span>
-                    <span className="rounded-full border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[8px] uppercase tracking-[0.12em] text-white/80 backdrop-blur-sm">
+                    <span className="rounded-full border border-line bg-surface-2 px-2.5 py-1 font-mono text-[8px] uppercase tracking-[0.12em] text-muted">
                       {t("v21.hero.remote")}
                     </span>
                   </div>

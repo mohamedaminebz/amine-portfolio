@@ -385,21 +385,6 @@
     pointer-events: none;
   }
 
-  .portrait-tone {
-    filter: grayscale(1) contrast(1.08) brightness(0.93);
-  }
-
-  .portrait-tone::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(150deg, rgba(47, 59, 255, 0.55) 0%, transparent 46%),
-      linear-gradient(330deg, rgba(8, 11, 21, 0.5) 0%, transparent 48%);
-    mix-blend-mode: color;
-    pointer-events: none;
-  }
-
   .marquee-line {
     animation: marquee 28s linear infinite;
   }

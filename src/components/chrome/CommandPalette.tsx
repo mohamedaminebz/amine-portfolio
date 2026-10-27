@@ -75,9 +75,10 @@ export const CommandPalette = ({ open, onClose }: CommandPaletteProps) => {
     const nav: Command[] = [
       { id: "nav-work", label: t("v21.nav.work"), hint: "02", group: "navigation", icon: FiCommand, run: () => scrollTo("projects") },
       { id: "nav-about", label: t("v21.nav.about"), hint: "01", group: "navigation", icon: FiCommand, run: () => scrollTo("about") },
-      { id: "nav-journey", label: t("v21.nav.journey"), hint: "03", group: "navigation", icon: FiCommand, run: () => scrollTo("timeline") },
-      { id: "nav-skills", label: t("v21.nav.skills"), hint: "04", group: "navigation", icon: FiCommand, run: () => scrollTo("skills") },
-      { id: "nav-contact", label: t("v21.nav.contact"), hint: "05", group: "navigation", icon: FiCommand, run: () => scrollTo("contact") },
+      { id: "nav-fit", label: t("v21.nav.fit"), hint: "03", group: "navigation", icon: FiCommand, run: () => scrollTo("fit") },
+      { id: "nav-journey", label: t("v21.nav.journey"), hint: "04", group: "navigation", icon: FiCommand, run: () => scrollTo("timeline") },
+      { id: "nav-skills", label: t("v21.nav.skills"), hint: "05", group: "navigation", icon: FiCommand, run: () => scrollTo("skills") },
+      { id: "nav-contact", label: t("v21.nav.contact"), hint: "06", group: "navigation", icon: FiCommand, run: () => scrollTo("contact") },
     ];
 
     const actions: Command[] = [

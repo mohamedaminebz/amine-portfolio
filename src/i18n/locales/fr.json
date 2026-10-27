@@ -218,6 +218,7 @@
     "nav": {
       "work": "Projets",
       "about": "À propos",
+      "fit": "Profil",
       "journey": "Parcours",
       "skills": "Arsenal",
       "contact": "Contact",
@@ -287,6 +288,11 @@
       "selectedProduct": "Produit sélectionné",
       "zeroLoss": "Aucune perte de données",
       "storageReduction": "Réduction du stockage",
+      "migrationConsole": "Console de migration",
+      "verified": "Intégrité vérifiée",
+      "source": "Source",
+      "target": "Cible",
+      "unit": "1 case = 1 Go · cases sombres récupérées",
       "archiveNote": "Sélection parmi {{count}} projets · {{systems}} systèmes professionnels",
       "discuss": "Parler d’un projet similaire",
       "viewCase": "Voir l’étude de cas",
@@ -301,6 +307,62 @@
         "devices": "objets IoT en reporting automatisé"
       },
       "browseAll": "Voir tous les projets"
+    },
+    "fit": {
+      "label": "03 — Trouver le profil",
+      "title": "Trouvez le profil",
+      "titleAccent": "qu’il vous faut.",
+      "subtitle": "Quatre briefs de poste inspirés de vraies annonces backend, data et produit — puis reliés au travail livré.",
+      "postLabel": "Annonce type",
+      "askLabel": "La demande",
+      "requirementsLabel": "Exigences",
+      "evidenceLabel": "Preuves",
+      "matchedLabel": "Retrouvé dans",
+      "openCase": "Ouvrir l’étude de cas",
+      "note": "Les briefs sont des composites de vraies annonces. Chaque preuve ouvre le travail livré.",
+      "cards": {
+        "backend": {
+          "title": "Ingénieur backend",
+          "focus": "API & microservices",
+          "meta": "Temps plein · Remote ou hybride",
+          "ask": "Prendre en charge la couche API, découper un monolithe en services et préserver les données de production pendant la migration.",
+          "proof1": "API REST livrées",
+          "proof2": "architecture reconstruite"
+        },
+        "data": {
+          "title": "Ingénieur plateforme data",
+          "focus": "Stockage & performance",
+          "meta": "Temps plein · Plateforme data",
+          "ask": "Déplacer de gros volumes analytiques sans interruption, optimiser le stockage et rendre les requêtes lentes à nouveau rapides.",
+          "proof1": "lignes migrées",
+          "proof2": "empreinte de stockage"
+        },
+        "product": {
+          "title": "Ingénieur produit full-stack",
+          "focus": "Web, mobile & API",
+          "meta": "Temps plein · Équipe produit",
+          "ask": "Livrer l’application web d’administration, l’application mobile terrain et l’API derrière — tenants, releases et CI/CD inclus.",
+          "proof1": "applications web + mobile",
+          "proof2": "services intégrés"
+        },
+        "automation": {
+          "title": "Ingénieur automatisation reporting",
+          "focus": "IoT & tâches planifiées",
+          "meta": "Temps plein · Opérations",
+          "ask": "Remplacer le reporting manuel par des jobs planifiés qui suivent l’uptime, détectent les pannes et préviennent le bon groupe à temps.",
+          "proof1": "objets IoT couverts",
+          "proof2": "tâches cron actives"
+        }
+      },
+      "cta": {
+        "eyebrow": "Un autre poste ?",
+        "title": "Apportez le problème.",
+        "accent": "J’apporte la preuve.",
+        "description": "Dites-moi le poste, la stack et la contrainte. Je vous montrerai où je l’ai déjà résolu.",
+        "primary": "Démarrer la conversation",
+        "secondary": "Voir le parcours complet",
+        "note": "CDI, freelance, ou une bonne conversation."
+      }
     },
     "journey": {
       "label": "04 — Parcours",

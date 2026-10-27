@@ -158,46 +158,41 @@ export const Work = () => {
               href={`#project=${flagship.id}`}
               onClick={openCase(flagship)}
               aria-label={`${t("v21.work.viewCase")} — ${flagship.title}`}
-              className="brand-panel group relative block overflow-hidden rounded-[1.5rem]"
+              className="group relative block overflow-hidden rounded-[1.5rem] border border-line bg-surface shadow-[0_30px_80px_-64px_rgba(10,14,28,0.55)] transition-colors hover:border-brand/50"
             >
-              <div
-                className="blueprint pointer-events-none absolute inset-0 opacity-40"
-                aria-hidden="true"
-              />
-              <div
-                className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-white/10 blur-[80px]"
-                aria-hidden="true"
-              />
+              <div className="h-1 w-full bg-brand" aria-hidden="true" />
+
               <div className="relative grid lg:grid-cols-12">
-                <div className="p-6 md:p-9 lg:col-span-7 lg:p-10">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="rounded-full border border-white/25 bg-white/10 px-2.5 py-1 font-mono text-[8px] uppercase tracking-[0.16em] text-white">
+                <div className="relative p-6 md:p-9 lg:col-span-7 lg:p-10">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <span className="inline-flex items-center gap-2 rounded-full border border-brand/25 bg-brand-soft px-2.5 py-1 font-mono text-[8px] uppercase tracking-[0.16em] text-brand-text">
+                      <span className="h-1.5 w-1.5 bg-brand" aria-hidden="true" />
                       {t("v21.work.flagship")}
                     </span>
-                    <span className="font-mono text-[8px] uppercase tracking-[0.16em] text-white/85">
+                    <span className="font-mono text-[8px] uppercase tracking-[0.14em] text-muted">
                       {flagship.period} · {flagship.company}
                     </span>
                   </div>
 
-                  <h3 className="display mt-6 max-w-xl text-[clamp(2.15rem,4.3vw,3.8rem)] text-white">
+                  <h3 className="display mt-7 max-w-xl text-[clamp(2.15rem,4.3vw,3.8rem)] text-ink">
                     {flagship.title}
                   </h3>
-                  <p className="mt-4 max-w-xl text-sm leading-relaxed text-white/80 md:text-[15px]">
+                  <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted md:text-[15px]">
                     {flagship.subtitle}
                   </p>
 
-                  <div className="mt-8 grid grid-cols-1 gap-px overflow-hidden border-y border-white/15 bg-white/15 sm:grid-cols-3">
+                  <div className="mt-8 grid grid-cols-3 gap-px overflow-hidden rounded-lg border border-line bg-line">
                     {[migrationStats[0], migrationStats[2], migrationStats[3]].map(
                       (stat) =>
                         stat && (
                           <div
                             key={stat.label}
-                            className="flex items-baseline justify-between gap-3 bg-panel p-3.5 sm:block md:p-4"
+                            className="flex flex-col justify-between bg-surface p-3.5 md:p-4"
                           >
-                            <p className="font-display text-xl font-semibold leading-none tracking-tight text-white md:text-2xl">
+                            <p className="font-display text-lg font-semibold leading-none tracking-tight text-ink sm:text-2xl">
                               {stat.value}
                             </p>
-                            <p className="mt-0 text-right font-mono text-[7px] uppercase leading-relaxed tracking-[0.12em] text-white/85 sm:mt-1.5 sm:text-left">
+                            <p className="mt-2 font-mono text-[7px] uppercase leading-relaxed tracking-[0.12em] text-muted">
                               {stat.label}
                             </p>
                           </div>
@@ -205,64 +200,85 @@ export const Work = () => {
                     )}
                   </div>
 
-                  <span className="mt-7 inline-flex items-center gap-2.5 text-sm font-medium text-white">
+                  <span className="mt-8 inline-flex items-center gap-2.5 text-sm font-medium text-brand-text">
                     {t("v21.work.viewCase")}
-                    <span className="grid h-8 w-8 place-items-center rounded-full bg-white/12 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                    <span className="grid h-8 w-8 place-items-center rounded-full bg-brand text-brand-ink transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                       <FiArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
                     </span>
                   </span>
                 </div>
 
-                <div className="relative flex items-end border-t border-white/15 p-6 md:p-8 lg:col-span-5 lg:border-l lg:border-t-0 lg:p-9">
-                  <span
-                    className="pointer-events-none absolute right-2 top-2 select-none font-display text-[7.5rem] font-bold leading-none text-white/[0.07]"
+                <div className="relative overflow-hidden border-t border-line bg-[#080b15] text-white lg:col-span-5 lg:border-l lg:border-t-0">
+                  <div
+                    className="pointer-events-none absolute -right-16 -top-20 h-64 w-64 rounded-full bg-[#2f3bff]/40 blur-[80px]"
                     aria-hidden="true"
-                  >
-                    95
-                  </span>
-                  <div className="relative w-full">
-                    <div className="flex items-center gap-2 font-mono text-[8px] uppercase tracking-[0.16em] text-white/85">
-                      <FiDatabase className="h-3 w-3" aria-hidden="true" />
-                      Storage footprint
-                    </div>
+                  />
 
-                    <div
-                      className="mt-8 flex items-end gap-5 sm:gap-7"
-                      aria-hidden="true"
-                    >
-                      <div className="flex flex-1 flex-col items-start">
-                        <div
-                          className="w-full max-w-[118px] rounded-t-md border border-white/20 bg-white/15"
-                          style={{ height: "146px" }}
-                        />
-                        <p className="mt-2 font-mono text-[9px] uppercase tracking-[0.12em] text-white/85">
-                          MySQL · {fromStorage}
-                        </p>
-                      </div>
-                      <FiArrowRight
-                        className="mb-6 h-4 w-4 shrink-0 text-white/75"
-                        aria-hidden="true"
-                      />
-                      <div className="flex flex-1 flex-col items-start">
-                        <div
-                          className="w-full max-w-[118px] rounded-t-md bg-white"
-                          style={{ height: "16px" }}
-                        />
-                        <p className="mt-2 font-mono text-[9px] uppercase tracking-[0.12em] text-white/85">
-                          ClickHouse · {toStorage}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="mt-7 flex items-end justify-between gap-4 border-t border-white/15 pt-4">
-                      <p className="font-mono text-[8px] uppercase leading-relaxed tracking-[0.14em] text-white/85">
-                        {t("v21.work.storageReduction")}
-                        <br />
-                        {t("v21.work.zeroLoss")}
-                      </p>
-                      <span className="font-display text-[clamp(2rem,3.8vw,3rem)] leading-none text-white">
-                        {migrationStats[2]?.value ?? "95%+"}
+                  <div className="relative flex h-full flex-col">
+                    <div className="flex items-center justify-between gap-3 border-b border-white/10 px-5 py-4 font-mono text-[8px] uppercase tracking-[0.14em] md:px-6">
+                      <span className="flex items-center gap-2 text-white/60">
+                        <FiDatabase className="h-3 w-3" aria-hidden="true" />
+                        {t("v21.work.migrationConsole")}
                       </span>
+                      <span className="flex items-center gap-1.5 text-[#a5aeff]">
+                        <span
+                          className="h-1.5 w-1.5 rounded-full bg-[#7c88ff]"
+                          aria-hidden="true"
+                        />
+                        {t("v21.work.verified")}
+                      </span>
+                    </div>
+
+                    <div className="flex flex-1 flex-col justify-between p-5 md:p-6">
+                      <div>
+                        <div className="flex items-center justify-between gap-3 font-mono text-[8px] uppercase tracking-[0.14em]">
+                          <span className="text-white/55">
+                            {t("v21.work.source")}
+                          </span>
+                          <span className="text-[#a5aeff]">
+                            {t("v21.work.target")}
+                          </span>
+                        </div>
+
+                        <div
+                          className="mt-3 grid grid-cols-[repeat(14,minmax(0,1fr))] gap-1"
+                          aria-hidden="true"
+                        >
+                          {Array.from({ length: 70 }).map((_, index) => (
+                            <span
+                              key={index}
+                              className={`aspect-square rounded-[2px] ${
+                                index >= 67
+                                  ? "bg-[#7c88ff]"
+                                  : "bg-white/[0.08]"
+                              }`}
+                            />
+                          ))}
+                        </div>
+
+                        <div className="mt-2.5 flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.12em]">
+                          <span className="text-white/80">{fromStorage}</span>
+                          <span className="text-[#a5aeff]">{toStorage}</span>
+                        </div>
+
+                        <p className="mt-2 font-mono text-[8px] uppercase tracking-[0.12em] text-white/45">
+                          {t("v21.work.unit")}
+                        </p>
+                      </div>
+
+                      <div className="mt-6 flex items-end justify-between gap-4 border-t border-white/10 pt-4">
+                        <div>
+                          <p className="font-mono text-[8px] uppercase tracking-[0.14em] text-white/55">
+                            {t("v21.work.storageReduction")}
+                          </p>
+                          <p className="mt-1.5 text-[11px] leading-snug text-white/75">
+                            {t("v21.work.zeroLoss")}
+                          </p>
+                        </div>
+                        <span className="display text-[clamp(2.4rem,5vw,3.5rem)] leading-none text-[#a5aeff]">
+                          {migrationStats[2]?.value ?? "95%+"}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>

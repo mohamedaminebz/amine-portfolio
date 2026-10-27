@@ -218,6 +218,7 @@
     "nav": {
       "work": "Work",
       "about": "About",
+      "fit": "Fit",
       "journey": "Journey",
       "skills": "Arsenal",
       "contact": "Contact",
@@ -287,6 +288,11 @@
       "selectedProduct": "Selected product",
       "zeroLoss": "Zero data loss",
       "storageReduction": "Storage reduction",
+      "migrationConsole": "Migration console",
+      "verified": "Integrity verified",
+      "source": "Source",
+      "target": "Target",
+      "unit": "1 cell = 1 GB · dark cells reclaimed",
       "archiveNote": "Selected from {{count}} projects · {{systems}} professional systems",
       "discuss": "Discuss a similar build",
       "viewCase": "View case study",
@@ -301,6 +307,62 @@
         "devices": "IoT devices under automated reporting"
       },
       "browseAll": "Browse all work"
+    },
+    "fit": {
+      "label": "03 — Find your fit",
+      "title": "Find the profile",
+      "titleAccent": "you need.",
+      "subtitle": "Four role briefs modelled on real backend, data and product posts — then matched to shipped work.",
+      "postLabel": "Market post",
+      "askLabel": "The ask",
+      "requirementsLabel": "Requirements",
+      "evidenceLabel": "Evidence",
+      "matchedLabel": "Matched in",
+      "openCase": "Open case study",
+      "note": "Role briefs are composites of real market posts. Every proof opens the shipped work.",
+      "cards": {
+        "backend": {
+          "title": "Backend Engineer",
+          "focus": "APIs & microservices",
+          "meta": "Full-time · Remote or hybrid",
+          "ask": "Own the API layer, break a legacy monolith into services, and keep production data intact through the migration.",
+          "proof1": "REST APIs shipped",
+          "proof2": "architecture rebuilt"
+        },
+        "data": {
+          "title": "Data Platform Engineer",
+          "focus": "Storage & query performance",
+          "meta": "Full-time · Data platform",
+          "ask": "Move large analytical datasets without downtime, tune the storage model and make slow queries fast again.",
+          "proof1": "rows migrated",
+          "proof2": "storage footprint"
+        },
+        "product": {
+          "title": "Full-Stack Product Engineer",
+          "focus": "Web, mobile & API",
+          "meta": "Full-time · Product team",
+          "ask": "Ship the admin web app, the field mobile app and the API behind them — across tenants, releases and CI/CD.",
+          "proof1": "web + mobile apps",
+          "proof2": "integrated services"
+        },
+        "automation": {
+          "title": "Reporting Automation Engineer",
+          "focus": "IoT & scheduled jobs",
+          "meta": "Full-time · Operations",
+          "ask": "Replace manual reporting with scheduled jobs that track uptime, surface failures and reach the right group on time.",
+          "proof1": "IoT devices covered",
+          "proof2": "cron jobs running"
+        }
+      },
+      "cta": {
+        "eyebrow": "A different role?",
+        "title": "Bring the problem.",
+        "accent": "I’ll bring the proof.",
+        "description": "Tell me the role, the stack and the constraint. I’ll show you where I’ve solved it before.",
+        "primary": "Start a conversation",
+        "secondary": "See the full experience",
+        "note": "Full-time, freelance, or a good conversation."
+      }
     },
     "journey": {
       "label": "04 — Journey",
