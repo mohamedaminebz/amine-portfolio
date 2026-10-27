@@ -1,11 +1,10 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FiAward, FiFilter, FiGlobe } from "react-icons/fi";
+import { FiAward, FiGlobe } from "react-icons/fi";
 import { usePortfolioData } from "../hooks/usePortfolioData";
 import { asset } from "../lib/asset";
 import type { Skill, SkillCategory } from "../types/portfolio";
-import { Reveal } from "./ui/Reveal";
 import { SectionHeading } from "./ui/SectionHeading";
 
 type Filter = SkillCategory | "all";
@@ -87,20 +86,14 @@ export const Skills = () => {
             accent={t("v21.skills.titleAccent")}
             description={t("v21.skills.subtitle")}
           />
-          <Reveal delay={0.1} className="shrink-0">
-            <span className="flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.14em] text-muted">
-              <FiFilter className="h-3.5 w-3.5 text-acid-text" aria-hidden="true" />
-              {t("v21.skills.count", { count: skills.length })}
-            </span>
-          </Reveal>
         </div>
 
-        <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:gap-12">
-          <aside className="lg:col-span-3">
-            <div className="lg:sticky lg:top-28">
+        <div className="mt-12 flex flex-col gap-10 lg:grid lg:grid-cols-12 lg:gap-12">
+          <aside className="contents lg:col-span-3 lg:block">
+            <div className="order-1 min-w-0">
               <p className="eyebrow">{t("v21.skills.categories.all")}</p>
               <div
-                className="mt-4 flex gap-2 overflow-x-auto pb-2 no-scrollbar lg:flex-col lg:gap-1 lg:overflow-visible lg:pb-0"
+                className="mt-4 flex flex-wrap gap-2 lg:flex-col lg:gap-1"
                 role="group"
                 aria-label={t("v21.skills.label")}
               >
@@ -110,9 +103,9 @@ export const Skills = () => {
                     type="button"
                     onClick={() => setFilter(category.key)}
                     aria-pressed={filter === category.key}
-                    className={`flex shrink-0 items-center justify-between gap-3 rounded-xl px-3 py-2 text-left font-mono text-[9px] uppercase tracking-[0.12em] transition-colors lg:w-full ${
+                    className={`flex shrink-0 items-center justify-between gap-3 rounded-md px-3 py-2 text-left font-mono text-[9px] uppercase tracking-[0.12em] transition-colors lg:w-full ${
                       filter === category.key
-                        ? "bg-acid text-acid-ink"
+                        ? "bg-brand text-brand-ink"
                         : "border border-line text-muted hover:border-ink hover:text-ink lg:border-transparent lg:border-b-line"
                     }`}
                   >
@@ -127,10 +120,12 @@ export const Skills = () => {
                   </button>
                 ))}
               </div>
+            </div>
 
-              <div className="mt-8 rounded-2xl border border-line bg-surface p-5">
+            <div className="order-3 mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+              <div className="rounded-[1.15rem] border border-line bg-surface p-5">
                 <p className="flex items-center gap-2 eyebrow">
-                  <FiGlobe className="h-3.5 w-3.5 text-acid-text" aria-hidden="true" />
+                  <FiGlobe className="h-3.5 w-3.5 text-brand-text" aria-hidden="true" />
                   {t("v21.skills.languages")}
                 </p>
                 <ul className="mt-4 space-y-3">
@@ -146,7 +141,7 @@ export const Skills = () => {
                       </div>
                       <div className="mt-1.5 h-px w-full bg-line">
                         <div
-                          className="h-px bg-acid"
+                          className="h-px bg-brand"
                           style={{
                             width:
                               language.level.toLowerCase().includes("native")
@@ -162,9 +157,9 @@ export const Skills = () => {
                 </ul>
               </div>
 
-              <div className="mt-4 rounded-2xl border border-line bg-surface p-5">
+              <div className="rounded-[1.15rem] border border-line bg-surface p-5">
                 <p className="flex items-center gap-2 eyebrow">
-                  <FiAward className="h-3.5 w-3.5 text-acid-text" aria-hidden="true" />
+                  <FiAward className="h-3.5 w-3.5 text-brand-text" aria-hidden="true" />
                   {t("v21.skills.certifications")}
                 </p>
                 <ul className="mt-4 space-y-2.5">
@@ -186,7 +181,7 @@ export const Skills = () => {
             </div>
           </aside>
 
-          <div className="lg:col-span-9">
+          <div className="order-2 min-w-0 lg:col-span-9">
             <div className="mb-4 flex items-center justify-between gap-4 border-b border-line pb-3">
               <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-muted">
                 {t("v21.skills.count", { count: filtered.length })}
@@ -204,19 +199,19 @@ export const Skills = () => {
                   initial={reduce ? false : { opacity: 0, y: 14 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.35, delay: Math.min(index, 8) * 0.025 }}
-                  className="group relative flex min-h-[152px] flex-col justify-between overflow-hidden rounded-2xl border border-line bg-surface p-4 transition-colors hover:border-acid/45 hover:bg-surface-2/60"
+                  className="group relative flex min-h-[148px] flex-col justify-between overflow-hidden rounded-xl border border-line bg-surface p-4 transition-colors hover:border-brand/45 hover:bg-surface-2/60"
                 >
                   <div className="flex items-start justify-between gap-2">
-                    <span className="grid h-10 w-10 place-items-center rounded-xl border border-line bg-surface-2 p-2">
+                    <span className="grid h-10 w-10 place-items-center rounded-lg border border-line bg-surface-2 p-2">
                       <SkillMark skill={skill} />
                     </span>
-                    <span className="rounded-full border border-line px-2 py-0.5 font-mono text-[7px] uppercase tracking-[0.1em] text-muted">
+                    <span className="rounded border border-line px-2 py-0.5 font-mono text-[7px] uppercase tracking-[0.1em] text-muted">
                       {t(`v21.skills.categories.${skill.category}`)}
                     </span>
                   </div>
 
                   <div className="mt-4">
-                    <p className="text-sm font-semibold tracking-tight text-ink">
+                    <p className="font-display text-[15px] font-semibold tracking-tight text-ink">
                       {skill.name}
                     </p>
                     <p className="mt-1 line-clamp-3 text-[11px] leading-relaxed text-muted transition-colors group-hover:text-ink/75">
@@ -225,7 +220,7 @@ export const Skills = () => {
                   </div>
 
                   <span
-                    className="pointer-events-none absolute inset-x-4 bottom-0 h-px origin-left scale-x-0 bg-acid transition-transform duration-500 group-hover:scale-x-100"
+                    className="pointer-events-none absolute inset-x-4 bottom-0 h-px origin-left scale-x-0 bg-brand transition-transform duration-500 group-hover:scale-x-100"
                     aria-hidden="true"
                   />
                 </motion.div>

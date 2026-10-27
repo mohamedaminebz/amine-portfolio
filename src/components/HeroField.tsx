@@ -34,14 +34,14 @@ export const HeroField = ({ theme }: HeroFieldProps) => {
     const palette =
       theme === "dark"
         ? {
-            node: "213, 255, 63",
-            line: "242, 240, 232",
-            active: "213, 255, 63",
+            node: "143, 154, 255",
+            line: "238, 241, 250",
+            active: "238, 241, 250",
           }
         : {
-            node: "94, 122, 0",
-            line: "17, 18, 14",
-            active: "94, 122, 0",
+            node: "47, 59, 255",
+            line: "10, 14, 28",
+            active: "10, 14, 28",
           };
 
     let width = 0;

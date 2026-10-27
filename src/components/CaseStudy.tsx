@@ -113,6 +113,8 @@ export const CaseStudy = ({
     projects[(projectIndex - 1 + projects.length) % projects.length];
   const nextProject = projects[(projectIndex + 1) % projects.length];
   const typeLabel = t(`projects.type.${project.type}`);
+  const highlightStatIndex =
+    project.quickStats?.findIndex((stat) => stat.value.includes("%")) ?? -1;
 
   useEffect(() => {
     previousFocus.current = document.activeElement as HTMLElement | null;
@@ -228,7 +230,7 @@ export const CaseStudy = ({
             key={`${item}-${index}`}
             className="flex gap-3 text-sm leading-relaxed text-muted"
           >
-            <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full border border-line font-mono text-[8px] text-acid-text">
+            <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full border border-line font-mono text-[8px] text-brand-text">
               {numbered ? String(index + 1).padStart(2, "0") : "✓"}
             </span>
             <span>{item}</span>
@@ -259,14 +261,14 @@ export const CaseStudy = ({
               onClick={onClose}
               className="group flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.16em] text-muted transition-colors hover:text-ink"
             >
-              <span className="grid h-8 w-8 place-items-center rounded-full border border-line transition-colors group-hover:border-acid group-hover:text-acid-text">
+              <span className="grid h-8 w-8 place-items-center rounded-full border border-line transition-colors group-hover:border-brand group-hover:text-brand-text">
                 <FiArrowLeft className="h-3.5 w-3.5" aria-hidden="true" />
               </span>
               <span className="hidden sm:inline">{t("v21.case.back")}</span>
             </button>
 
             <div className="flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.16em] text-muted">
-              <span className="text-acid-text">
+              <span className="text-brand-text">
                 {String(projectIndex + 1).padStart(2, "0")}
               </span>
               <span className="h-3 w-px bg-line" />
@@ -278,7 +280,7 @@ export const CaseStudy = ({
               type="button"
               onClick={onClose}
               aria-label={t("v21.case.close")}
-              className="grid h-9 w-9 place-items-center rounded-full border border-line text-ink transition-colors hover:border-acid hover:bg-acid hover:text-acid-ink"
+              className="grid h-9 w-9 place-items-center rounded-full border border-line text-ink transition-colors hover:border-brand hover:bg-brand hover:text-brand-ink"
             >
               <FiX className="h-4 w-4" aria-hidden="true" />
             </button>
@@ -289,7 +291,7 @@ export const CaseStudy = ({
           <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-8">
               <div className="flex flex-wrap items-center gap-3 font-mono text-[9px] uppercase tracking-[0.16em] text-muted">
-                <span className="rounded-full border border-acid/30 bg-acid-soft px-2.5 py-1 text-acid-text">
+                <span className="chip chip-brand">
                   {typeLabel}
                 </span>
                 <span>{project.period}</span>
@@ -305,7 +307,7 @@ export const CaseStudy = ({
               </h1>
 
               {project.subtitle && (
-                <p className="mt-4 max-w-2xl font-display text-lg leading-snug tracking-tight text-acid-text md:text-2xl">
+                <p className="mt-4 max-w-2xl font-display text-lg leading-snug tracking-tight text-brand-text md:text-2xl">
                   {project.subtitle}
                 </p>
               )}
@@ -317,14 +319,14 @@ export const CaseStudy = ({
               </p>
               {project.status && (
                 <p className="mt-4 flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.14em] text-muted">
-                  <span className="h-1.5 w-1.5 rounded-full bg-acid" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-brand" />
                   {project.status}
                 </p>
               )}
             </div>
           </div>
 
-          <div className="mt-9 overflow-hidden rounded-[1.5rem] border border-line">
+          <div className="mt-9 overflow-hidden rounded-[1.25rem] border border-line">
             <ProjectVisual
               project={project}
               priority
@@ -332,7 +334,7 @@ export const CaseStudy = ({
             />
           </div>
 
-          <div className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-4">
+          <div className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line md:grid-cols-4">
             {[
               { label: t("v21.case.role"), value: project.role },
               { label: t("v21.case.period"), value: project.period },
@@ -356,15 +358,31 @@ export const CaseStudy = ({
 
           {project.quickStats && project.quickStats.length > 0 && (
             <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
-              {project.quickStats.map((stat) => (
+              {project.quickStats.map((stat, index) => (
                 <div
                   key={`${stat.value}-${stat.label}`}
-                  className="rounded-2xl border border-line bg-surface-2/60 p-4"
+                  className={`rounded-xl border p-4 ${
+                    index === highlightStatIndex
+                      ? "ink-panel border-transparent"
+                      : "border-line bg-surface-2/60"
+                  }`}
                 >
-                  <p className="font-display text-2xl font-semibold leading-none tracking-tight text-acid-text md:text-3xl">
+                  <p
+                    className={`font-display text-2xl font-semibold leading-none tracking-tight md:text-3xl ${
+                      index === highlightStatIndex
+                        ? "text-canvas"
+                        : "text-brand-text"
+                    }`}
+                  >
                     {stat.value}
                   </p>
-                  <p className="mt-2 font-mono text-[8px] uppercase leading-relaxed tracking-[0.12em] text-muted">
+                  <p
+                    className={`mt-2 font-mono text-[8px] uppercase leading-relaxed tracking-[0.12em] ${
+                      index === highlightStatIndex
+                        ? "text-canvas/75"
+                        : "text-muted"
+                    }`}
+                  >
                     {stat.label}
                   </p>
                 </div>
@@ -385,7 +403,7 @@ export const CaseStudy = ({
               {content.story && (
                 <Reveal className="mt-12">
                   <p className="eyebrow">{t("v21.case.theStory")}</p>
-                  <div className="mt-5 grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-3">
+                  <div className="mt-5 grid gap-px overflow-hidden rounded-xl border border-line bg-line md:grid-cols-3">
                     {[
                       {
                         label: t("v21.case.challenge"),
@@ -395,7 +413,7 @@ export const CaseStudy = ({
                       { label: t("v21.case.result"), body: content.story.result },
                     ].map((block, index) => (
                       <div key={block.label} className="bg-surface p-5 md:p-6">
-                        <span className="font-mono text-[9px] text-acid-text">
+                        <span className="font-mono text-[9px] text-brand-text">
                           0{index + 1}
                         </span>
                         <p className="mt-3 font-mono text-[9px] uppercase tracking-[0.16em] text-muted">
@@ -426,12 +444,12 @@ export const CaseStudy = ({
                     {content.tasks.map((task, index) => (
                       <div
                         key={task.title}
-                        className="rounded-2xl border border-line bg-surface p-5"
+                        className="rounded-xl border border-line bg-surface p-5"
                       >
-                        <span className="font-mono text-[9px] text-acid-text">
+                        <span className="font-mono text-[9px] text-brand-text">
                           {String(index + 1).padStart(2, "0")}
                         </span>
-                        <h3 className="mt-2 font-display text-lg font-medium tracking-tight">
+                        <h3 className="mt-2 font-display text-lg font-semibold tracking-tight">
                           {task.title}
                         </h3>
                         <p className="mt-2 text-sm leading-relaxed text-muted">
@@ -473,7 +491,7 @@ export const CaseStudy = ({
 
             <aside className="lg:col-span-4">
               <div className="lg:sticky lg:top-24">
-                <div className="rounded-2xl border border-line bg-surface p-5">
+                <div className="rounded-xl border border-line bg-surface p-5">
                   <p className="eyebrow">{t("v21.case.tech")}</p>
                   <div className="mt-4 flex flex-wrap gap-1.5">
                     {project.technologies.map((tech) => (
@@ -494,14 +512,14 @@ export const CaseStudy = ({
                 </div>
 
                 {list(content.results).length > 0 && (
-                  <div className="mt-4 rounded-2xl border border-line bg-surface p-5">
+                  <div className="mt-4 rounded-xl border border-line bg-surface p-5">
                     <p className="eyebrow">{t("v21.case.results")}</p>
                     <div className="mt-4">{renderList(list(content.results))}</div>
                   </div>
                 )}
 
                 {list(content.keySkills).length > 0 && (
-                  <div className="mt-4 rounded-2xl border border-line bg-surface p-5">
+                  <div className="mt-4 rounded-xl border border-line bg-surface p-5">
                     <p className="eyebrow">{t("v21.case.keySkills")}</p>
                     <div className="mt-4 flex flex-wrap gap-1.5">
                       {list(content.keySkills).map((skill) => (
@@ -517,14 +535,14 @@ export const CaseStudy = ({
                 )}
 
                 {list(content.deliverables).length > 0 && (
-                  <div className="mt-4 rounded-2xl border border-line bg-surface p-5">
+                  <div className="mt-4 rounded-xl border border-line bg-surface p-5">
                     <p className="eyebrow">{t("v21.case.deliverables")}</p>
                     <div className="mt-4">{renderList(list(content.deliverables))}</div>
                   </div>
                 )}
 
                 {list(content.learnings).length > 0 && (
-                  <div className="mt-4 rounded-2xl border border-line bg-surface p-5">
+                  <div className="mt-4 rounded-xl border border-line bg-surface p-5">
                     <p className="eyebrow">{t("v21.case.learnings")}</p>
                     <div className="mt-4">{renderList(list(content.learnings))}</div>
                   </div>
@@ -576,7 +594,7 @@ export const CaseStudy = ({
               onClick={() => onNavigate(previousProject)}
               className="group flex max-w-md items-center gap-3 text-left"
             >
-              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-line transition-colors group-hover:border-acid group-hover:bg-acid group-hover:text-acid-ink">
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-line transition-colors group-hover:border-brand group-hover:bg-brand group-hover:text-brand-ink">
                 <FiChevronLeft className="h-4 w-4" aria-hidden="true" />
               </span>
               <span>
@@ -592,7 +610,7 @@ export const CaseStudy = ({
             <button
               type="button"
               onClick={onClose}
-              className="mx-auto flex items-center gap-2 rounded-full border border-line px-4 py-2 font-mono text-[9px] uppercase tracking-[0.14em] text-muted transition-colors hover:border-acid hover:text-ink sm:mx-0"
+              className="mx-auto flex items-center gap-2 rounded-full border border-line px-4 py-2 font-mono text-[9px] uppercase tracking-[0.14em] text-muted transition-colors hover:border-brand hover:text-ink sm:mx-0"
             >
               <FiArrowLeft className="h-3.5 w-3.5" aria-hidden="true" />
               {t("v21.case.back")}
@@ -611,14 +629,14 @@ export const CaseStudy = ({
                   {nextProject.title}
                 </span>
               </span>
-              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-line transition-colors group-hover:border-acid group-hover:bg-acid group-hover:text-acid-ink">
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-line transition-colors group-hover:border-brand group-hover:bg-brand group-hover:text-brand-ink">
                 <FiChevronRight className="h-4 w-4" aria-hidden="true" />
               </span>
             </button>
           </div>
 
           <p className="mt-8 flex items-center justify-center gap-2 font-mono text-[8px] uppercase tracking-[0.16em] text-muted">
-            <FiArrowUpRight className="h-3 w-3 text-acid-text" aria-hidden="true" />
+            <FiArrowUpRight className="h-3 w-3 text-brand-text" aria-hidden="true" />
             {project.period} · {project.company}
           </p>
         </article>
@@ -643,7 +661,7 @@ export const CaseStudy = ({
                   {selectedImage.caption}
                 </span>
                 <div className="flex items-center gap-3">
-                  <span className="font-mono text-[10px] tracking-[0.14em] text-white/40">
+                  <span className="font-mono text-[10px] tracking-[0.14em] text-white/60">
                     {String(lightboxIndex + 1).padStart(2, "0")} /{" "}
                     {String(screenshots.length).padStart(2, "0")}
                   </span>
@@ -652,7 +670,7 @@ export const CaseStudy = ({
                     type="button"
                     onClick={() => setLightboxIndex(null)}
                     aria-label={t("a11y.closeImage")}
-                    className="grid h-10 w-10 place-items-center rounded-full border border-white/20 text-white transition-colors hover:border-acid hover:text-acid"
+                    className="grid h-10 w-10 place-items-center rounded-full border border-white/20 text-white transition-colors hover:border-brand hover:text-brand"
                   >
                     <FiX className="h-4 w-4" aria-hidden="true" />
                   </button>
@@ -673,7 +691,7 @@ export const CaseStudy = ({
                     );
                   }}
                   aria-label={t("a11y.previousImage")}
-                  className="absolute left-3 top-1/2 z-10 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-white/20 bg-black/40 text-white backdrop-blur-sm transition-colors hover:border-acid hover:text-acid md:left-6"
+                  className="absolute left-3 top-1/2 z-10 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-white/20 bg-black/40 text-white backdrop-blur-sm transition-colors hover:border-brand hover:text-brand md:left-6"
                 >
                   <FiChevronLeft className="h-5 w-5" aria-hidden="true" />
                 </button>
@@ -698,13 +716,13 @@ export const CaseStudy = ({
                     );
                   }}
                   aria-label={t("a11y.nextImage")}
-                  className="absolute right-3 top-1/2 z-10 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-white/20 bg-black/40 text-white backdrop-blur-sm transition-colors hover:border-acid hover:text-acid md:right-6"
+                  className="absolute right-3 top-1/2 z-10 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-white/20 bg-black/40 text-white backdrop-blur-sm transition-colors hover:border-brand hover:text-brand md:right-6"
                 >
                   <FiChevronRight className="h-5 w-5" aria-hidden="true" />
                 </button>
               </div>
 
-              <div className="hidden shrink-0 items-center justify-center gap-2 pb-5 font-mono text-[9px] uppercase tracking-[0.16em] text-white/30 sm:flex">
+              <div className="hidden shrink-0 items-center justify-center gap-2 pb-5 font-mono text-[9px] uppercase tracking-[0.16em] text-white/55 sm:flex">
                 <FiArrowLeft className="h-3 w-3" aria-hidden="true" />
                 <FiArrowRight className="h-3 w-3" aria-hidden="true" />
                 {t("projectDetail.swipeToSee")}

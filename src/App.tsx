@@ -34,7 +34,7 @@ const App = () => {
     <div className="relative min-h-screen overflow-x-clip bg-canvas text-ink">
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-full focus:bg-acid focus:px-5 focus:py-3 focus:font-medium focus:text-acid-ink"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-full focus:bg-brand focus:px-5 focus:py-3 focus:font-medium focus:text-brand-ink"
       >
         {t("a11y.skipToContent")}
       </a>

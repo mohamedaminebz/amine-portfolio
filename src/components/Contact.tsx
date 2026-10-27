@@ -115,10 +115,10 @@ export const Contact = () => {
   };
 
   const inputClasses = (hasError: boolean) =>
-    `w-full rounded-xl border bg-canvas/60 px-3.5 py-3 text-sm text-ink outline-none transition-colors placeholder:text-muted/60 ${
+    `w-full rounded-lg border bg-canvas/60 px-3.5 py-3 text-sm text-ink outline-none transition-colors placeholder:text-muted/60 ${
       hasError
         ? "border-red-500/70 focus:border-red-500"
-        : "border-line focus:border-acid"
+        : "border-line focus:border-brand"
     }`;
 
   const labelClasses =
@@ -152,11 +152,11 @@ export const Contact = () => {
   return (
     <section id="contact" className="section-shell relative overflow-hidden border-t border-line">
       <div
-        className="pointer-events-none absolute -left-40 top-20 h-[420px] w-[420px] rounded-full bg-acid-soft blur-[130px]"
+        className="pointer-events-none absolute -left-40 top-20 h-[420px] w-[420px] rounded-full bg-brand-soft blur-[130px]"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute -right-32 bottom-0 h-[360px] w-[360px] rounded-full bg-acid-soft blur-[120px]"
+        className="pointer-events-none absolute -right-32 bottom-0 h-[360px] w-[360px] rounded-full bg-brand-soft blur-[120px]"
         aria-hidden="true"
       />
 
@@ -168,14 +168,14 @@ export const Contact = () => {
           description={t("v21.contact.subtitle")}
         />
 
-        <div className="mt-14 grid gap-4 lg:grid-cols-12 lg:gap-5">
+        <div className="mt-14 grid gap-4 lg:grid-cols-12 lg:items-start lg:gap-5">
           <div className="grid gap-4 lg:col-span-5 lg:gap-5">
             <Reveal>
-              <div className="card-surface rounded-[1.75rem] p-6 md:p-7">
+              <div className="card-surface rounded-[1.25rem] p-6 md:p-7">
                 <div className="flex items-center justify-between gap-3">
                   <p className="eyebrow">{t("v21.contact.openTo")}</p>
-                  <span className="flex items-center gap-1.5 rounded-full border border-acid/30 bg-acid-soft px-2.5 py-1 font-mono text-[8px] uppercase tracking-[0.12em] text-acid-text">
-                    <span className="h-1.5 w-1.5 rounded-full bg-acid" />
+                  <span className="flex items-center gap-1.5 rounded-full border border-brand/30 bg-brand-soft px-2.5 py-1 font-mono text-[8px] uppercase tracking-[0.12em] text-brand-text">
+                    <span className="h-1.5 w-1.5 rounded-full bg-brand" />
                     {t("v21.contact.availability")}
                   </span>
                 </div>
@@ -189,7 +189,7 @@ export const Contact = () => {
                     const Icon = row.icon;
                     const content = (
                       <>
-                        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-line bg-surface-2 text-acid-text">
+                        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-line bg-surface-2 text-brand-text">
                           <Icon className="h-3.5 w-3.5" aria-hidden="true" />
                         </span>
                         <span className="min-w-0">
@@ -207,11 +207,11 @@ export const Contact = () => {
                       <a
                         key={row.label}
                         href={row.href}
-                        className="group flex items-center gap-3 border-b border-line py-3 transition-colors hover:text-acid-text last:border-0"
+                        className="group flex items-center gap-3 border-b border-line py-3 transition-colors hover:text-brand-text last:border-0"
                       >
                         {content}
                         <FiArrowUpRight
-                          className="ml-auto h-3.5 w-3.5 shrink-0 text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-acid-text"
+                          className="ml-auto h-3.5 w-3.5 shrink-0 text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-text"
                           aria-hidden="true"
                         />
                       </a>
@@ -232,7 +232,7 @@ export const Contact = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={t("a11y.linkedin")}
-                    className="grid h-10 w-10 place-items-center rounded-full border border-line text-muted transition-colors hover:border-acid hover:bg-acid hover:text-acid-ink"
+                    className="grid h-10 w-10 place-items-center rounded-lg border border-line text-muted transition-colors hover:border-brand hover:bg-brand hover:text-brand-ink"
                   >
                     <FiLinkedin className="h-4 w-4" aria-hidden="true" />
                   </a>
@@ -241,7 +241,7 @@ export const Contact = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={t("a11y.github")}
-                    className="grid h-10 w-10 place-items-center rounded-full border border-line text-muted transition-colors hover:border-acid hover:bg-acid hover:text-acid-ink"
+                    className="grid h-10 w-10 place-items-center rounded-lg border border-line text-muted transition-colors hover:border-brand hover:bg-brand hover:text-brand-ink"
                   >
                     <FiGithub className="h-4 w-4" aria-hidden="true" />
                   </a>
@@ -253,7 +253,7 @@ export const Contact = () => {
             </Reveal>
 
             <Reveal delay={0.08}>
-              <div className="relative overflow-hidden rounded-[1.75rem] bg-acid p-6 text-acid-ink">
+              <div className="brand-panel relative overflow-hidden rounded-[1.25rem] p-6 text-white">
                 <div
                   className="absolute inset-0 opacity-[0.12]"
                   style={{
@@ -265,7 +265,7 @@ export const Contact = () => {
                 />
                 <div className="relative flex items-start justify-between gap-4">
                   <div>
-                    <p className="font-mono text-[9px] uppercase tracking-[0.18em] opacity-60">
+                    <p className="font-mono text-[9px] uppercase tracking-[0.18em] opacity-80">
                       {t("v21.contact.responseTime")}
                     </p>
                     <p className="mt-2 max-w-[230px] font-display text-xl font-semibold leading-snug tracking-tight">
@@ -274,7 +274,7 @@ export const Contact = () => {
                   </div>
                   <FiZap className="h-6 w-6" aria-hidden="true" />
                 </div>
-                <p className="relative mt-5 flex items-center gap-2 font-mono text-[8px] uppercase tracking-[0.12em] opacity-60">
+                <p className="relative mt-5 flex items-center gap-2 font-mono text-[8px] uppercase tracking-[0.12em] opacity-80">
                   <FiMapPin className="h-3 w-3" aria-hidden="true" />
                   {t("v21.contact.basedIn")} · {localTime}
                 </p>
@@ -285,10 +285,10 @@ export const Contact = () => {
               <button
                 type="button"
                 onClick={handleCopy}
-                className="group flex w-full items-center justify-between gap-4 rounded-[1.75rem] border border-line bg-surface px-5 py-4 text-left transition-colors hover:border-acid"
+                className="group flex w-full items-center justify-between gap-4 rounded-[1.25rem] border border-line bg-surface px-5 py-4 text-left transition-colors hover:border-brand"
               >
                 <span className="flex min-w-0 items-center gap-3">
-                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-line bg-surface-2 text-acid-text">
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-line bg-surface-2 text-brand-text">
                     {copied ? (
                       <FiCheck className="h-3.5 w-3.5" aria-hidden="true" />
                     ) : (
@@ -305,7 +305,7 @@ export const Contact = () => {
                   </span>
                 </span>
                 <FiArrowUpRight
-                  className="h-4 w-4 shrink-0 text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-acid-text"
+                  className="h-4 w-4 shrink-0 text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-text"
                   aria-hidden="true"
                 />
               </button>
@@ -313,13 +313,13 @@ export const Contact = () => {
           </div>
 
           <Reveal delay={0.05} className="lg:col-span-7">
-            <div className="card-surface h-full rounded-[1.75rem] p-6 md:p-8">
+            <div className="card-surface rounded-[1.25rem] p-6 md:p-8">
               <div className="flex items-center justify-between gap-4 border-b border-line pb-4">
                 <h3 className="font-display text-xl font-medium tracking-tight">
                   {t("v21.contact.formTitle")}
                 </h3>
-                <span className="flex items-center gap-2 font-mono text-[8px] uppercase tracking-[0.12em] text-muted">
-                  <span className="h-1.5 w-1.5 rounded-full bg-acid" />
+                <span className="hidden items-center gap-2 font-mono text-[8px] uppercase tracking-[0.12em] text-muted sm:flex">
+                  <span className="h-1.5 w-1.5 rounded-full bg-brand" />
                   {t("v21.contact.ctaNote")}
                 </span>
               </div>
@@ -333,9 +333,9 @@ export const Contact = () => {
                       type="button"
                       onClick={() => handleIntent(index, label)}
                       aria-pressed={intent === index}
-                      className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[9px] tracking-[0.02em] transition-colors ${
+                      className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 font-mono text-[9px] tracking-[0.02em] transition-colors ${
                         intent === index
-                          ? "bg-acid text-acid-ink"
+                          ? "bg-brand text-brand-ink"
                           : "border border-line text-muted hover:border-ink hover:text-ink"
                       }`}
                     >
@@ -433,13 +433,13 @@ export const Contact = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="group mt-5 flex w-full items-center justify-between gap-3 rounded-full bg-acid px-5 py-3.5 text-sm font-semibold text-acid-ink transition-colors hover:bg-ink hover:text-canvas disabled:cursor-not-allowed disabled:opacity-60"
+                  className="group mt-5 flex w-full items-center justify-between gap-3 rounded-lg bg-brand px-5 py-3.5 text-sm font-semibold text-brand-ink transition-colors hover:bg-ink hover:text-canvas disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   <span className="flex items-center gap-2">
                     <FiSend className="h-4 w-4" aria-hidden="true" />
                     {isSubmitting ? t("v21.contact.sending") : t("v21.contact.submit")}
                   </span>
-                  <span className="grid h-7 w-7 place-items-center rounded-full bg-acid-ink/10">
+                  <span className="grid h-7 w-7 place-items-center rounded-md bg-brand-ink/10">
                     <FiArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
                   </span>
                 </button>
@@ -448,7 +448,7 @@ export const Contact = () => {
                   role="status"
                   aria-live="polite"
                   className={`min-h-[1.1rem] pt-2 text-xs ${
-                    status === "error" ? "text-red-500" : "text-acid-text"
+                    status === "error" ? "text-red-500" : "text-brand-text"
                   }`}
                 >
                   {status === "success" && t("v21.contact.success")}
@@ -475,11 +475,11 @@ export const Contact = () => {
               <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-muted">
                 {t("v21.contact.emailLabel")}
               </p>
-              <p className="mt-2 break-all font-display text-[clamp(1.25rem,3.4vw,3rem)] font-medium tracking-[-0.04em] transition-colors group-hover:text-acid-text">
+              <p className="mt-2 break-all font-display text-[clamp(1.25rem,3.4vw,3rem)] font-semibold tracking-[-0.04em] transition-colors group-hover:text-brand-text">
                 {personalInfo.email}
               </p>
             </div>
-            <span className="grid h-14 w-14 shrink-0 place-items-center rounded-full border border-line transition-colors group-hover:border-acid group-hover:bg-acid group-hover:text-acid-ink">
+            <span className="grid h-14 w-14 shrink-0 place-items-center rounded-xl border border-line transition-colors group-hover:border-brand group-hover:bg-brand group-hover:text-brand-ink">
               <FiArrowUpRight className="h-5 w-5" aria-hidden="true" />
             </span>
           </a>

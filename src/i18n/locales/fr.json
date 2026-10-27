@@ -229,12 +229,11 @@
     "hero": {
       "eyebrow": "Ingénieur full-stack · Ariana, Tunisie",
       "roles": [
-        "Ingénieur full-stack",
         "Esprit système",
         "Créateur de produits",
         "Résolveur de problèmes"
       ],
-      "tagline": "Je conçois et développe des produits complets — des microservices à forte charge de données aux interfaces qui semblent évidentes.",
+      "tagline": "Je transforme des systèmes à forte charge de données en produits qui semblent simples — d’une migration de 20 millions de lignes jusqu’à l’API et l’interface.",
       "available": "Disponible pour des projets choisis",
       "ctaWork": "Découvrir mes projets",
       "ctaContact": "Démarrer la conversation",
@@ -248,6 +247,9 @@
       "apiLabel": "API REST livrées",
       "devicesLabel": "objets IoT suivis",
       "rowsLabel": "lignes migrées",
+      "storageLabel": "de stockage économisé sur ClickHouse",
+      "storageFootprint": "Empreinte de stockage après migration",
+      "proofLabel": "Quatre résultats, quatre systèmes",
       "since": "Je construis depuis 2020"
     },
     "about": {
@@ -281,6 +283,12 @@
       "all": "Tous",
       "count": "{{count}} projets",
       "featured": "À la une",
+      "flagship": "Projet phare",
+      "selectedProduct": "Produit sélectionné",
+      "zeroLoss": "Aucune perte de données",
+      "storageReduction": "Réduction du stockage",
+      "archiveNote": "Sélection parmi {{count}} projets · {{systems}} systèmes professionnels",
+      "discuss": "Parler d’un projet similaire",
       "viewCase": "Voir l’étude de cas",
       "noResults": "Aucun projet dans cette catégorie.",
       "impactLabel": "03 — Impact",

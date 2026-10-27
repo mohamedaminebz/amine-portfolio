@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-/** A very subtle lime glow that follows the pointer across the page. */
+/** A very subtle cobalt glow that follows the pointer across the page. */
 export const Spotlight = () => {
   useEffect(() => {
     if (

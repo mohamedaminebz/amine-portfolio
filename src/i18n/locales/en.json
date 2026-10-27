@@ -229,12 +229,11 @@
     "hero": {
       "eyebrow": "Full-stack engineer · Ariana, Tunisia",
       "roles": [
-        "Full-stack engineer",
         "Systems thinker",
         "Product builder",
         "Problem solver"
       ],
-      "tagline": "I build scalable products end to end — from data-heavy microservices to interfaces that feel effortless.",
+      "tagline": "I turn data-heavy systems into products that feel effortless — from a 20M-row migration to the API and interface on top.",
       "available": "Available for select projects",
       "ctaWork": "Explore selected work",
       "ctaContact": "Start a conversation",
@@ -248,6 +247,9 @@
       "apiLabel": "REST APIs shipped",
       "devicesLabel": "IoT devices monitored",
       "rowsLabel": "Rows migrated",
+      "storageLabel": "Storage reduction on ClickHouse",
+      "storageFootprint": "Storage footprint after migration",
+      "proofLabel": "Four outcomes, four systems",
       "since": "Building since 2020"
     },
     "about": {
@@ -281,6 +283,12 @@
       "all": "All",
       "count": "{{count}} projects",
       "featured": "Featured",
+      "flagship": "Flagship build",
+      "selectedProduct": "Selected product",
+      "zeroLoss": "Zero data loss",
+      "storageReduction": "Storage reduction",
+      "archiveNote": "Selected from {{count}} projects · {{systems}} professional systems",
+      "discuss": "Discuss a similar build",
       "viewCase": "View case study",
       "noResults": "Nothing in this category yet.",
       "impactLabel": "03 — Selected impact",

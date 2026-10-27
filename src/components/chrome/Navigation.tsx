@@ -16,6 +16,7 @@ import {
 import { useTheme } from "../../context/ThemeContext";
 import { usePortfolioData } from "../../hooks/usePortfolioData";
 import { Magnetic } from "../ui/Magnetic";
+import { Mark } from "../ui/Mark";
 
 interface NavigationProps {
   onOpenCommand: () => void;
@@ -37,7 +38,7 @@ export const Navigation = ({ onOpenCommand }: NavigationProps) => {
 
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("about");
+  const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -97,7 +98,7 @@ export const Navigation = ({ onOpenCommand }: NavigationProps) => {
       <header className="fixed inset-x-0 top-0 z-[100]">
         <div className="wrap">
           <div
-            className={`mt-3 flex h-[62px] items-center justify-between rounded-full px-3 transition-all duration-500 sm:px-4 ${
+            className={`mt-3 flex h-[62px] items-center justify-between rounded-xl px-2.5 transition-all duration-500 sm:px-3.5 ${
               scrolled || menuOpen
                 ? "glass shadow-[0_18px_60px_-30px_rgba(0,0,0,0.6)]"
                 : "border border-transparent bg-transparent"
@@ -105,15 +106,12 @@ export const Navigation = ({ onOpenCommand }: NavigationProps) => {
           >
             <a
               href="#top"
-              className="group flex items-center gap-3 rounded-full pr-2"
+              className="group flex items-center gap-3 rounded-lg pr-2"
               aria-label={`${personalInfo.name} — ${personalInfo.title}`}
             >
-              <span className="relative grid h-9 w-9 place-items-center rounded-full bg-acid text-acid-ink transition-transform duration-500 group-hover:rotate-12">
-                <span className="font-display text-base font-bold">A</span>
-                <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border-2 border-canvas bg-ink" />
-              </span>
+              <Mark className="h-9 w-9 transition-transform duration-500 group-hover:-rotate-6" />
               <span className="hidden leading-none sm:block">
-                <span className="block font-display text-[13px] font-semibold tracking-tight">
+                <span className="block font-display text-[14px] font-semibold tracking-tight">
                   Bouzidi
                 </span>
                 <span className="mt-1 block font-mono text-[8px] uppercase tracking-[0.18em] text-muted">
@@ -124,7 +122,7 @@ export const Navigation = ({ onOpenCommand }: NavigationProps) => {
 
             <nav
               aria-label={t("a11y.mainNavigation")}
-              className="hidden items-center gap-0.5 rounded-full border border-line bg-surface/50 p-1 backdrop-blur-sm lg:flex"
+              className="hidden items-center gap-0.5 rounded-lg border border-line bg-surface/50 p-1 backdrop-blur-sm xl:flex"
             >
               {navItems.map((item) => {
                 const active = activeSection === item.id;
@@ -133,15 +131,15 @@ export const Navigation = ({ onOpenCommand }: NavigationProps) => {
                     key={item.id}
                     href={`#${item.id}`}
                     aria-current={active ? "page" : undefined}
-                    className={`group relative flex items-center gap-1.5 rounded-full px-3 py-2 font-mono text-[10px] uppercase tracking-[0.14em] transition-colors ${
+                    className={`group relative flex items-center gap-1.5 rounded-md px-3 py-2 font-mono text-[10px] uppercase tracking-[0.12em] transition-colors ${
                       active
-                        ? "bg-surface-2 text-ink"
-                        : "text-muted hover:text-ink"
+                        ? "bg-brand text-brand-ink"
+                        : "text-muted hover:bg-surface-2 hover:text-ink"
                     }`}
                   >
                     <span
                       className={`text-[8px] ${
-                        active ? "text-acid-text" : "text-muted/60"
+                        active ? "text-brand-ink/60" : "text-muted/60"
                       }`}
                     >
                       {item.index}
@@ -153,26 +151,16 @@ export const Navigation = ({ onOpenCommand }: NavigationProps) => {
             </nav>
 
             <div className="flex items-center gap-2">
-              <span className="mr-1 hidden items-center gap-2 xl:flex">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-acid opacity-50" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-acid" />
-                </span>
-                <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-muted">
-                  {t("v21.hero.available")}
-                </span>
-              </span>
-
               <button
                 type="button"
                 onClick={onOpenCommand}
                 aria-label={t("v21.command.open")}
-                className="hidden h-9 items-center gap-1.5 rounded-full border border-line px-2.5 font-mono text-[10px] text-muted transition-colors hover:border-ink hover:text-ink md:flex"
+                className="hidden h-9 items-center gap-1.5 rounded-md border border-line px-2.5 font-mono text-[10px] text-muted transition-colors hover:border-ink hover:text-ink md:flex"
               >
                 <FiCommand className="h-3.5 w-3.5" aria-hidden="true" /> K
               </button>
 
-              <div className="hidden items-center rounded-full border border-line p-0.5 sm:flex">
+              <div className="hidden items-center rounded-md border border-line p-0.5 sm:flex">
                 {(["en", "fr"] as const).map((language) => (
                   <button
                     key={language}
@@ -182,9 +170,9 @@ export const Navigation = ({ onOpenCommand }: NavigationProps) => {
                       language === "fr" ? Boolean(isFrench) : !isFrench
                     }
                     lang={language}
-                    className={`rounded-full px-2 py-1 font-mono text-[9px] uppercase transition-colors ${
+                    className={`rounded px-2 py-1 font-mono text-[9px] uppercase transition-colors ${
                       (language === "fr") === Boolean(isFrench)
-                        ? "bg-ink text-canvas"
+                        ? "bg-brand text-brand-ink"
                         : "text-muted hover:text-ink"
                     }`}
                   >
@@ -197,7 +185,7 @@ export const Navigation = ({ onOpenCommand }: NavigationProps) => {
                 type="button"
                 onClick={toggleTheme}
                 aria-label={t("a11y.toggleTheme")}
-                className="grid h-9 w-9 place-items-center rounded-full border border-line text-muted transition-colors hover:border-ink hover:text-ink"
+                className="grid h-9 w-9 place-items-center rounded-md border border-line text-muted transition-colors hover:border-ink hover:text-ink"
               >
                 {theme === "dark" ? (
                   <FiSun className="h-4 w-4" aria-hidden="true" />
@@ -209,7 +197,7 @@ export const Navigation = ({ onOpenCommand }: NavigationProps) => {
               <Magnetic className="hidden md:inline-block">
                 <a
                   href="#contact"
-                  className="group flex h-9 items-center gap-2 rounded-full bg-acid px-4 font-medium text-acid-ink transition-colors hover:bg-ink hover:text-canvas"
+                  className="group flex h-9 items-center gap-2 rounded-md bg-brand px-4 font-medium text-brand-ink transition-colors hover:bg-ink hover:text-canvas"
                 >
                   {t("v21.nav.hire")}
                   <FiArrowUpRight
@@ -227,7 +215,7 @@ export const Navigation = ({ onOpenCommand }: NavigationProps) => {
                 aria-label={
                   menuOpen ? t("a11y.closeMenu") : t("a11y.openMenu")
                 }
-                className="grid h-9 w-9 place-items-center rounded-full border border-line text-ink lg:hidden"
+                className="grid h-9 w-9 place-items-center rounded-md border border-line text-ink xl:hidden"
               >
                 {menuOpen ? (
                   <FiX className="h-4 w-4" aria-hidden="true" />
@@ -244,13 +232,17 @@ export const Navigation = ({ onOpenCommand }: NavigationProps) => {
         {menuOpen && (
           <motion.div
             id="mobile-menu"
-            className="fixed inset-0 z-[95] flex flex-col overflow-y-auto bg-canvas px-6 pb-10 pt-28 lg:hidden"
+            className="fixed inset-0 z-[95] flex flex-col overflow-y-auto bg-canvas px-6 pb-10 pt-28 xl:hidden"
             initial={reduce ? false : { opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={reduce ? undefined : { opacity: 0, y: -8 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="flex flex-1 flex-col">
+            <div
+              className="pointer-events-none absolute inset-0 grid-lines opacity-50"
+              aria-hidden="true"
+            />
+            <div className="relative flex flex-1 flex-col">
               <nav
                 aria-label={t("a11y.mainNavigation")}
                 className="flex flex-col"
@@ -268,7 +260,7 @@ export const Navigation = ({ onOpenCommand }: NavigationProps) => {
                     <span className="display text-[2.6rem] leading-none sm:text-6xl">
                       {t(`v21.nav.${item.key}`)}
                     </span>
-                    <span className="font-mono text-[10px] text-acid-text">
+                    <span className="font-mono text-[10px] text-brand-text">
                       {item.index}
                     </span>
                   </motion.a>
@@ -280,11 +272,11 @@ export const Navigation = ({ onOpenCommand }: NavigationProps) => {
                   href={socialLinks.email}
                   className="flex items-center gap-3 text-sm text-muted"
                 >
-                  <FiMail className="h-4 w-4 text-acid-text" aria-hidden="true" />
+                  <FiMail className="h-4 w-4 text-brand-text" aria-hidden="true" />
                   {personalInfo.email}
                 </a>
                 <span className="flex items-center gap-3 text-sm text-muted">
-                  <FiMapPin className="h-4 w-4 text-acid-text" aria-hidden="true" />
+                  <FiMapPin className="h-4 w-4 text-brand-text" aria-hidden="true" />
                   {personalInfo.location}
                 </span>
               </div>
@@ -296,7 +288,7 @@ export const Navigation = ({ onOpenCommand }: NavigationProps) => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={t("a11y.linkedin")}
-                    className="grid h-11 w-11 place-items-center rounded-full border border-line text-ink"
+                    className="grid h-11 w-11 place-items-center rounded-lg border border-line text-ink"
                   >
                     <FiLinkedin className="h-4 w-4" aria-hidden="true" />
                   </a>
@@ -305,14 +297,14 @@ export const Navigation = ({ onOpenCommand }: NavigationProps) => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={t("a11y.github")}
-                    className="grid h-11 w-11 place-items-center rounded-full border border-line text-ink"
+                    className="grid h-11 w-11 place-items-center rounded-lg border border-line text-ink"
                   >
                     <FiGithub className="h-4 w-4" aria-hidden="true" />
                   </a>
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <div className="flex items-center rounded-full border border-line p-0.5">
+                  <div className="flex items-center rounded-md border border-line p-0.5">
                     {(["en", "fr"] as const).map((language) => (
                       <button
                         key={language}
@@ -322,9 +314,9 @@ export const Navigation = ({ onOpenCommand }: NavigationProps) => {
                           language === "fr" ? Boolean(isFrench) : !isFrench
                         }
                         lang={language}
-                        className={`rounded-full px-3 py-1.5 font-mono text-[10px] uppercase transition-colors ${
+                        className={`rounded px-3 py-1.5 font-mono text-[10px] uppercase transition-colors ${
                           (language === "fr") === Boolean(isFrench)
-                            ? "bg-ink text-canvas"
+                            ? "bg-brand text-brand-ink"
                             : "text-muted"
                         }`}
                       >
@@ -336,7 +328,7 @@ export const Navigation = ({ onOpenCommand }: NavigationProps) => {
                     type="button"
                     onClick={toggleTheme}
                     aria-label={t("a11y.toggleTheme")}
-                    className="grid h-10 w-10 place-items-center rounded-full border border-line text-muted"
+                    className="grid h-10 w-10 place-items-center rounded-md border border-line text-muted"
                   >
                     {theme === "dark" ? (
                       <FiSun className="h-4 w-4" aria-hidden="true" />

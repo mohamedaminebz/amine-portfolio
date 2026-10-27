@@ -14,7 +14,7 @@ export const Marquee = ({
   duration = 42,
   reverse = false,
   className = "",
-  separator = <span className="mx-6 text-acid-text md:mx-9">✦</span>,
+  separator = <span className="mx-6 text-brand-text md:mx-9">✦</span>,
 }: MarqueeProps) => {
   const style = { "--marquee-duration": `${duration}s` } as CSSProperties;
 

@@ -302,7 +302,7 @@ export const CommandPalette = ({ open, onClose }: CommandPaletteProps) => {
             role="dialog"
             aria-modal="true"
             aria-label={t("v21.command.title")}
-            className="glass relative w-full max-w-2xl overflow-hidden rounded-[1.75rem] shadow-2xl"
+            className="glass relative w-full max-w-2xl overflow-hidden rounded-[1.25rem] shadow-2xl"
             initial={reduce ? false : { opacity: 0, y: -14, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={reduce ? undefined : { opacity: 0, y: -10, scale: 0.98 }}
@@ -332,7 +332,7 @@ export const CommandPalette = ({ open, onClose }: CommandPaletteProps) => {
                 type="button"
                 onClick={onClose}
                 aria-label={t("v21.common.close")}
-                className="grid h-8 w-8 place-items-center rounded-full border border-line text-muted transition-colors hover:border-ink hover:text-ink sm:hidden"
+                className="grid h-8 w-8 place-items-center rounded-md border border-line text-muted transition-colors hover:border-ink hover:text-ink sm:hidden"
               >
                 <FiX className="h-4 w-4" aria-hidden="true" />
               </button>
@@ -375,14 +375,14 @@ export const CommandPalette = ({ open, onClose }: CommandPaletteProps) => {
                           onClick={() => command.run()}
                           className={`flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 transition-colors ${
                             isActive
-                              ? "bg-acid text-acid-ink"
+                              ? "bg-brand text-brand-ink"
                               : "text-ink hover:bg-surface-2"
                           }`}
                         >
                           <span
                             className={`grid h-8 w-8 shrink-0 place-items-center rounded-lg border ${
                               isActive
-                                ? "border-acid-ink/20 bg-acid-ink/10"
+                                ? "border-brand-ink/20 bg-brand-ink/10"
                                 : "border-line bg-surface-2"
                             }`}
                           >
@@ -394,14 +394,14 @@ export const CommandPalette = ({ open, onClose }: CommandPaletteProps) => {
                           {command.hint && (
                             <span
                               className={`hidden max-w-[45%] truncate font-mono text-[10px] sm:block ${
-                                isActive ? "text-acid-ink/70" : "text-muted"
+                                isActive ? "text-brand-ink/70" : "text-muted"
                               }`}
                             >
                               {command.hint}
                             </span>
                           )}
                           {isActive && (
-                            <span className="rounded border border-acid-ink/25 px-1.5 py-0.5 font-mono text-[9px] uppercase">
+                            <span className="rounded border border-brand-ink/25 px-1.5 py-0.5 font-mono text-[9px] uppercase">
                               ↵
                             </span>
                           )}
