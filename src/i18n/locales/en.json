@@ -227,24 +227,6 @@
       "command": "Open command menu",
       "hire": "Let’s talk"
     },
-    "theme": {
-      "label": "Theme",
-      "open": "Change theme",
-      "pickerTitle": "Choose a palette",
-      "pickerHint": "Six looks, one index.",
-      "mode": {
-        "light": "Light",
-        "dark": "Dark"
-      },
-      "names": {
-        "fog": "Fog",
-        "paper": "Paper",
-        "sage": "Sage",
-        "ink": "Ink",
-        "carbon": "Carbon",
-        "marine": "Marine"
-      }
-    },
     "hero": {
       "eyebrow": "Full-stack engineer · Ariana, Tunisia",
       "roles": ["Systems thinker", "Product builder", "Problem solver"],
@@ -461,27 +443,6 @@
       "local": "Ariana, Tunisia",
       "copyright": "© {{year}} {{name}}. All rights reserved."
     },
-    "command": {
-      "title": "Command menu",
-      "placeholder": "Search sections, actions and links…",
-      "navigation": "Navigate",
-      "actions": "Actions",
-      "themes": "Themes",
-      "elsewhere": "Elsewhere",
-      "noResults": "No command found. Try another search.",
-      "hint": "↑↓ navigate · ↵ select · esc close",
-      "copyEmail": "Copy email address",
-      "copied": "Email copied to clipboard",
-      "openLinkedIn": "Open LinkedIn profile",
-      "openGithub": "Open GitHub profile",
-      "toggleTheme": "Toggle light / dark theme",
-      "applyTheme": "Switch to {{name}} theme",
-      "active": "Active",
-      "switchEnglish": "Switch language to English",
-      "switchFrench": "Switch language to French",
-      "email": "Email",
-      "open": "Open command menu"
-    },
     "case": {
       "back": "Back to work",
       "overview": "Overview",
@@ -534,6 +495,8 @@
       "menu": "Menu",
       "close": "Close",
       "language": "Language",
+      "switchToEnglish": "Switch to English",
+      "switchToFrench": "Switch to French",
       "theme": "Palette"
     },
     "hero": {
@@ -601,6 +564,7 @@
       "work": "Experience",
       "internship": "Internships",
       "education": "Education",
+      "educationNote": "Academic background",
       "current": "Current"
     },
     "arsenal": {
@@ -608,6 +572,7 @@
       "title": "Tools I",
       "titleAccent": "think in.",
       "subtitle": "A practical stack, chosen for the problem rather than the hype.",
+      "toolCount": "{{count}} tools",
       "languages": "Languages",
       "certifications": "Certifications"
     },
@@ -616,6 +581,9 @@
       "title": "Bring the problem.",
       "titleAccent": "I will bring the proof.",
       "subtitle": "Open to full-stack roles, ambitious product teams and freelance work.",
+      "panelTitle": "Tell me what",
+      "panelTitleAccent": "you're building.",
+      "panelNote": "A project, a role, or just an idea?",
       "email": "Email",
       "phone": "Phone",
       "location": "Location",
@@ -680,6 +648,11 @@
       "motivation": "Motivation",
       "future": "Next",
       "gallery": "Gallery",
+      "webApp": "Web application",
+      "mobileApp": "Mobile application",
+      "screens_one": "{{count}} screen",
+      "screens_other": "{{count}} screens",
+      "openImage": "Open full screenshot",
       "noImages": "No screenshots for this project yet.",
       "previous": "Previous",
       "next": "Next",

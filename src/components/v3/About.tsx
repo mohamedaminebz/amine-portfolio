@@ -123,7 +123,7 @@ export const About = ({ data, onOpenCase }: AboutProps) => {
                     <dd className="display gradient-text text-[clamp(1.3rem,2.6vw,1.8rem)]">
                       {stat.value}
                     </dd>
-                    <dt className="mt-1 font-mono text-[7px] uppercase leading-snug tracking-[0.1em] text-muted">
+                    <dt className="mt-1 font-mono text-[8px] uppercase leading-snug tracking-[0.08em] text-muted">
                       {stat.label}
                     </dt>
                   </div>
@@ -231,9 +231,9 @@ export const About = ({ data, onOpenCase }: AboutProps) => {
 
         <div className="mt-16">
           <Reveal>
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div>
               <span className="pill pill-brand">{t("v3.about.fitLabel")}</span>
-              <h3 className="display text-[clamp(1.5rem,3vw,2.1rem)]">
+              <h3 className="display mt-3 text-[clamp(1.5rem,3vw,2.1rem)]">
                 {t("v3.about.fitTitle")}
               </h3>
             </div>
@@ -271,14 +271,14 @@ export const About = ({ data, onOpenCase }: AboutProps) => {
                         <span className="display block text-base leading-none">
                           {proof.value}
                         </span>
-                        <span className="mt-1 block font-mono text-[6.5px] uppercase leading-tight tracking-[0.06em] text-muted">
+                        <span className="mt-1 block font-mono text-[8px] uppercase leading-tight tracking-[0.04em] text-muted">
                           {proof.label}
                         </span>
                       </span>
                     ))}
                   </span>
                   <span className="mt-3 flex items-center justify-between border-t border-line pt-3">
-                    <span className="max-w-[16ch] truncate text-[10px] text-muted">
+                    <span className="line-clamp-2 min-w-0 pr-2 text-[10px] leading-snug text-muted">
                       {card.project.title}
                     </span>
                     <span

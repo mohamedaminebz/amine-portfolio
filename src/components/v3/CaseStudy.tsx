@@ -4,10 +4,12 @@ import {
   FiArrowLeft,
   FiArrowRight,
   FiExternalLink,
+  FiMonitor,
+  FiSmartphone,
   FiX,
 } from "react-icons/fi";
 import { asset } from "../../lib/asset";
-import type { Project } from "../../types/portfolio";
+import type { Project, ProjectScreenshot } from "../../types/portfolio";
 import { Dialog } from "./Dialog";
 
 interface CaseStudyProps {
@@ -36,7 +38,7 @@ const Bullets = ({ items }: { items: string[] }) => (
       <li key={item} className="flex gap-2.5 text-sm leading-relaxed text-muted">
         <span
           aria-hidden="true"
-          className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--grad)]"
+          className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand"
         />
         <span>{item}</span>
       </li>
@@ -57,6 +59,136 @@ const Chips = ({ items }: { items: string[] }) => (
   </div>
 );
 
+const GalleryHeading = ({
+  icon: Icon,
+  label,
+  count,
+}: {
+  icon: typeof FiMonitor;
+  label: string;
+  count: number;
+}) => {
+  const { t } = useTranslation();
+
+  return (
+    <div className="flex items-center justify-between gap-3">
+      <span className="inline-flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.12em] text-brand-text">
+        <Icon aria-hidden="true" className="h-3.5 w-3.5" />
+        {label}
+      </span>
+      <span className="font-mono text-[9px] uppercase tracking-[0.1em] text-muted">
+        {t("v3.case.screens", { count })}
+      </span>
+    </div>
+  );
+};
+
+const ScreenshotGallery = ({
+  screenshots,
+}: {
+  screenshots: ProjectScreenshot[];
+}) => {
+  const { t } = useTranslation();
+  const web = screenshots.filter((screenshot) => !screenshot.isMobile);
+  const mobile = screenshots.filter((screenshot) => screenshot.isMobile);
+  // Feature the first web shot only when the rest fill the two-column grid evenly.
+  const featureFirstWeb = web.length % 2 === 1;
+
+  if (screenshots.length === 0) {
+    return <p className="text-sm text-muted">{t("v3.case.noImages")}</p>;
+  }
+
+  return (
+    <div className="space-y-7">
+      {web.length > 0 ? (
+        <div>
+          <GalleryHeading
+            icon={FiMonitor}
+            label={t("v3.case.webApp")}
+            count={web.length}
+          />
+          <div className="mt-3 grid gap-4 sm:grid-cols-2">
+            {web.map((screenshot, index) => (
+              <figure
+                key={screenshot.url}
+                className={
+                  index === 0 && featureFirstWeb ? "sm:col-span-2" : ""
+                }
+              >
+                <a
+                  href={asset(screenshot.url)}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`${screenshot.caption} — ${t("v3.case.openImage")}`}
+                  className="group block overflow-hidden rounded-2xl border border-line bg-surface/60"
+                >
+                  <span className="flex items-center gap-1.5 border-b border-line bg-surface/80 px-3 py-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#ff5f57]" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#febc2e]" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#28c840]" />
+                    <span className="ml-2 h-4 flex-1 rounded-md bg-surface-2/70" />
+                  </span>
+                  <span className="block overflow-hidden bg-surface-2/40">
+                    <img
+                      src={asset(screenshot.url)}
+                      alt={screenshot.caption}
+                      loading="lazy"
+                      decoding="async"
+                      className="block h-auto w-full transition-transform duration-500 group-hover:scale-[1.02]"
+                    />
+                  </span>
+                </a>
+                <figcaption className="mt-2 text-xs text-muted">
+                  {screenshot.caption}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      ) : null}
+
+      {mobile.length > 0 ? (
+        <div>
+          <GalleryHeading
+            icon={FiSmartphone}
+            label={t("v3.case.mobileApp")}
+            count={mobile.length}
+          />
+          <div className="no-scrollbar -mx-1 mt-3 flex snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-2 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 sm:pb-0">
+            {mobile.map((screenshot) => (
+              <figure
+                key={screenshot.url}
+                className="w-[68%] shrink-0 snap-start sm:w-auto"
+              >
+                <a
+                  href={asset(screenshot.url)}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`${screenshot.caption} — ${t("v3.case.openImage")}`}
+                  className="group block rounded-[1.7rem] border border-line-strong bg-surface p-1.5 shadow-[0_18px_40px_-30px_rgba(9,16,32,0.5)] transition-transform duration-300 hover:-translate-y-1"
+                >
+                  <span className="block aspect-[9/19.5] overflow-hidden rounded-[1.3rem] bg-surface-2">
+                    <img
+                      src={asset(screenshot.url)}
+                      alt={screenshot.caption}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full object-contain"
+                    />
+                  </span>
+                </a>
+                <figcaption className="mt-2 px-0.5 text-[11px] leading-snug text-muted">
+                  {screenshot.caption}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
+};
+
 export const CaseStudy = ({
   project,
   projects,
@@ -70,7 +202,8 @@ export const CaseStudy = ({
   const next = projects[(index + 1) % projects.length];
 
   useEffect(() => {
-    document.getElementById("case-top")?.scrollIntoView({ block: "start" });
+    const scroller = document.querySelector<HTMLElement>("[data-dialog-scroll]");
+    if (scroller) scroller.scrollTop = 0;
   }, [project.id]);
 
   const meta = [
@@ -147,7 +280,7 @@ export const CaseStudy = ({
           </div>
 
           <div className="relative mt-7">
-            <span className="inline-flex rounded-full border border-white/25 bg-white/15 px-2.5 py-1 font-mono text-[8px] uppercase tracking-[0.12em] text-white/90 backdrop-blur-md">
+            <span className="inline-flex rounded-full border border-white/25 bg-white/15 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.12em] text-white/90 backdrop-blur-md">
               {t("v3.case.label")} · {t(`projects.filter.${project.type}`)}
             </span>
             <h2
@@ -166,7 +299,7 @@ export const CaseStudy = ({
               {meta.map((item) => (
                 <span
                   key={item.label}
-                  className="rounded-full border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[8px] uppercase tracking-[0.06em] text-white/80 backdrop-blur-md"
+                  className="rounded-full border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.06em] text-white/80 backdrop-blur-md"
                 >
                   {item.label}: {item.value}
                 </span>
@@ -190,13 +323,17 @@ export const CaseStudy = ({
                   <dd className="display gradient-text text-[clamp(1.2rem,2.4vw,1.6rem)] leading-none">
                     {stat.value}
                   </dd>
-                  <dt className="mt-1.5 font-mono text-[7px] uppercase leading-tight tracking-[0.08em] text-muted">
+                  <dt className="mt-1.5 font-mono text-[8px] uppercase leading-tight tracking-[0.06em] text-muted">
                     {stat.label}
                   </dt>
                 </div>
               ))}
             </dl>
           ) : null}
+
+          <SectionCard title={t("v3.case.gallery")}>
+            <ScreenshotGallery screenshots={screenshots} />
+          </SectionCard>
 
           {project.type === "professional" ? (
             <>
@@ -211,7 +348,7 @@ export const CaseStudy = ({
                       key={label}
                       className="rounded-2xl bg-surface-2/50 p-4"
                     >
-                      <p className="label !text-[8px]">{label}</p>
+                      <p className="label !text-[9px]">{label}</p>
                       <p className="mt-1.5 text-sm leading-relaxed text-muted">
                         {text}
                       </p>
@@ -235,7 +372,7 @@ export const CaseStudy = ({
                     {Object.entries(project.technicalStack).map(
                       ([group, values]) => (
                         <div key={group}>
-                          <p className="label !text-[8px]">{group}</p>
+                          <p className="label !text-[9px]">{group}</p>
                           <div className="mt-2">
                             <Chips items={values} />
                           </div>
@@ -470,36 +607,6 @@ export const CaseStudy = ({
             <Chips items={project.technologies.map((tech) => tech.name)} />
           </SectionCard>
 
-          <SectionCard title={t("v3.case.gallery")}>
-            {screenshots.length > 0 ? (
-              <div className="grid gap-3 sm:grid-cols-2">
-                {screenshots.map((screenshot) => (
-                  <figure key={screenshot.url}>
-                    <a
-                      href={asset(screenshot.url)}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="block overflow-hidden rounded-2xl border border-line"
-                    >
-                      <img
-                        src={asset(screenshot.url)}
-                        alt={screenshot.caption}
-                        loading="lazy"
-                        decoding="async"
-                        className="w-full transition-transform duration-500 hover:scale-[1.03]"
-                      />
-                    </a>
-                    <figcaption className="mt-2 text-xs text-muted">
-                      {screenshot.caption}
-                    </figcaption>
-                  </figure>
-                ))}
-              </div>
-            ) : (
-              <p className="text-sm text-muted">{t("v3.case.noImages")}</p>
-            )}
-          </SectionCard>
-
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             <button
               type="button"
@@ -510,7 +617,7 @@ export const CaseStudy = ({
                 <FiArrowLeft aria-hidden="true" className="h-4 w-4" />
               </span>
               <span className="min-w-0">
-                <span className="label !text-[8px] block">
+                <span className="label !text-[9px] block">
                   {t("v3.case.previous")}
                 </span>
                 <span className="block truncate text-sm font-semibold group-hover:text-brand-text">
@@ -524,7 +631,7 @@ export const CaseStudy = ({
               className="card-soft group flex items-center justify-end gap-3 p-4 text-right transition-all hover:-translate-y-0.5 hover:border-brand/25"
             >
               <span className="min-w-0">
-                <span className="label !text-[8px] block">
+                <span className="label !text-[9px] block">
                   {t("v3.case.next")}
                 </span>
                 <span className="block truncate text-sm font-semibold group-hover:text-brand-text">

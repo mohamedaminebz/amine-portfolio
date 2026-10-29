@@ -29,7 +29,8 @@ export const NoteReader = ({
   const next = notes[(index + 1) % notes.length];
 
   useEffect(() => {
-    document.getElementById("note-top")?.scrollIntoView({ block: "start" });
+    const scroller = document.querySelector<HTMLElement>("[data-dialog-scroll]");
+    if (scroller) scroller.scrollTop = 0;
   }, [note.slug]);
 
   return (
@@ -119,7 +120,7 @@ export const NoteReader = ({
                       <li key={item} className="flex gap-2.5">
                         <span
                           aria-hidden="true"
-                          className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--grad)]"
+                          className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand"
                         />
                         <span>{item}</span>
                       </li>

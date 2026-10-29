@@ -227,24 +227,6 @@
       "command": "Ouvrir le menu de commandes",
       "hire": "Discutons"
     },
-    "theme": {
-      "label": "Thème",
-      "open": "Changer de thème",
-      "pickerTitle": "Choisir une palette",
-      "pickerHint": "Six ambiances, un index.",
-      "mode": {
-        "light": "Clair",
-        "dark": "Sombre"
-      },
-      "names": {
-        "fog": "Brume",
-        "paper": "Papier",
-        "sage": "Sauge",
-        "ink": "Encre",
-        "carbon": "Carbone",
-        "marine": "Marine"
-      }
-    },
     "hero": {
       "eyebrow": "Ingénieur full-stack · Ariana, Tunisie",
       "roles": [
@@ -469,27 +451,6 @@
       "local": "Ariana, Tunisie",
       "copyright": "© {{year}} {{name}}. Tous droits réservés."
     },
-    "command": {
-      "title": "Menu de commandes",
-      "placeholder": "Rechercher des sections, actions et liens…",
-      "navigation": "Naviguer",
-      "actions": "Actions",
-      "themes": "Thèmes",
-      "elsewhere": "Ailleurs",
-      "noResults": "Aucune commande trouvée. Essayez autre chose.",
-      "hint": "↑↓ naviguer · ↵ sélectionner · échap fermer",
-      "copyEmail": "Copier l’adresse email",
-      "copied": "Email copié dans le presse-papiers",
-      "openLinkedIn": "Ouvrir le profil LinkedIn",
-      "openGithub": "Ouvrir le profil GitHub",
-      "toggleTheme": "Basculer clair / sombre",
-      "applyTheme": "Passer au thème {{name}}",
-      "active": "Actif",
-      "switchEnglish": "Passer en anglais",
-      "switchFrench": "Passer en français",
-      "email": "Email",
-      "open": "Ouvrir le menu de commandes"
-    },
     "case": {
       "back": "Retour aux projets",
       "overview": "Vue d’ensemble",
@@ -542,6 +503,8 @@
       "menu": "Menu",
       "close": "Fermer",
       "language": "Langue",
+      "switchToEnglish": "Passer en anglais",
+      "switchToFrench": "Passer en français",
       "theme": "Palette"
     },
     "hero": {
@@ -609,6 +572,7 @@
       "work": "Expérience",
       "internship": "Stages",
       "education": "Formation",
+      "educationNote": "Parcours académique",
       "current": "Aujourd'hui"
     },
     "arsenal": {
@@ -616,6 +580,7 @@
       "title": "Les outils avec",
       "titleAccent": "lesquels je pense.",
       "subtitle": "Une stack pratique, choisie pour le problème plutôt que pour la mode.",
+      "toolCount": "{{count}} outils",
       "languages": "Langues",
       "certifications": "Certifications"
     },
@@ -624,6 +589,9 @@
       "title": "Apportez le problème.",
       "titleAccent": "J'apporte la preuve.",
       "subtitle": "Ouvert aux postes full-stack, aux équipes produit ambitieuses et au freelance.",
+      "panelTitle": "Racontez-moi",
+      "panelTitleAccent": "ce que vous construisez.",
+      "panelNote": "Un projet, un rôle, ou simplement une idée ?",
       "email": "Email",
       "phone": "Téléphone",
       "location": "Lieu",
@@ -688,6 +656,11 @@
       "motivation": "Motivation",
       "future": "La suite",
       "gallery": "Galerie",
+      "webApp": "Application web",
+      "mobileApp": "Application mobile",
+      "screens_one": "{{count}} écran",
+      "screens_other": "{{count}} écrans",
+      "openImage": "Ouvrir la capture d’écran",
       "noImages": "Pas encore de captures pour ce projet.",
       "previous": "Précédent",
       "next": "Suivant",

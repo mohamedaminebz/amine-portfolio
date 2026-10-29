@@ -2,17 +2,32 @@
 
 Personal portfolio of **Mohamed Amine Bouzidi**, a full-stack engineer specialised in
 React, Node.js and React Native. The site is a single-page React application with
-English and French content, a six-palette theme system, project case studies and
-an accessible contact form.
+English and French content, a single blue/cyan palette in light and dark mode,
+project case studies, a small field-notes blog and an accessible contact form.
 
 **Live site:** <https://mohamedaminebz.github.io/amine-portfolio/>
+
+## AURA
+
+The current interface is built around **AURA**: a soft-futuristic, glassy bento
+layout. Aurora gradients sit behind frosted surfaces, the hero centres on a glowing
+portrait orb, project cards use gradient covers, and field notes read like tilted
+sticky notes. On desktop the navigation is a floating pill that reacts to scroll; on
+mobile it becomes a bottom dock.
+
+The design deliberately keeps one palette — a blue primary (`brand`) with a cyan
+accent (`accent`) — and only switches between light and dark. All colours are
+semantic tokens (`canvas`, `surface`, `ink`, `muted`, `brand`, `accent`, `line`) so
+the two modes stay consistent.
+
+Typography: **Sora** for display, **Manrope** for body copy and **JetBrains Mono**
+for micro labels.
 
 ## Tech stack
 
 - **React 18** + **TypeScript** (strict mode)
 - **Vite 6** for development and production builds
 - **Tailwind CSS 3** with CSS-variable based theming
-- **Framer Motion** for animations
 - **i18next** / **react-i18next** for localisation (EN / FR)
 - **React Hook Form** + **Zod** for contact-form validation
 - **Vitest**, **Testing Library** and **jsdom** for tests
@@ -49,12 +64,12 @@ site is built for GitHub Pages.
 
 ```
 src/
-  components/       UI sections and the project detail dialog
-  context/          Theme provider and hook
-  data/             Localised portfolio content (EN/FR)
-  hooks/            Data, document metadata and responsive helpers
+  components/v3/    AURA sections, overlays and shared UI pieces
+  context/          Light/dark theme provider and hook
+  data/             Localised portfolio content and field notes (EN/FR)
+  hooks/            Hash routing, scroll spy, data, metadata and clock helpers
   i18n/             i18next setup and translation bundles
-  lib/              Asset URL, theme catalogue, date parsing and shared helpers
+  lib/              Asset URL, date/period parsing and shared helpers
   test/             Vitest setup
   types/            Shared TypeScript types
 public/
@@ -69,23 +84,36 @@ Portfolio content lives in `src/data/portfolioData.en.ts` and
 `src/data/portfolioData.fr.ts`. Both files must keep the same project ids and
 shape; this is enforced by `src/data/index.test.ts`.
 
+Field notes live in `src/data/notes.en.ts` and `src/data/notes.fr.ts`. Each note is
+a short first-person entry tied to a real project through `projectId`; the reader
+links back to the matching case study. Notes are sorted newest first.
+
 UI strings live in `src/i18n/locales/en.json` and `fr.json`. A test verifies that
 both bundles expose exactly the same keys. Language is stored in `localStorage`
 and falls back to the browser language, normalising regional tags such as
 `en-US` to `en`.
 
+## Reading views
+
+The site keeps normal section anchors (`#work`, `#notes`, `#contact`, …) and adds
+two hash routes for overlays:
+
+- `#case=<project-id>` opens a project case study.
+- `#note=<slug>` opens a field note.
+
+Both views use a shared dialog shell with a focus trap, `Escape` to close, focus
+restoration, scroll locking and previous/next navigation. Closing a view returns to
+its parent section.
+
 ## Themes
 
-Six palettes ship in `src/lib/themes.ts`: three light (Fog, Paper, Sage) and three
-dark (Ink, Carbon, Marine). The active palette is stored in `localStorage` under
-`theme`; the pre-v2.2 `light` / `dark` values migrate to Fog / Ink on first load.
-Each palette declares a base mode so Tailwind's `dark:` utilities keep working,
-while `[data-theme="…"]` blocks in `src/index.css` swap the RGB token channels.
+There is one palette with a light and a dark mode. The mode is stored in
+`localStorage` under `theme` and applied by the pre-paint script in `index.html`, so
+the page does not flash before React mounts. `ThemeContext` keeps open tabs in sync
+through the `storage` event, and the header exposes a single sun/moon toggle.
 
-The pre-paint script in `index.html` applies the saved palette before React
-mounts, and the provider keeps open tabs in sync through the `storage` event.
-Visitors can switch from the header picker, the mobile menu or the command
-palette (`Ctrl/⌘ K`).
+Palette tokens are defined in `src/index.css`; components never hard-code a second
+colour system.
 
 ## Contact form
 
@@ -129,9 +157,9 @@ are served by GitHub Pages.
 ## Accessibility
 
 - Skip link, semantic landmarks and visible focus styles.
-- Keyboard support for project cards, screenshot thumbnails and the project dialog
-  (focus trap, `Escape`, arrow-key lightbox navigation, focus restoration).
+- Keyboard support for project cards, field notes and both reading overlays
+  (focus trap, `Escape`, previous/next navigation, focus restoration).
 - Labelled form fields, inline validation messages and `aria-live` status output.
-- `prefers-reduced-motion` support and a pre-paint theme script to avoid flashing.
-- A labelled theme picker with live palette previews, `Escape` to close, focus
-  restoration and reduced-motion-aware transitions.
+- `prefers-reduced-motion` support, including a reduced-motion path that skips the
+  reveal animations.
+- A pre-paint theme script avoids a flash of the wrong mode.

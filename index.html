@@ -12,12 +12,12 @@
     <meta
       name="theme-color"
       media="(prefers-color-scheme: light)"
-      content="#f8fafc"
+      content="#f3f7ff"
     />
     <meta
       name="theme-color"
       media="(prefers-color-scheme: dark)"
-      content="#0f172a"
+      content="#050914"
     />
 
     <link
@@ -67,7 +67,7 @@
     <link
       rel="icon"
       type="image/svg+xml"
-      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%232f3bff' width='100' height='100' rx='22'/><rect x='24' y='24' width='22' height='22' fill='%23ffffff'/><rect x='54' y='24' width='22' height='22' fill='%237c88ff'/><rect x='24' y='54' width='22' height='22' fill='%23ffffff' opacity='.55'/><rect x='54' y='54' width='22' height='22' fill='%23ffffff'/></svg>"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%232563eb' width='100' height='100' rx='22'/><rect x='24' y='24' width='22' height='22' fill='%23ffffff'/><rect x='54' y='24' width='22' height='22' fill='%2306b6d4'/><rect x='24' y='54' width='22' height='22' fill='%23ffffff' opacity='.55'/><rect x='54' y='54' width='22' height='22' fill='%23ffffff'/></svg>"
     />
 
     <!-- Google Fonts -->
@@ -92,7 +92,7 @@
           document.documentElement.classList.add(theme);
           document.documentElement.style.colorScheme = theme;
 
-          var color = theme === "light" ? "#f8fafc" : "#0f172a";
+          var color = theme === "light" ? "#f3f7ff" : "#050914";
           var metas = document.querySelectorAll('meta[name="theme-color"]');
           for (var i = 0; i < metas.length; i += 1) {
             metas[i].setAttribute("content", color);

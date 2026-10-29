@@ -1,5 +1,6 @@
 import { useEffect, useRef, type ReactNode } from "react";
 import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 
 interface DialogProps {
   open: boolean;
@@ -16,6 +17,7 @@ const FOCUSABLE =
  * restoration. Shared by the case-study reader and the field-note reader.
  */
 export const Dialog = ({ open, onClose, labelledBy, children }: DialogProps) => {
+  const { t } = useTranslation();
   const panelRef = useRef<HTMLDivElement>(null);
   const restoreRef = useRef<HTMLElement | null>(null);
 
@@ -70,23 +72,28 @@ export const Dialog = ({ open, onClose, labelledBy, children }: DialogProps) => 
   if (!open) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-[120] flex items-end justify-center overflow-y-auto overscroll-contain sm:items-center sm:p-6">
+    <div
+      data-dialog-scroll
+      className="fixed inset-0 z-[120] overflow-y-auto overscroll-contain"
+    >
       <button
         type="button"
-        aria-label="Close"
+        aria-label={t("v3.nav.close")}
         tabIndex={-1}
         onClick={onClose}
         className="fixed inset-0 cursor-default bg-[rgba(3,7,18,0.55)] backdrop-blur-md"
       />
-      <div
-        ref={panelRef}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={labelledBy}
-        tabIndex={-1}
-        className="relative z-10 w-full max-w-5xl animate-in fade-in slide-in-from-bottom-8 duration-300 sm:my-4"
-      >
-        {children}
+      <div className="relative flex min-h-full items-start justify-center p-0 sm:p-6">
+        <div
+          ref={panelRef}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={labelledBy}
+          tabIndex={-1}
+          className="relative z-10 w-full max-w-5xl animate-in fade-in slide-in-from-bottom-8 duration-300 sm:my-4"
+        >
+          {children}
+        </div>
       </div>
     </div>,
     document.body,

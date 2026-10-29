@@ -20,7 +20,7 @@ export const Footer = () => {
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted">
               {t("v3.footer.tagline")}
             </p>
-            <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-[var(--grad-soft)] px-3 py-1.5 font-mono text-[8px] uppercase tracking-[0.1em] text-brand-text">
+            <span className="gradient-soft mt-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.1em] text-brand-text">
               <span
                 aria-hidden="true"
                 className="h-1.5 w-1.5 rounded-full bg-brand"
@@ -38,6 +38,7 @@ export const Footer = () => {
                 { href: "#notes", key: "v3.nav.notes" },
                 { href: "#about", key: "v3.nav.about" },
                 { href: "#journey", key: "v3.nav.journey" },
+                { href: "#arsenal", key: "v3.nav.arsenal" },
                 { href: "#contact", key: "v3.nav.contact" },
               ].map((link) => (
                 <li key={link.href}>

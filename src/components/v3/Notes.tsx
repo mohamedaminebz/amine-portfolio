@@ -44,7 +44,7 @@ export const Notes = ({ notes, onOpenNote }: NotesProps) => {
             <Reveal
               key={note.slug}
               delay={Math.min(index, 5) * 70}
-              className={index === 0 ? "md:col-span-2" : ""}
+              className={index === 0 || index === 3 ? "md:col-span-2" : ""}
             >
               <button
                 type="button"
@@ -62,17 +62,17 @@ export const Notes = ({ notes, onOpenNote }: NotesProps) => {
                     <span className="flex items-center gap-2">
                       <time
                         dateTime={note.date}
-                        className="font-mono text-[9px] uppercase tracking-[0.1em] text-muted"
+                        className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted"
                       >
                         {formatNoteDate(note.date, i18n.language)}
                       </time>
                       {index === 0 ? (
-                        <span className="rounded-full bg-[var(--grad-soft)] px-2 py-0.5 font-mono text-[8px] font-semibold uppercase tracking-[0.1em] text-brand-text">
+                        <span className="gradient-soft rounded-full px-2 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-[0.1em] text-brand-text">
                           {t("v3.notes.latest")}
                         </span>
                       ) : null}
                     </span>
-                    <span className="flex items-center gap-1 font-mono text-[9px] text-muted">
+                    <span className="flex items-center gap-1 font-mono text-[10px] text-muted">
                       <FiClock aria-hidden="true" className="h-3 w-3" />
                       {t("v3.notes.minRead", {
                         count: note.readingMinutes,
@@ -101,7 +101,7 @@ export const Notes = ({ notes, onOpenNote }: NotesProps) => {
                     {note.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full bg-surface-2/70 px-2.5 py-1 font-mono text-[8px] uppercase tracking-[0.08em] text-muted"
+                        className="rounded-full bg-surface-2/70 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.08em] text-muted"
                       >
                         {tag}
                       </span>
@@ -112,7 +112,7 @@ export const Notes = ({ notes, onOpenNote }: NotesProps) => {
                     <span className="text-[11px] font-semibold text-brand-text">
                       {t("v3.notes.read")}
                     </span>
-                    <span className="grid h-8 w-8 place-items-center rounded-full border border-line text-muted transition-all group-hover:border-transparent group-hover:bg-[var(--grad)] group-hover:text-white">
+                    <span className="grid h-8 w-8 place-items-center rounded-full border border-line text-muted transition-all group-hover:border-transparent group-hover:bg-brand group-hover:text-white">
                       <FiArrowUpRight aria-hidden="true" className="h-4 w-4" />
                     </span>
                   </span>

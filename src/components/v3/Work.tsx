@@ -113,7 +113,7 @@ export const Work = ({ projects, onOpenCase }: WorkProps) => {
 
                   <div className="relative flex h-full flex-col justify-between">
                     <div className="flex items-start justify-between gap-3">
-                      <span className="rounded-full border border-white/25 bg-white/15 px-2.5 py-1 font-mono text-[8px] uppercase tracking-[0.12em] text-white/90 backdrop-blur-md">
+                      <span className="rounded-full border border-white/25 bg-white/15 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.12em] text-white/90 backdrop-blur-md">
                         {t(`projects.filter.${project.type}`)}
                       </span>
                       <span className="grid h-9 w-9 place-items-center rounded-full border border-white/25 bg-white/15 text-white backdrop-blur-md transition-all group-hover:border-white group-hover:bg-white group-hover:text-brand">
@@ -122,7 +122,7 @@ export const Work = ({ projects, onOpenCase }: WorkProps) => {
                     </div>
 
                     <div>
-                      <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-white/60">
+                      <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-white/60">
                         {project.company} · {project.period}
                       </p>
                       <p
@@ -147,7 +147,7 @@ export const Work = ({ projects, onOpenCase }: WorkProps) => {
                     {project.quickStats?.slice(0, 2).map((stat) => (
                       <span
                         key={`${stat.value}-${stat.label}`}
-                        className="inline-flex items-center gap-1.5 rounded-full bg-surface-2/70 px-2.5 py-1 font-mono text-[8px] text-muted"
+                        className="inline-flex items-center gap-1.5 rounded-full bg-surface-2/70 px-2.5 py-1 font-mono text-[9px] text-muted"
                       >
                         <span className="font-bold text-ink">{stat.value}</span>
                         <span className="max-w-[90px] truncate">
@@ -158,7 +158,7 @@ export const Work = ({ projects, onOpenCase }: WorkProps) => {
                   </div>
 
                   <div className="mt-auto flex items-center justify-between gap-3 pt-5">
-                    <span className="truncate font-mono text-[9px] text-muted/80">
+                    <span className="truncate font-mono text-[10px] text-muted/80">
                       {project.technologies
                         .slice(0, 3)
                         .map((tech) => tech.name)

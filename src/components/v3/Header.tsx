@@ -4,6 +4,7 @@ import {
   FiBookOpen,
   FiBriefcase,
   FiCompass,
+  FiCpu,
   FiMail,
   FiUser,
 } from "react-icons/fi";
@@ -16,6 +17,7 @@ const links = [
   { id: "notes", href: "#notes", key: "v3.nav.notes", icon: FiBookOpen },
   { id: "about", href: "#about", key: "v3.nav.about", icon: FiUser },
   { id: "journey", href: "#journey", key: "v3.nav.journey", icon: FiCompass },
+  { id: "arsenal", href: "#arsenal", key: "v3.nav.arsenal", icon: FiCpu },
 ] as const;
 
 const sectionIds = ["top", "work", "notes", "about", "journey", "arsenal", "contact"] as const;
@@ -100,10 +102,19 @@ export const Header = () => {
               onClick={() =>
                 i18n.changeLanguage(language === "fr" ? "en" : "fr")
               }
-              aria-label={t("v3.nav.language")}
+              aria-label={
+                language === "fr"
+                  ? t("v3.nav.switchToEnglish")
+                  : t("v3.nav.switchToFrench")
+              }
+              title={
+                language === "fr"
+                  ? t("v3.nav.switchToEnglish")
+                  : t("v3.nav.switchToFrench")
+              }
               className="h-9 rounded-full border border-line bg-surface/50 px-3 font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-muted backdrop-blur-md transition-all hover:border-line-strong hover:text-ink"
             >
-              {language === "fr" ? "FR" : "EN"}
+              {language === "fr" ? "EN" : "FR"}
             </button>
             <ThemeToggle />
             <a
@@ -119,9 +130,9 @@ export const Header = () => {
       {/* Mobile navigation lives in a floating bottom dock. */}
       <nav
         aria-label={t("a11y.mainNavigation")}
-        className="dock glass-strong rounded-[1.6rem] p-1.5 lg:hidden"
+        className="dock glass-strong w-[calc(100%-2rem)] max-w-[26rem] rounded-[1.6rem] p-1.5 lg:hidden"
       >
-        <ul className="flex items-center gap-0.5">
+        <ul className="flex w-full items-center gap-0.5">
           {[...links, { id: "contact", href: "#contact", key: "v3.nav.contact", icon: FiMail }].map(
             (link) => {
               const isActive = active === link.id;
@@ -130,7 +141,7 @@ export const Header = () => {
                   <a
                     href={link.href}
                     aria-current={isActive ? "page" : undefined}
-                    className={`flex w-[62px] flex-col items-center gap-1 rounded-[1.2rem] px-1 py-2 text-[9px] font-semibold transition-all ${
+                    className={`flex min-w-0 flex-1 basis-0 flex-col items-center gap-1 rounded-[1.2rem] px-1 py-2 text-[9px] font-semibold transition-all min-[380px]:text-[10px] ${
                       isActive
                         ? "gradient-bg text-white"
                         : "text-muted hover:text-ink"

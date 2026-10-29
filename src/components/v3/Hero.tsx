@@ -105,7 +105,7 @@ export const Hero = () => {
                   <dd className="display gradient-text text-[clamp(1.1rem,2.4vw,1.45rem)]">
                     {stat.value}
                   </dd>
-                  <dt className="mt-1 font-mono text-[7px] uppercase leading-snug tracking-[0.1em] text-muted">
+                  <dt className="mt-1 font-mono text-[8px] uppercase leading-snug tracking-[0.08em] text-muted">
                     {stat.label}
                   </dt>
                 </div>

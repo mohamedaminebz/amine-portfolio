@@ -38,7 +38,7 @@ const applyTheme = (theme: Theme) => {
   document
     .querySelectorAll('meta[name="theme-color"]')
     .forEach((meta) =>
-      meta.setAttribute("content", theme === "light" ? "#f8fafc" : "#0f172a"),
+      meta.setAttribute("content", theme === "light" ? "#f3f7ff" : "#050914"),
     );
 };
 

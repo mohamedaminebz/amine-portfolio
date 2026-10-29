@@ -116,7 +116,7 @@ export const Contact = () => {
         </Reveal>
 
         <div className="mt-9 grid gap-4 lg:grid-cols-12">
-          <Reveal className="lg:col-span-5">
+          <Reveal className="min-w-0 lg:col-span-5">
             <div className="gradient-bg relative flex h-full flex-col overflow-hidden rounded-[var(--radius)] p-7 text-white shadow-[var(--shadow)] sm:p-8">
               <span
                 aria-hidden="true"
@@ -128,7 +128,7 @@ export const Contact = () => {
               />
 
               <div className="relative">
-                <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1.5 font-mono text-[8px] uppercase tracking-[0.12em] text-white backdrop-blur-md">
+                <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.12em] text-white backdrop-blur-md">
                   <span
                     aria-hidden="true"
                     className="h-1.5 w-1.5 rounded-full bg-white"
@@ -140,14 +140,14 @@ export const Contact = () => {
                 </span>
 
                 <p className="display mt-6 text-[clamp(1.8rem,3.4vw,2.6rem)]">
-                  {t("v3.contact.title")}
+                  {t("v3.contact.panelTitle")}
                   <span className="mt-1 block text-white/70">
-                    {t("v3.contact.titleAccent")}
+                    {t("v3.contact.panelTitleAccent")}
                   </span>
                 </p>
 
                 <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/80">
-                  {t("v3.contact.subtitle")}
+                  {t("v3.contact.panelNote")}
                 </p>
 
                 <div className="mt-7 space-y-2.5">
@@ -217,7 +217,7 @@ export const Contact = () => {
             </div>
           </Reveal>
 
-          <Reveal delay={100} className="lg:col-span-7">
+          <Reveal delay={100} className="min-w-0 lg:col-span-7">
             <div className="card-soft h-full p-6 sm:p-8">
               <div className="flex items-center gap-3">
                 <span className="icon-tile">
@@ -225,7 +225,7 @@ export const Contact = () => {
                 </span>
                 <div>
                   <h3 className="text-sm font-bold">{t("v3.contact.formTitle")}</h3>
-                  <p className="font-mono text-[8px] uppercase tracking-[0.1em] text-muted">
+                  <p className="font-mono text-[9px] uppercase tracking-[0.1em] text-muted">
                     {t("v3.contact.formNote")}
                   </p>
                 </div>
@@ -238,7 +238,7 @@ export const Contact = () => {
               >
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
-                    <label htmlFor="contact-name" className="label !text-[8px]">
+                    <label htmlFor="contact-name" className="label !text-[9px]">
                       {t("v3.contact.name")}
                     </label>
                     <input
@@ -264,7 +264,7 @@ export const Contact = () => {
                   </div>
 
                   <div>
-                    <label htmlFor="contact-email" className="label !text-[8px]">
+                    <label htmlFor="contact-email" className="label !text-[9px]">
                       {t("v3.contact.emailField")}
                     </label>
                     <input
@@ -291,7 +291,7 @@ export const Contact = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="contact-subject" className="label !text-[8px]">
+                  <label htmlFor="contact-subject" className="label !text-[9px]">
                     {t("v3.contact.subject")}
                   </label>
                   <input
@@ -316,7 +316,7 @@ export const Contact = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="contact-message" className="label !text-[8px]">
+                  <label htmlFor="contact-message" className="label !text-[9px]">
                     {t("v3.contact.message")}
                   </label>
                   <textarea

@@ -76,9 +76,15 @@ export const Arsenal = ({ data }: ArsenalProps) => {
       </div>
 
       <div className="wrap mt-8">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {groups.map((group, index) => (
-            <Reveal key={group.id} delay={index * 50}>
+            <Reveal
+              key={group.id}
+              delay={index * 50}
+              className={
+                index === groups.length - 1 ? "sm:col-span-2" : ""
+              }
+            >
               <div className="card-soft h-full p-5 transition-all hover:-translate-y-1 hover:border-brand/25">
                 <div className="flex items-center gap-3">
                   <span className="icon-tile">
@@ -86,8 +92,10 @@ export const Arsenal = ({ data }: ArsenalProps) => {
                   </span>
                   <div>
                     <h3 className="text-sm font-bold">{t(group.key)}</h3>
-                    <p className="font-mono text-[8px] uppercase tracking-[0.1em] text-muted">
-                      {String(group.skills.length).padStart(2, "0")} tools
+                    <p className="font-mono text-[9px] uppercase tracking-[0.1em] text-muted">
+                      {t("v3.arsenal.toolCount", {
+                        count: String(group.skills.length).padStart(2, "0"),
+                      })}
                     </p>
                   </div>
                 </div>
@@ -97,7 +105,7 @@ export const Arsenal = ({ data }: ArsenalProps) => {
                     <li key={skill.name}>
                       <span
                         title={skill.description}
-                        className="inline-flex rounded-full bg-surface-2/70 px-2.5 py-1 text-[11px] text-muted transition-colors hover:bg-[var(--grad-soft)] hover:text-brand-text"
+                        className="inline-flex rounded-full bg-surface-2/70 px-2.5 py-1 text-[11px] text-muted transition-colors hover:bg-brand/10 hover:text-brand-text"
                       >
                         {skill.name}
                       </span>
@@ -125,7 +133,7 @@ export const Arsenal = ({ data }: ArsenalProps) => {
                     className="flex items-baseline justify-between gap-4 border-b border-line pb-2.5 text-sm last:border-b-0 last:pb-0"
                   >
                     <span>{language.name}</span>
-                    <span className="font-mono text-[8px] uppercase tracking-[0.1em] text-muted">
+                    <span className="font-mono text-[9px] uppercase tracking-[0.1em] text-muted">
                       {language.level}
                     </span>
                   </li>
@@ -151,7 +159,7 @@ export const Arsenal = ({ data }: ArsenalProps) => {
                     className="flex items-baseline justify-between gap-4 border-b border-line pb-2.5 text-sm last:border-b-0 last:pb-0"
                   >
                     <span>{certification.name}</span>
-                    <span className="shrink-0 font-mono text-[8px] uppercase tracking-[0.1em] text-muted">
+                    <span className="shrink-0 font-mono text-[9px] uppercase tracking-[0.1em] text-muted">
                       {certification.issuer} · {certification.year}
                     </span>
                   </li>
