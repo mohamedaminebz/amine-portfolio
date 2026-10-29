@@ -48,7 +48,8 @@ module.exports = {
           foreground: "hsl(var(--destructive-foreground))",
         },
         accent: {
-          DEFAULT: "hsl(var(--accent-legacy))",
+          DEFAULT: "rgb(var(--accent-rgb) / <alpha-value>)",
+          soft: "var(--accent-soft)",
           foreground: "hsl(var(--accent-foreground))",
         },
         mutedLegacy: {
@@ -65,20 +66,15 @@ module.exports = {
         },
       },
       fontFamily: {
-        display: [
-          "Bricolage Grotesque",
-          "Instrument Sans",
-          "system-ui",
-          "sans-serif",
-        ],
+        display: ["Sora", "system-ui", "-apple-system", "sans-serif"],
         sans: [
-          "Instrument Sans",
+          "Manrope",
           "system-ui",
           "-apple-system",
           "Segoe UI",
           "sans-serif",
         ],
-        mono: ["IBM Plex Mono", "ui-monospace", "SFMono-Regular", "monospace"],
+        mono: ["JetBrains Mono", "ui-monospace", "SFMono-Regular", "monospace"],
       },
       borderRadius: {
         lg: "var(--radius)",

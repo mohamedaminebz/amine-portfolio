@@ -3,141 +3,77 @@ import React, {
   useCallback,
   useContext,
   useEffect,
-  useLayoutEffect,
   useMemo,
-  useRef,
   useState,
   type ReactNode,
 } from "react";
-import {
-  defaultDarkTheme,
-  defaultLightTheme,
-  getCounterpart,
-  getTheme,
-  normalizeStoredTheme,
-  type ThemeDefinition,
-  type ThemeId,
-} from "../lib/themes";
 
-const STORAGE_KEY = "theme";
-const TRANSITION_MS = 460;
+type Theme = "light" | "dark";
 
 interface ThemeContextType {
-  theme: ThemeId;
-  /** Full palette metadata for the active theme. */
-  definition: ThemeDefinition;
+  theme: Theme;
   isDark: boolean;
-  setTheme: (theme: ThemeId) => void;
-  /** Jumps to the paired light / dark palette. */
   toggleTheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-const getInitialTheme = (): ThemeId => {
-  if (typeof window === "undefined") return defaultDarkTheme;
+const getInitialTheme = (): Theme => {
+  if (typeof window === "undefined") return "dark";
 
-  const stored = normalizeStoredTheme(window.localStorage.getItem(STORAGE_KEY));
-  if (stored) return stored;
+  const stored = window.localStorage.getItem("theme");
+  if (stored === "light" || stored === "dark") return stored;
 
   return window.matchMedia("(prefers-color-scheme: light)").matches
-    ? defaultLightTheme
-    : defaultDarkTheme;
+    ? "light"
+    : "dark";
 };
 
-const applyTheme = (theme: ThemeId) => {
-  const definition = getTheme(theme);
+const applyTheme = (theme: Theme) => {
   const root = document.documentElement;
-
   root.classList.remove("light", "dark");
-  root.classList.add(definition.mode);
-  root.dataset.theme = theme;
-  root.style.colorScheme = definition.mode;
+  root.classList.add(theme);
+  root.style.colorScheme = theme;
 
   document
     .querySelectorAll('meta[name="theme-color"]')
-    .forEach((meta) => meta.setAttribute("content", definition.browserColor));
+    .forEach((meta) =>
+      meta.setAttribute("content", theme === "light" ? "#f8fafc" : "#0f172a"),
+    );
 };
 
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [theme, setTheme] = useState<ThemeId>(getInitialTheme);
-  const appliedTheme = useRef<ThemeId | null>(null);
-  const transitionTimer = useRef<number | null>(null);
-
-  // Layout effect so the palette is committed before children read the CSS
-  // variables (the hero canvas reads them on every theme change).
-  useLayoutEffect(() => {
-    window.localStorage.setItem(STORAGE_KEY, theme);
-
-    const previous = appliedTheme.current;
-    appliedTheme.current = theme;
-
-    // Skip the transition on the first commit (and on StrictMode's effect
-    // replay) so a reload never animates from the browser's default palette.
-    if (previous === null || previous === theme) {
-      applyTheme(theme);
-      return;
-    }
-
-    const root = document.documentElement;
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-
-    if (reduceMotion) {
-      applyTheme(theme);
-      return;
-    }
-
-    root.classList.add("theme-transition");
-    // Force a style flush so the transition property is active before the
-    // palette tokens change.
-    void root.offsetWidth;
-    applyTheme(theme);
-
-    if (transitionTimer.current) window.clearTimeout(transitionTimer.current);
-    transitionTimer.current = window.setTimeout(() => {
-      root.classList.remove("theme-transition");
-      transitionTimer.current = null;
-    }, TRANSITION_MS);
-  }, [theme]);
+  const [theme, setTheme] = useState<Theme>(getInitialTheme);
 
   useEffect(() => {
-    return () => {
-      if (transitionTimer.current) window.clearTimeout(transitionTimer.current);
-      document.documentElement.classList.remove("theme-transition");
-    };
-  }, []);
+    window.localStorage.setItem("theme", theme);
+    applyTheme(theme);
+  }, [theme]);
 
   // Keep multiple tabs in sync.
   useEffect(() => {
     const onStorage = (event: StorageEvent) => {
-      if (event.key !== STORAGE_KEY) return;
-
-      const next = normalizeStoredTheme(event.newValue);
-      if (next) setTheme(next);
+      if (
+        event.key === "theme" &&
+        (event.newValue === "light" || event.newValue === "dark")
+      ) {
+        setTheme(event.newValue);
+      }
     };
 
     window.addEventListener("storage", onStorage);
     return () => window.removeEventListener("storage", onStorage);
   }, []);
 
-  const selectTheme = useCallback((next: ThemeId) => {
-    setTheme(next);
-  }, []);
-
   const toggleTheme = useCallback(() => {
-    setTheme((previous) => getCounterpart(previous));
+    setTheme((previous) => (previous === "dark" ? "light" : "dark"));
   }, []);
-
-  const definition = getTheme(theme);
-  const isDark = definition.mode === "dark";
 
   const value = useMemo(
-    () => ({ theme, definition, isDark, setTheme: selectTheme, toggleTheme }),
-    [definition, isDark, selectTheme, theme, toggleTheme],
+    () => ({ theme, isDark: theme === "dark", toggleTheme }),
+    [theme, toggleTheme],
   );
 
   return (

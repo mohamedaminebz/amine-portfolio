@@ -198,3 +198,26 @@ export interface OtherProject extends BaseProject {
 
 export type Project =
   ProfessionalProject | InternshipProject | AcademicProject | OtherProject;
+
+/* ------------------------------------------------------------
+   Field notes — a small personal notebook attached to the work.
+   ------------------------------------------------------------ */
+
+export type NoteBlock =
+  | { type: "paragraph"; text: string }
+  | { type: "heading"; text: string }
+  | { type: "quote"; text: string }
+  | { type: "list"; items: string[] };
+
+export interface Note {
+  slug: string;
+  /** ISO date used for sorting and display. */
+  date: string;
+  readingMinutes: number;
+  tags: string[];
+  /** Links the note back to the work that produced it. */
+  projectId?: string;
+  title: string;
+  dek: string;
+  body: NoteBlock[];
+}

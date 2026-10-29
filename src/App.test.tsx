@@ -25,7 +25,15 @@ describe("App", () => {
       </ThemeProvider>,
     );
 
-    for (const id of ["about", "timeline", "projects", "skills", "contact"]) {
+    for (const id of [
+      "top",
+      "work",
+      "notes",
+      "about",
+      "journey",
+      "arsenal",
+      "contact",
+    ]) {
       expect(document.getElementById(id)).toBeInTheDocument();
     }
   });
