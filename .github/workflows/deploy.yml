@@ -1,8 +1,8 @@
-name: Deploy to GitHub Pages
+name: Deploy portfolio versions to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, v2.1, v2.2]
   workflow_dispatch:
 
 permissions:
@@ -20,6 +20,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch version branches
+        run: |
+          git fetch --no-tags origin \
+            "+refs/heads/main:refs/remotes/origin/main" \
+            "+refs/heads/v2.1:refs/remotes/origin/v2.1" \
+            "+refs/heads/v2.2:refs/remotes/origin/v2.2"
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -32,13 +41,67 @@ jobs:
           node-version: 20
           cache: pnpm
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build
-        run: pnpm build
+      - name: Build all versions
         env:
           VITE_CONTACT_ENDPOINT: ${{ vars.VITE_CONTACT_ENDPOINT }}
+        run: |
+          set -euo pipefail
+
+          mkdir -p site .build
+
+          build_version() {
+            ref="$1"
+            out="$2"
+            base="$3"
+            dir=".build/${out:-root}"
+
+            echo "::group::Building ${ref} for ${base}"
+            mkdir -p "$dir"
+            git archive "origin/${ref}" | tar -x -C "$dir"
+            (
+              cd "$dir"
+              pnpm install --frozen-lockfile
+              pnpm exec tsc -b
+              pnpm exec vite build --mode production --base="$base"
+            )
+            mkdir -p "site/${out}"
+            cp -r "$dir/dist/." "site/${out}/"
+            echo "::endgroup::"
+          }
+
+          # The root URL keeps deploying the main branch, as before.
+          build_version main "" "/amine-portfolio/"
+
+          # Version previews.
+          # v3 currently lives on main (there is no origin/v3 branch).
+          build_version v2.1 "v2.1" "/amine-portfolio/v2.1/"
+          build_version v2.2 "v2.2" "/amine-portfolio/v2.2/"
+          build_version main "v3" "/amine-portfolio/v3/"
+
+          # Short link: /v2/ redirects to the newest v2 version.
+          mkdir -p site/v2
+          cat > site/v2/index.html <<'EOF'
+          <!doctype html>
+          <html lang="en">
+            <head>
+              <meta charset="utf-8" />
+              <meta http-equiv="refresh" content="0; url=../v2.2/" />
+              <link rel="canonical" href="https://mohamedaminebz.github.io/amine-portfolio/v2.2/" />
+              <title>Portfolio v2</title>
+            </head>
+            <body>
+              <p>Redirecting to <a href="../v2.2/">portfolio v2.2</a>&hellip;</p>
+            </body>
+          </html>
+          EOF
+
+          # Make each preview's canonical/Open Graph URLs point at that preview
+          # instead of the root site.
+          for version in v2.1 v2.2 v3; do
+            sed -i \
+              "s|https://mohamedaminebz.github.io/amine-portfolio/|https://mohamedaminebz.github.io/amine-portfolio/${version}/|g" \
+              "site/${version}/index.html"
+          done
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -46,7 +109,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: site
 
   deploy:
     environment:
