@@ -12,12 +12,12 @@
     <meta
       name="theme-color"
       media="(prefers-color-scheme: light)"
-      content="#f8fafc"
+      content="#f2f4f9"
     />
     <meta
       name="theme-color"
       media="(prefers-color-scheme: dark)"
-      content="#0f172a"
+      content="#080b15"
     />
 
     <link
@@ -67,32 +67,68 @@
     <link
       rel="icon"
       type="image/svg+xml"
-      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230f172a' width='100' height='100' rx='20'/><text x='50' y='65' font-size='50' text-anchor='middle' fill='%233b82f6' font-family='Arial'>M</text></svg>"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%232f3bff' width='100' height='100' rx='22'/><rect x='24' y='24' width='22' height='22' fill='%23ffffff'/><rect x='54' y='24' width='22' height='22' fill='%237c88ff'/><rect x='24' y='54' width='22' height='22' fill='%23ffffff' opacity='.55'/><rect x='54' y='54' width='22' height='22' fill='%23ffffff'/></svg>"
     />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:ital,wght@0,400..700;1,400..600&display=swap"
       rel="stylesheet"
     />
 
-    <!-- Apply the saved theme before React mounts to avoid a flash of the wrong theme. -->
+    <!-- Apply the saved theme before React mounts to avoid a flash of the wrong palette. -->
     <script>
       (function () {
         try {
+          // Keep these maps in sync with src/lib/themes.ts.
+          var modes = {
+            fog: "light",
+            paper: "light",
+            sage: "light",
+            ink: "dark",
+            carbon: "dark",
+            marine: "dark",
+          };
+          var colors = {
+            fog: "#f2f4f9",
+            paper: "#f5f3ee",
+            sage: "#eff4ef",
+            ink: "#080b15",
+            carbon: "#0a0a0b",
+            marine: "#061013",
+          };
           var stored = localStorage.getItem("theme");
-          var theme =
-            stored === "light" || stored === "dark"
-              ? stored
-              : window.matchMedia("(prefers-color-scheme: light)").matches
-                ? "light"
-                : "dark";
-          document.documentElement.classList.add(theme);
-          document.documentElement.style.colorScheme = theme;
+          if (stored === "light") stored = "fog";
+          else if (stored === "dark") stored = "ink";
+
+          var theme = Object.prototype.hasOwnProperty.call(modes, stored)
+            ? stored
+            : window.matchMedia("(prefers-color-scheme: light)").matches
+              ? "fog"
+              : "ink";
+          var mode = modes[theme];
+
+          document.documentElement.classList.add(mode);
+          document.documentElement.dataset.theme = theme;
+          document.documentElement.style.colorScheme = mode;
+
+          var metas = document.querySelectorAll('meta[name="theme-color"]');
+          for (var i = 0; i < metas.length; i += 1) {
+            metas[i].setAttribute("content", colors[theme]);
+          }
         } catch (error) {
           document.documentElement.classList.add("dark");
+          document.documentElement.dataset.theme = "ink";
+          document.documentElement.style.colorScheme = "dark";
+
+          var fallbackMetas = document.querySelectorAll(
+            'meta[name="theme-color"]',
+          );
+          for (var j = 0; j < fallbackMetas.length; j += 1) {
+            fallbackMetas[j].setAttribute("content", "#080b15");
+          }
         }
       })();
     </script>

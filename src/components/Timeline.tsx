@@ -6,7 +6,8 @@ import { TimelineItem } from "../types/portfolio";
 
 const Timeline: React.FC = () => {
   const { t } = useTranslation();
-  const { theme } = useTheme();
+  const { isDark } = useTheme();
+  const theme: "light" | "dark" = isDark ? "dark" : "light";
   const { timelineItems, educationItems } = usePortfolioData();
   const [activeFilter, setActiveFilter] = useState<
     "all" | "work" | "internship"

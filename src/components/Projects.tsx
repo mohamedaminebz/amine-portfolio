@@ -19,7 +19,8 @@ const ProjectDetail = lazy(() => import("./ProjectDetail"));
 const Projects: React.FC = () => {
   const { projects } = usePortfolioData();
   const { t } = useTranslation();
-  const { theme } = useTheme();
+  const { isDark } = useTheme();
+  const theme: "light" | "dark" = isDark ? "dark" : "light";
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(
     null,
   );

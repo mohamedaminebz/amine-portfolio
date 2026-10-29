@@ -1,391 +1,234 @@
-import React, { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useTheme } from "../context/ThemeContext";
+import { FiAward, FiGlobe } from "react-icons/fi";
 import { usePortfolioData } from "../hooks/usePortfolioData";
 import { asset } from "../lib/asset";
-import { Skill } from "../types/portfolio";
-import { motion, AnimatePresence } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+import type { Skill, SkillCategory } from "../types/portfolio";
+import { SectionHeading } from "./ui/SectionHeading";
 
-const Skills: React.FC = () => {
-  const { t } = useTranslation();
-  const { theme } = useTheme();
-  const { skills, languages, certifications } = usePortfolioData();
-  const [activeCategory, setActiveCategory] = useState<string>("all");
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+type Filter = SkillCategory | "all";
 
-  const categories = [
-    { key: "all", label: t("skills.categories.all"), icon: "🎯" },
-    { key: "frontend", label: t("skills.categories.frontend"), icon: "🎨" },
-    { key: "backend", label: t("skills.categories.backend"), icon: "⚙️" },
-    { key: "mobile", label: t("skills.categories.mobile"), icon: "📱" },
-    { key: "devops", label: t("skills.categories.devops"), icon: "🚀" },
-    { key: "database", label: t("skills.categories.database"), icon: "💾" },
-    { key: "other", label: t("skills.categories.other"), icon: "✨" },
-  ];
+const categoryOrder: Filter[] = [
+  "frontend",
+  "backend",
+  "mobile",
+  "devops",
+  "database",
+  "cloud",
+  "other",
+];
 
-  const filteredSkills =
-    activeCategory === "all"
-      ? skills
-      : skills.filter((s) => s.category === activeCategory);
+const SkillMark = ({ skill }: { skill: Skill }) => {
+  const [failed, setFailed] = useState(false);
+  const initials = skill.name.replace(/[^A-Za-z0-9+#]/g, "").slice(0, 2);
 
-  const getCategoryColor = (category: string) => {
-    switch (category) {
-      case "frontend":
-        return "from-pink-500 to-rose-500";
-      case "backend":
-        return "from-blue-500 to-cyan-500";
-      case "mobile":
-        return "from-purple-500 to-violet-500";
-      case "devops":
-        return "from-green-500 to-emerald-500";
-      case "database":
-        return "from-orange-500 to-amber-500";
-      case "other":
-        return "from-gray-500 to-slate-500";
-      default:
-        return "from-blue-500 to-cyan-500";
-    }
-  };
-
-  const getCategoryIcon = (category: string) => {
-    switch (category) {
-      case "frontend":
-        return "🎨";
-      case "backend":
-        return "⚙️";
-      case "mobile":
-        return "📱";
-      case "devops":
-        return "🚀";
-      case "database":
-        return "💾";
-      case "other":
-        return "✨";
-      default:
-        return "💻";
-    }
-  };
+  if (!skill.icon || failed) {
+    return (
+      <span
+        className="font-display text-[11px] font-semibold tracking-tight text-muted transition-colors group-hover:text-ink"
+        aria-hidden="true"
+      >
+        {initials.toUpperCase()}
+      </span>
+    );
+  }
 
   return (
-    <section
-      id="skills"
-      className={`py-24 relative ${
-        theme === "dark" ? "bg-gray-900" : "bg-gray-100"
-      }`}
-      ref={ref}
-    >
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-            {t("skills.title")}
-          </h2>
-          <p
-            className={`text-xl max-w-3xl mx-auto ${
-              theme === "dark" ? "text-gray-300" : "text-gray-600"
-            }`}
-          >
-            {t("skills.subtitle")}
-          </p>
-        </motion.div>
-        {/* Categories */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="flex flex-wrap justify-center gap-4 mb-16"
-        >
-          {categories.map((cat, index) => (
-            <motion.button
-              key={cat.key}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.4, delay: 0.05 * index }}
-              onClick={() => setActiveCategory(cat.key)}
-              aria-pressed={activeCategory === cat.key}
-              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 flex items-center gap-3 ${
-                activeCategory === cat.key
-                  ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg shadow-blue-500/30"
-                  : theme === "dark"
-                    ? "bg-gray-800/50 text-gray-400 hover:bg-gray-700/50 border border-gray-700 hover:border-blue-500/50"
-                    : "bg-white text-gray-600 hover:bg-gray-100 border border-gray-200 hover:border-blue-500/50 shadow-sm"
-              }`}
-            >
-              <span className="text-xl">{cat.icon}</span>
-              <span className="text-sm md:text-base">{cat.label}</span>
-            </motion.button>
-          ))}
-        </motion.div>
-        {/* Skills Grid - Clean Design */}
-        <motion.div
-          layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          <AnimatePresence>
-            {filteredSkills.map((skill, index) => (
-              <CleanSkillCard
-                key={skill.name}
-                skill={skill}
-                index={index}
-                getCategoryColor={getCategoryColor}
-                getCategoryIcon={getCategoryIcon}
-                theme={theme}
-                inView={inView}
-              />
-            ))}
-          </AnimatePresence>
-        </motion.div>
-        {/* Languages & Certifications - Clean Design */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="grid md:grid-cols-2 gap-8 mt-20"
-        >
-          {/* Languages */}
-          <div
-            className={`rounded-2xl p-8 ${
-              theme === "dark"
-                ? "bg-gray-800/30 backdrop-blur-sm border border-gray-700/50"
-                : "bg-white/80 backdrop-blur-sm border border-gray-200/50 shadow-lg"
-            }`}
-          >
-            <h3
-              className={`text-2xl font-bold mb-6 flex items-center gap-3 ${
-                theme === "dark" ? "text-white" : "text-gray-900"
-              }`}
-            >
-              <span className="text-3xl">🌍</span>
-              {t("skills.languages")}
-            </h3>
-            <div className="space-y-4">
-              {languages.map((lang, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 transition-colors"
-                >
-                  <span
-                    className={`text-lg ${
-                      theme === "dark" ? "text-gray-300" : "text-gray-700"
+    <img
+      src={skill.icon.startsWith("http") ? skill.icon : asset(skill.icon)}
+      alt=""
+      width={24}
+      height={24}
+      loading="lazy"
+      decoding="async"
+      className="h-6 w-6 object-contain opacity-85 transition-opacity group-hover:opacity-100"
+      onError={() => setFailed(true)}
+    />
+  );
+};
+
+export const Skills = () => {
+  const { t } = useTranslation();
+  const { skills, languages, certifications } = usePortfolioData();
+  const reduce = useReducedMotion();
+  const [filter, setFilter] = useState<Filter>("all");
+
+  const categories = useMemo(() => {
+    const present = categoryOrder.filter((category) =>
+      skills.some((skill) => skill.category === category),
+    );
+
+    return [
+      { key: "all" as Filter, count: skills.length },
+      ...present.map((category) => ({
+        key: category,
+        count: skills.filter((skill) => skill.category === category).length,
+      })),
+    ];
+  }, [skills]);
+
+  const filtered = useMemo(
+    () =>
+      filter === "all"
+        ? skills
+        : skills.filter((skill) => skill.category === filter),
+    [filter, skills],
+  );
+
+  return (
+    <section id="skills" className="section-shell border-t border-line">
+      <div className="wrap">
+        <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+          <SectionHeading
+            label={t("v21.skills.label")}
+            title={t("v21.skills.title")}
+            accent={t("v21.skills.titleAccent")}
+            description={t("v21.skills.subtitle")}
+          />
+        </div>
+
+        <div className="mt-12 flex flex-col gap-10 lg:grid lg:grid-cols-12 lg:gap-12">
+          <aside className="contents lg:col-span-3 lg:block">
+            <div className="order-1 min-w-0">
+              <p className="eyebrow">{t("v21.skills.categories.all")}</p>
+              <div
+                className="mt-4 flex flex-wrap gap-2 lg:flex-col lg:gap-1"
+                role="group"
+                aria-label={t("v21.skills.label")}
+              >
+                {categories.map((category) => (
+                  <button
+                    key={category.key}
+                    type="button"
+                    onClick={() => setFilter(category.key)}
+                    aria-pressed={filter === category.key}
+                    className={`flex shrink-0 items-center justify-between gap-3 rounded-md px-3 py-2 text-left font-mono text-[9px] uppercase tracking-[0.12em] transition-colors lg:w-full ${
+                      filter === category.key
+                        ? "bg-brand text-brand-ink"
+                        : "border border-line text-muted hover:border-ink hover:text-ink lg:border-transparent lg:border-b-line"
                     }`}
                   >
-                    {lang.name}
-                  </span>
-                  <span className="px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-full text-sm font-medium shadow-lg">
-                    {lang.level}
-                  </span>
-                </div>
-              ))}
+                    {t(`v21.skills.categories.${category.key}`)}
+                    <span
+                      className={
+                        filter === category.key ? "opacity-60" : "opacity-40"
+                      }
+                    >
+                      {String(category.count).padStart(2, "0")}
+                    </span>
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Certifications */}
-          <div
-            className={`rounded-2xl p-8 ${
-              theme === "dark"
-                ? "bg-gray-800/30 backdrop-blur-sm border border-gray-700/50"
-                : "bg-white/80 backdrop-blur-sm border border-gray-200/50 shadow-lg"
-            }`}
-          >
-            <h3
-              className={`text-2xl font-bold mb-6 flex items-center gap-3 ${
-                theme === "dark" ? "text-white" : "text-gray-900"
-              }`}
-            >
-              <span className="text-3xl">📜</span>
-              {t("skills.certifications")}
-            </h3>
-            <div className="space-y-4">
-              {certifications.map((cert, index) => (
-                <div
-                  key={index}
-                  className={`flex items-center gap-4 p-4 rounded-xl transition-all ${
-                    theme === "dark"
-                      ? "bg-gray-700/30 hover:bg-gray-700/50"
-                      : "bg-gray-50 hover:bg-gray-100"
-                  }`}
+            <div className="order-3 mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+              <div className="rounded-[1.15rem] border border-line bg-surface p-5">
+                <p className="flex items-center gap-2 eyebrow">
+                  <FiGlobe className="h-3.5 w-3.5 text-brand-text" aria-hidden="true" />
+                  {t("v21.skills.languages")}
+                </p>
+                <ul className="mt-4 space-y-3">
+                  {languages.map((language) => (
+                    <li key={language.name}>
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-xs font-medium text-ink">
+                          {language.name}
+                        </span>
+                        <span className="font-mono text-[8px] uppercase tracking-[0.08em] text-muted">
+                          {language.level}
+                        </span>
+                      </div>
+                      <div className="mt-1.5 h-px w-full bg-line">
+                        <div
+                          className="h-px bg-brand"
+                          style={{
+                            width:
+                              language.level.toLowerCase().includes("native")
+                                ? "100%"
+                                : language.level.toLowerCase().includes("fluent")
+                                  ? "86%"
+                                  : "64%",
+                          }}
+                        />
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="rounded-[1.15rem] border border-line bg-surface p-5">
+                <p className="flex items-center gap-2 eyebrow">
+                  <FiAward className="h-3.5 w-3.5 text-brand-text" aria-hidden="true" />
+                  {t("v21.skills.certifications")}
+                </p>
+                <ul className="mt-4 space-y-2.5">
+                  {certifications.map((certification) => (
+                    <li
+                      key={certification.name}
+                      className="flex items-baseline justify-between gap-3 border-b border-line pb-2.5 last:border-0 last:pb-0"
+                    >
+                      <span className="text-xs font-medium text-ink">
+                        {certification.name}
+                      </span>
+                      <span className="shrink-0 font-mono text-[8px] text-muted">
+                        {certification.year}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </aside>
+
+          <div className="order-2 min-w-0 lg:col-span-9">
+            <div className="mb-4 flex items-center justify-between gap-4 border-b border-line pb-3">
+              <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-muted">
+                {t("v21.skills.count", { count: filtered.length })}
+              </span>
+              <span className="hidden font-mono text-[8px] uppercase tracking-[0.12em] text-muted sm:block">
+                {t("v21.skills.hoverHint")}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+              {filtered.map((skill, index) => (
+                <motion.div
+                  key={`${filter}-${skill.name}`}
+                  layout
+                  initial={reduce ? false : { opacity: 0, y: 14 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.35, delay: Math.min(index, 8) * 0.025 }}
+                  className="group relative flex min-h-[148px] flex-col justify-between overflow-hidden rounded-xl border border-line bg-surface p-4 transition-colors hover:border-brand/45 hover:bg-surface-2/60"
                 >
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-600 flex items-center justify-center shadow-lg flex-shrink-0">
-                    <svg
-                      className="w-7 h-7 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
-                      />
-                    </svg>
+                  <div className="flex items-start justify-between gap-2">
+                    <span className="grid h-10 w-10 place-items-center rounded-lg border border-line bg-surface-2 p-2">
+                      <SkillMark skill={skill} />
+                    </span>
+                    <span className="rounded border border-line px-2 py-0.5 font-mono text-[7px] uppercase tracking-[0.1em] text-muted">
+                      {t(`v21.skills.categories.${skill.category}`)}
+                    </span>
                   </div>
-                  <div>
-                    <h4
-                      className={`font-semibold ${
-                        theme === "dark" ? "text-white" : "text-gray-900"
-                      }`}
-                    >
-                      {cert.name}
-                    </h4>
-                    <p
-                      className={`text-sm ${
-                        theme === "dark" ? "text-gray-400" : "text-gray-500"
-                      }`}
-                    >
-                      {cert.issuer} • {cert.year}
+
+                  <div className="mt-4">
+                    <p className="font-display text-[15px] font-semibold tracking-tight text-ink">
+                      {skill.name}
+                    </p>
+                    <p className="mt-1 line-clamp-3 text-[11px] leading-relaxed text-muted transition-colors group-hover:text-ink/75">
+                      {skill.description}
                     </p>
                   </div>
-                </div>
+
+                  <span
+                    className="pointer-events-none absolute inset-x-4 bottom-0 h-px origin-left scale-x-0 bg-brand transition-transform duration-500 group-hover:scale-x-100"
+                    aria-hidden="true"
+                  />
+                </motion.div>
               ))}
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
 };
-
-// Clean Skill Card Component - With image icons
-const CleanSkillCard: React.FC<{
-  skill: Skill;
-  index: number;
-  getCategoryColor: (category: string) => string;
-  getCategoryIcon: (category: string) => string;
-  theme: "light" | "dark";
-  inView: boolean;
-}> = ({ skill, index, getCategoryColor, getCategoryIcon, theme, inView }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [imageError, setImageError] = useState(false);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9, y: 20 }}
-      animate={inView ? { opacity: 1, scale: 1, y: 0 } : {}}
-      transition={{
-        duration: 0.5,
-        delay: 0.05 * index,
-        type: "spring",
-        bounce: 0.3,
-      }}
-      whileHover={{ y: -8, scale: 1.02 }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className={`relative rounded-2xl p-6 transition-all duration-300 ${
-        theme === "dark"
-          ? "bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 hover:border-blue-500/50"
-          : "bg-white/80 backdrop-blur-sm border border-gray-200/50 hover:border-blue-500/50 shadow-lg hover:shadow-xl"
-      }`}
-    >
-      {/* Subtle Gradient Border on Hover */}
-      {isHovered && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.1 }}
-          className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 pointer-events-none"
-        />
-      )}
-
-      {/* Category Badge */}
-      <div className="absolute -top-3 -right-3">
-        <span
-          className={`px-3 py-1 bg-gradient-to-r ${getCategoryColor(skill.category)} text-white text-xs font-medium rounded-full shadow-lg`}
-        >
-          {getCategoryIcon(skill.category)} {skill.category}
-        </span>
-      </div>
-
-      {/* Icon Container with Image */}
-      <div className="flex items-center gap-4 mb-4">
-        <div
-          className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0 p-2 border ${
-            theme === "dark" ? "border-gray-700/30" : "border-gray-200/30"
-          }`}
-        >
-          {skill.icon && !imageError ? (
-            <img
-              key={skill.icon}
-              src={asset(skill.icon)}
-              alt={skill.name}
-              loading="lazy"
-              decoding="async"
-              width={56}
-              height={56}
-              className="w-full h-full object-contain"
-              onError={() => setImageError(true)}
-            />
-          ) : (
-            <span className="text-2xl">{getCategoryIcon(skill.category)}</span>
-          )}
-        </div>
-        <div>
-          <h3
-            className={`text-xl font-bold ${
-              isHovered
-                ? "text-blue-400"
-                : theme === "dark"
-                  ? "text-white"
-                  : "text-gray-900"
-            } transition-colors duration-300`}
-          >
-            {skill.name}
-          </h3>
-          {skill.description && (
-            <p
-              className={`text-sm ${
-                theme === "dark" ? "text-gray-400" : "text-gray-500"
-              }`}
-            >
-              {skill.description}
-            </p>
-          )}
-        </div>
-      </div>
-
-      {/* Tools Tags */}
-      {skill.tools && skill.tools.length > 0 && (
-        <div className="flex flex-wrap gap-2 mt-2">
-          {skill.tools.slice(0, 4).map((tool, idx) => (
-            <motion.span
-              key={idx}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={isHovered ? { opacity: 1, scale: 1 } : {}}
-              transition={{ delay: 0.05 * idx }}
-              className={`px-2 py-1 text-xs rounded-full ${
-                theme === "dark"
-                  ? "bg-gray-700/50 text-gray-300"
-                  : "bg-gray-100 text-gray-600"
-              }`}
-            >
-              {tool}
-            </motion.span>
-          ))}
-          {skill.tools.length > 4 && (
-            <span
-              className={`px-2 py-1 text-xs rounded-full ${
-                theme === "dark"
-                  ? "bg-gray-700/50 text-gray-300"
-                  : "bg-gray-100 text-gray-600"
-              }`}
-            >
-              +{skill.tools.length - 4}
-            </span>
-          )}
-        </div>
-      )}
-    </motion.div>
-  );
-};
-
-export default Skills;

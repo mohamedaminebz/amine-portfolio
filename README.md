@@ -2,8 +2,8 @@
 
 Personal portfolio of **Mohamed Amine Bouzidi**, a full-stack engineer specialised in
 React, Node.js and React Native. The site is a single-page React application with
-English and French content, a light/dark theme, project case studies and an
-accessible contact form.
+English and French content, a six-palette theme system, project case studies and
+an accessible contact form.
 
 **Live site:** <https://mohamedaminebz.github.io/amine-portfolio/>
 
@@ -54,7 +54,7 @@ src/
   data/             Localised portfolio content (EN/FR)
   hooks/            Data, document metadata and responsive helpers
   i18n/             i18next setup and translation bundles
-  lib/              Asset URL, date parsing and shared helpers
+  lib/              Asset URL, theme catalogue, date parsing and shared helpers
   test/             Vitest setup
   types/            Shared TypeScript types
 public/
@@ -73,6 +73,19 @@ UI strings live in `src/i18n/locales/en.json` and `fr.json`. A test verifies tha
 both bundles expose exactly the same keys. Language is stored in `localStorage`
 and falls back to the browser language, normalising regional tags such as
 `en-US` to `en`.
+
+## Themes
+
+Six palettes ship in `src/lib/themes.ts`: three light (Fog, Paper, Sage) and three
+dark (Ink, Carbon, Marine). The active palette is stored in `localStorage` under
+`theme`; the pre-v2.2 `light` / `dark` values migrate to Fog / Ink on first load.
+Each palette declares a base mode so Tailwind's `dark:` utilities keep working,
+while `[data-theme="…"]` blocks in `src/index.css` swap the RGB token channels.
+
+The pre-paint script in `index.html` applies the saved palette before React
+mounts, and the provider keeps open tabs in sync through the `storage` event.
+Visitors can switch from the header picker, the mobile menu or the command
+palette (`Ctrl/⌘ K`).
 
 ## Contact form
 
@@ -120,3 +133,5 @@ are served by GitHub Pages.
   (focus trap, `Escape`, arrow-key lightbox navigation, focus restoration).
 - Labelled form fields, inline validation messages and `aria-live` status output.
 - `prefers-reduced-motion` support and a pre-paint theme script to avoid flashing.
+- A labelled theme picker with live palette previews, `Escape` to close, focus
+  restoration and reduced-motion-aware transitions.

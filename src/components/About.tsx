@@ -1,303 +1,305 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
-import { useTheme } from "../context/ThemeContext";
+import {
+  FiArrowRight,
+  FiArrowUpRight,
+  FiBookOpen,
+  FiCode,
+  FiGlobe,
+  FiMapPin,
+  FiPenTool,
+  FiStar,
+  FiTv,
+} from "react-icons/fi";
+import type { IconType } from "react-icons";
 import { usePortfolioData } from "../hooks/usePortfolioData";
 import { asset } from "../lib/asset";
+import { Reveal } from "./ui/Reveal";
+import { SectionHeading } from "./ui/SectionHeading";
 
-const About: React.FC = () => {
+const interestIcons: Record<string, IconType> = {
+  "pen-tool": FiPenTool,
+  tv: FiTv,
+  "book-open": FiBookOpen,
+};
+
+const coreTools = [
+  "React",
+  "Node.js",
+  "TypeScript",
+  "React Native",
+  "ClickHouse",
+];
+
+export const About = () => {
   const { t } = useTranslation();
-  const { theme } = useTheme();
-  const { personalInfo, interests } = usePortfolioData();
+  const {
+    personalInfo,
+    interests,
+    languages,
+    projects,
+    skills,
+    timelineItems,
+  } = usePortfolioData();
+
+  const stats = [
+    { value: "150+", label: t("v21.about.stats.apis"), highlight: true },
+    { value: String(projects.length), label: t("v21.about.stats.projects") },
+    { value: String(timelineItems.length), label: t("v21.about.stats.roles") },
+    { value: String(skills.length), label: t("v21.about.stats.skills") },
+  ];
+
+  const currentRole = timelineItems.find((item) => item.id === "work-sbg");
 
   return (
-    <section
-      id="about"
-      className={`py-24 relative ${
-        theme === "dark" ? "bg-gray-950" : "bg-gray-100"
-      }`}
-    >
-      {/* Background decoration */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
-        <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
-      </div>
+    <section id="about" className="section-shell border-t border-line">
+      <div className="wrap">
+        <SectionHeading
+          label={t("v21.about.label")}
+          title={t("v21.about.title")}
+          accent={t("v21.about.titleAccent")}
+        />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left Column - Image/Visual */}
-          <div className="relative">
-            <div className="relative w-full aspect-square max-w-md mx-auto">
-              {/* Decorative circles */}
+        <div className="mt-14 grid gap-4 lg:grid-cols-12">
+          <Reveal className="lg:col-span-4" y={34}>
+            <div className="group relative mx-auto h-full min-h-[500px] w-full max-w-[430px] lg:max-w-none">
               <div
-                className={`absolute inset-0 rounded-full bg-gradient-to-br from-blue-600 to-cyan-600 opacity-20 animate-pulse ${theme === "light" ? "opacity-10" : ""}`}
-              ></div>
-              <div
-                className={`absolute inset-4 rounded-full bg-gradient-to-br from-blue-600 to-cyan-600 opacity-30 ${theme === "light" ? "opacity-20" : ""}`}
-              ></div>
-              <div
-                className={`absolute inset-8 rounded-full flex items-center justify-center border-4 overflow-hidden ${
-                  theme === "dark"
-                    ? "bg-gray-900 border-gray-800"
-                    : "bg-white border-gray-200"
-                }`}
-              >
-                {/* Replace the text with an image */}
-                <img
-                  src={asset("/images/MAB.webp")}
-                  alt={personalInfo.name}
-                  loading="eager"
-                  decoding="async"
-                  width={512}
-                  height={512}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+                className="absolute -bottom-3 left-3 right-0 top-6 rounded-[1.4rem] bg-brand"
+                aria-hidden="true"
+              />
+              <div className="relative flex h-full min-h-[500px] flex-col overflow-hidden rounded-[1.25rem] border border-line bg-surface">
+                <div className="flex items-center justify-between gap-3 border-b border-line px-5 py-3 font-mono text-[8px] uppercase tracking-[0.16em]">
+                  <span className="text-muted">Portrait / 02</span>
+                  <span className="flex items-center gap-1.5 text-brand-text">
+                    <span className="h-1.5 w-1.5 bg-brand" aria-hidden="true" />
+                    {t("v21.about.availability")}
+                  </span>
+                </div>
 
-              {/* Floating elements */}
-              <div className="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl flex items-center justify-center shadow-lg animate-float">
-                <span className="text-3xl">⚡</span>
-              </div>
-              <div
-                className="absolute -bottom-4 -left-4 w-20 h-20 bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg animate-float"
-                style={{ animationDelay: "1s" }}
-              >
-                <span className="text-3xl">🚀</span>
-              </div>
-              <div
-                className="absolute top-1/2 -right-8 w-16 h-16 bg-gradient-to-r from-orange-600 to-amber-600 rounded-2xl flex items-center justify-center shadow-lg animate-float"
-                style={{ animationDelay: "0.5s" }}
-              >
-                <span className="text-2xl">💡</span>
+                <div className="relative min-h-[360px] flex-1 overflow-hidden bg-surface-2">
+                  <img
+                    src={asset("/images/MAB.webp")}
+                    alt={personalInfo.name}
+                    width={1600}
+                    height={1601}
+                    loading="lazy"
+                    decoding="async"
+                    className="absolute inset-0 h-full w-full object-cover object-[50%_22%] transition-transform duration-700 group-hover:scale-[1.02]"
+                  />
+                </div>
+
+                <div className="border-t border-line px-5 py-4">
+                  <p className="font-display text-xl font-semibold tracking-tight text-ink">
+                    {personalInfo.name}
+                  </p>
+                  <p className="mt-0.5 text-sm text-muted">
+                    {personalInfo.title}
+                  </p>
+                  <div className="mt-3 flex flex-wrap items-center gap-2">
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface-2 px-2.5 py-1 font-mono text-[8px] uppercase tracking-[0.12em] text-muted">
+                      <FiMapPin className="h-2.5 w-2.5" aria-hidden="true" />
+                      {t("v21.about.photoCaption")}
+                    </span>
+                    <span className="rounded-full border border-line bg-surface-2 px-2.5 py-1 font-mono text-[8px] uppercase tracking-[0.12em] text-muted">
+                      {t("v21.hero.remote")}
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
+          </Reveal>
+
+          <div className="grid gap-4 lg:col-span-5">
+            <Reveal>
+              <div className="card-surface rounded-[1.25rem] p-6 md:p-8">
+                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line pb-4">
+                  <span className="eyebrow">
+                    {t("v21.about.availabilityNote")}
+                  </span>
+                  <span className="chip chip-brand">
+                    <span className="h-1.5 w-1.5 rounded-full bg-brand" />
+                    {t("v21.about.availability")}
+                  </span>
+                </div>
+
+                <p className="mt-6 text-lg leading-relaxed text-ink md:text-xl">
+                  {t("v21.about.body")}
+                </p>
+                <p className="mt-4 text-sm leading-relaxed text-muted md:text-[15px]">
+                  {t("v21.about.body2")}
+                </p>
+
+                <div className="mt-7 flex flex-wrap items-center gap-2 border-t border-line pt-5">
+                  <span className="mr-1 font-mono text-[8px] uppercase tracking-[0.16em] text-muted">
+                    {t("v21.about.toolkit")}
+                  </span>
+                  {coreTools.map((tool) => (
+                    <span
+                      key={tool}
+                      className="rounded-md border border-line bg-surface-2 px-2.5 py-1 font-mono text-[9px] tracking-wide text-ink transition-colors hover:border-brand hover:text-brand-text"
+                    >
+                      {tool}
+                    </span>
+                  ))}
+                </div>
+
+                <a
+                  href="#timeline"
+                  className="group mt-7 inline-flex items-center gap-2 text-sm font-medium text-ink"
+                >
+                  <span className="link-line">{t("v21.about.journeyCta")}</span>
+                  <FiArrowRight
+                    className="h-4 w-4 text-brand-text transition-transform duration-300 group-hover:translate-x-1"
+                    aria-hidden="true"
+                  />
+                </a>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.06}>
+              <div className="card-surface h-full rounded-[1.25rem] p-6">
+                <div className="flex items-center justify-between gap-3">
+                  <p className="flex items-center gap-2 eyebrow">
+                    <FiCode
+                      className="h-3.5 w-3.5 text-brand-text"
+                      aria-hidden="true"
+                    />
+                    {t("v21.about.offClock")}
+                  </p>
+                  <span className="font-mono text-[8px] uppercase tracking-[0.12em] text-muted">
+                    {t("v21.about.languagesNote")}
+                  </span>
+                </div>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {interests.map((interest) => {
+                    const Icon = interestIcons[interest.icon ?? ""] ?? FiStar;
+                    return (
+                      <span
+                        key={interest.name}
+                        className="flex items-center gap-2 rounded-md border border-line bg-surface-2 px-3 py-1.5 text-sm text-ink"
+                      >
+                        <Icon
+                          className="h-3.5 w-3.5 text-brand-text"
+                          aria-hidden="true"
+                        />
+                        {interest.name}
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+            </Reveal>
           </div>
 
-          {/* Right Column - Content */}
-          <div>
-            <span
-              className={`inline-block px-4 py-2 rounded-full text-sm font-medium mb-6 ${
-                theme === "dark"
-                  ? "bg-blue-500/20 text-blue-400"
-                  : "bg-blue-100 text-blue-700"
-              }`}
-            >
-              {t("about.title")}
-            </span>
-            <h2
-              className={`text-4xl md:text-5xl font-bold mb-6 leading-tight ${
-                theme === "dark" ? "text-white" : "text-gray-900"
-              }`}
-            >
-              {t("about.subtitle")}{" "}
-              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                {t("about.development")}
-              </span>
-            </h2>
-            <p
-              className={`text-lg leading-relaxed mb-8 ${
-                theme === "dark" ? "text-gray-300" : "text-gray-600"
-              }`}
-            >
-              {personalInfo.description}
-            </p>
-
-            {/* Quick Stats */}
-            <div className="grid grid-cols-3 gap-4 mb-8">
-              <div
-                className={`rounded-xl p-4 text-center border ${
-                  theme === "dark"
-                    ? "bg-gray-800/50 border-gray-700"
-                    : "bg-white border-gray-200 shadow-sm"
-                }`}
-              >
+          <div className="grid gap-4 lg:col-span-3">
+            <Reveal delay={0.08}>
+              <div className="brand-panel relative h-full min-h-[280px] overflow-hidden rounded-[1.25rem] p-5 md:p-6">
                 <div
-                  className={`text-3xl font-bold mb-1 ${
-                    theme === "dark" ? "text-blue-400" : "text-blue-600"
-                  }`}
+                  className="blueprint pointer-events-none absolute inset-0 opacity-30"
+                  aria-hidden="true"
+                />
+                <span
+                  className="pointer-events-none absolute -bottom-6 -right-2 select-none font-display text-[7.5rem] font-bold leading-none tracking-[-0.08em] text-white/[0.08]"
+                  aria-hidden="true"
                 >
-                  1+
-                </div>
-                <div
-                  className={`${theme === "dark" ? "text-gray-400" : "text-gray-500"} text-sm`}
-                >
-                  {t("about.years")}
-                </div>
-              </div>
-              <div
-                className={`rounded-xl p-4 text-center border ${
-                  theme === "dark"
-                    ? "bg-gray-800/50 border-gray-700"
-                    : "bg-white border-gray-200 shadow-sm"
-                }`}
-              >
-                <div
-                  className={`text-3xl font-bold mb-1 ${
-                    theme === "dark" ? "text-cyan-400" : "text-cyan-600"
-                  }`}
-                >
-                  6+
-                </div>
-                <div
-                  className={`${theme === "dark" ? "text-gray-400" : "text-gray-500"} text-sm`}
-                >
-                  {t("about.projects")}
-                </div>
-              </div>
-              <div
-                className={`rounded-xl p-4 text-center border ${
-                  theme === "dark"
-                    ? "bg-gray-800/50 border-gray-700"
-                    : "bg-white border-gray-200 shadow-sm"
-                }`}
-              >
-                <div
-                  className={`text-3xl font-bold mb-1 ${
-                    theme === "dark" ? "text-purple-400" : "text-purple-600"
-                  }`}
-                >
-                  4+
-                </div>
-                <div
-                  className={`${theme === "dark" ? "text-gray-400" : "text-gray-500"} text-sm`}
-                >
-                  {t("about.internships")}
-                </div>
-              </div>
-            </div>
-
-            {/* Contact Info */}
-            <div
-              className={`rounded-2xl p-6 border mb-8 ${
-                theme === "dark"
-                  ? "bg-gray-800/50 border-gray-700"
-                  : "bg-white border-gray-200 shadow-sm"
-              }`}
-            >
-              <h3
-                className={`text-lg font-semibold mb-4 ${
-                  theme === "dark" ? "text-white" : "text-gray-900"
-                }`}
-              >
-                {t("about.contactInfo")}
-              </h3>
-              <div className="space-y-3">
-                <a
-                  href={`mailto:${personalInfo.email}`}
-                  className={`flex items-center gap-3 hover:text-blue-400 transition-colors ${
-                    theme === "dark" ? "text-gray-300" : "text-gray-600"
-                  }`}
-                >
-                  <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  SBG
+                </span>
+                <div className="relative flex h-full flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between gap-3">
+                      <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-white/85">
+                        {t("v21.about.currently")}
+                      </p>
+                      <span
+                        className="h-1.5 w-1.5 bg-white"
+                        aria-hidden="true"
                       />
-                    </svg>
+                    </div>
+                    <p className="mt-4 font-display text-xl font-semibold leading-tight tracking-tight text-white">
+                      {currentRole?.title ?? t("v21.about.currently")}
+                    </p>
+                    <p className="mt-1 text-sm font-medium text-white/80">
+                      {currentRole?.company ?? "SBG TECHELECTRO"}
+                    </p>
+                    <p className="mt-4 text-xs leading-relaxed text-white/80">
+                      {t("v21.about.nowDesc")}
+                    </p>
                   </div>
-                  {personalInfo.email}
-                </a>
-                <a
-                  href={`tel:${personalInfo.phone}`}
-                  className={`flex items-center gap-3 hover:text-green-400 transition-colors ${
-                    theme === "dark" ? "text-gray-300" : "text-gray-600"
-                  }`}
-                >
-                  <div className="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center">
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                      />
-                    </svg>
-                  </div>
-                  {personalInfo.phone}
-                </a>
-                <div
-                  className={`flex items-center gap-3 ${
-                    theme === "dark" ? "text-gray-300" : "text-gray-600"
-                  }`}
-                >
-                  <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                    </svg>
-                  </div>
-                  {personalInfo.location}
-                </div>
-              </div>
-            </div>
-
-            {/* Interests */}
-            <div>
-              <h3
-                className={`text-lg font-semibold mb-4 ${
-                  theme === "dark" ? "text-white" : "text-gray-900"
-                }`}
-              >
-                {t("about.interests")}
-              </h3>
-              <div className="flex flex-wrap gap-3">
-                {interests.map((interest, index) => (
-                  <div
-                    key={index}
-                    className={`px-5 py-3 rounded-xl border transition-all duration-300 flex items-center gap-2 ${
-                      theme === "dark"
-                        ? "bg-gray-800/50 border-gray-700 hover:border-blue-500/50"
-                        : "bg-white border-gray-200 hover:border-blue-500/50 shadow-sm"
-                    }`}
+                  <a
+                    href="#timeline"
+                    className="group relative mt-6 inline-flex items-center gap-2 self-start rounded-full border border-white/25 px-3 py-1.5 font-mono text-[8px] uppercase tracking-[0.12em] text-white transition-colors hover:bg-white hover:text-panel"
                   >
-                    <span className="text-xl">
-                      {interest.icon === "pen-tool" && "✍️"}
-                      {interest.icon === "tv" && "📺"}
-                      {interest.icon === "book-open" && "📚"}
-                    </span>
-                    <span
-                      className={
-                        theme === "dark" ? "text-gray-300" : "text-gray-600"
-                      }
-                    >
-                      {interest.name}
-                    </span>
-                  </div>
-                ))}
+                    {currentRole?.date ?? "Aug 2025 — Present"}
+                    <FiArrowUpRight
+                      className="h-3 w-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                      aria-hidden="true"
+                    />
+                  </a>
+                </div>
               </div>
-            </div>
+            </Reveal>
+
+            <Reveal delay={0.12}>
+              <div className="card-surface rounded-[1.25rem] p-5">
+                <p className="flex items-center gap-2 eyebrow">
+                  <FiGlobe
+                    className="h-3.5 w-3.5 text-brand-text"
+                    aria-hidden="true"
+                  />
+                  {t("v21.about.languages")}
+                </p>
+                <ul className="mt-4 space-y-2.5">
+                  {languages.map((language) => (
+                    <li
+                      key={language.name}
+                      className="flex items-baseline justify-between gap-3 border-b border-line pb-2 last:border-0 last:pb-0"
+                    >
+                      <span className="text-xs font-medium text-ink">
+                        {language.name}
+                      </span>
+                      <span className="text-right font-mono text-[8px] uppercase tracking-[0.06em] text-muted">
+                        {language.level}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
           </div>
         </div>
+
+        <Reveal className="mt-4">
+          <div className="grid grid-cols-2 gap-px overflow-hidden rounded-[1.25rem] border border-line bg-line lg:grid-cols-4">
+            {stats.map((stat, index) => (
+              <div
+                key={stat.label}
+                className={`relative p-5 transition-colors md:p-6 ${
+                  stat.highlight
+                    ? "bg-ink text-canvas"
+                    : "bg-surface hover:bg-surface-2/70"
+                }`}
+              >
+                <span
+                  className={`font-mono text-[8px] uppercase tracking-[0.16em] ${
+                    stat.highlight ? "text-canvas/60" : "text-muted"
+                  }`}
+                >
+                  0{index + 1}
+                </span>
+                <p className="display mt-5 text-[clamp(2rem,3.4vw,2.9rem)]">
+                  {stat.value}
+                </p>
+                <p
+                  className={`mt-1.5 text-[11px] leading-relaxed ${
+                    stat.highlight ? "text-canvas/80" : "text-muted"
+                  }`}
+                >
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </Reveal>
       </div>
     </section>
   );
 };
-
-export default About;

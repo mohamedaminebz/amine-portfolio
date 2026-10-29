@@ -4,7 +4,8 @@ import { useTheme } from "../context/ThemeContext";
 
 const Navigation: React.FC = () => {
   const { t, i18n } = useTranslation();
-  const { theme, toggleTheme } = useTheme();
+  const { isDark, toggleTheme } = useTheme();
+  const theme: "light" | "dark" = isDark ? "dark" : "light";
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 

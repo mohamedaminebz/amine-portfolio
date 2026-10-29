@@ -1220,37 +1220,240 @@ const sccGlobal: InternshipProject = {
 
 export const skills: Skill[] = [
   // Frontend
-  { name: "React.js", level: 95, category: "frontend" },
-  { name: "TypeScript", level: 90, category: "frontend" },
-  { name: "HTML/CSS", level: 90, category: "frontend" },
-  { name: "Angular", level: 75, category: "frontend" },
+  {
+    name: "React.js",
+    category: "frontend",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    description:
+      "Applications monopages modernes avec hooks, Context API et architecture par composants",
+  },
+  {
+    name: "TypeScript",
+    category: "frontend",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+    description:
+      "JavaScript typé pour des applications évolutives et maintenables",
+  },
+  {
+    name: "HTML/CSS",
+    category: "frontend",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+    description:
+      "Interfaces accessibles et responsives avec HTML sémantique, CSS moderne et design systems",
+  },
+  {
+    name: "Angular",
+    category: "frontend",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg",
+    description:
+      "Framework d’entreprise avec RxJS, injection de dépendances et outillage complet",
+  },
 
   // Backend
-  { name: "Node.js", level: 95, category: "backend" },
-  { name: "Java / Spring Boot", level: 80, category: "backend" },
-  { name: "C# / ASP.NET MVC", level: 75, category: "backend" },
+  {
+    name: "Node.js",
+    category: "backend",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+    description:
+      "Runtime événementiel pour des microservices scalables avec Express, NestJS et API REST",
+  },
+  {
+    name: "Java / Spring Boot",
+    category: "backend",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+    description:
+      "Développement d’applications d’entreprise avec Spring Boot, Spring Security et JPA",
+  },
+  {
+    name: "C# / ASP.NET MVC",
+    category: "backend",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg",
+    description:
+      "Applications web robustes avec ASP.NET MVC, .NET Core et Entity Framework",
+  },
+  {
+    name: "Prisma",
+    category: "backend",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prisma/prisma-original.svg",
+    description:
+      "ORM moderne pour Node.js avec requêtes typées, migrations de schéma et intégration TypeScript",
+  },
 
   // Mobile
-  { name: "React Native", level: 90, category: "mobile" },
-  { name: "Flutter", level: 70, category: "mobile" },
-  { name: "Android", level: 65, category: "mobile" },
+  {
+    name: "React Native",
+    category: "mobile",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    description:
+      "Développement mobile multiplateforme avec l’écosystème React, Redux et modules natifs",
+  },
+  {
+    name: "Flutter",
+    category: "mobile",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg",
+    description:
+      "Applications mobiles compilées nativement avec Dart, Provider et Firebase",
+  },
+  {
+    name: "Android",
+    category: "mobile",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg",
+    description:
+      "Développement Android natif avec Kotlin, Jetpack, Room et Retrofit",
+  },
 
   // DevOps
-  { name: "Docker", level: 85, category: "devops" },
-  { name: "Jenkins", level: 80, category: "devops" },
-  { name: "Git", level: 90, category: "devops" },
-  { name: "CI/CD", level: 85, category: "devops" },
+  {
+    name: "Docker",
+    category: "devops",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+    description:
+      "Conteneurisation pour des environnements de développement et de déploiement cohérents avec Docker Compose",
+  },
+  {
+    name: "Jenkins",
+    category: "devops",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg",
+    description:
+      "Automatisation CI/CD avec pipelines, intégration GitLab et contrôles qualité SonarQube",
+  },
+  {
+    name: "Git",
+    category: "devops",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+    description:
+      "Gestion de versions distribuée avec Git Flow, rebase et workflows collaboratifs",
+  },
+  {
+    name: "CI/CD",
+    category: "devops",
+    description:
+      "Pipelines automatisés de build, test et déploiement avec contrôles qualité et livraisons fiables",
+  },
+  {
+    name: "SonarQube",
+    category: "devops",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sonarqube/sonarqube-original.svg",
+    description:
+      "Inspection continue de la qualité du code : analyse statique, détection de bugs et scan des vulnérabilités",
+  },
 
   // Database
-  { name: "MongoDB", level: 90, category: "database" },
-  { name: "MySQL", level: 90, category: "database" },
-  { name: "SQL Server", level: 85, category: "database" },
-  { name: "Redis", level: 80, category: "database" },
-  { name: "ClickHouse", level: 75, category: "database" },
+  {
+    name: "MongoDB",
+    category: "database",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+    description:
+      "Base documentaire NoSQL avec Mongoose, pipelines d’agrégation et Atlas",
+  },
+  {
+    name: "MySQL",
+    category: "database",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+    description:
+      "Bases relationnelles avec requêtes complexes, indexation et réplication",
+  },
+  {
+    name: "SQL Server",
+    category: "database",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-original.svg",
+    description:
+      "Base d’entreprise Microsoft avec T-SQL, procédures stockées et SSMS",
+  },
+  {
+    name: "Redis",
+    category: "database",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg",
+    description:
+      "Stockage en mémoire pour le cache, la messagerie pub/sub et les applications temps réel",
+  },
+  {
+    name: "ClickHouse",
+    category: "database",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/clickhouse/clickhouse-original.svg",
+    description:
+      "Base columnar pour l’analytique à haute performance avec requêtes OLAP et séries temporelles",
+  },
+  {
+    name: "Firestore",
+    category: "database",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-original.svg",
+    description:
+      "Base cloud NoSQL avec synchronisation temps réel, mode hors ligne et intégration Firebase",
+  },
 
-  // Other
-  { name: "Power BI", level: 80, category: "other" },
-  { name: "Azure Cloud", level: 75, category: "other" },
+  // Cloud Platforms
+  {
+    name: "AWS S3",
+    category: "cloud",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg",
+    description:
+      "Stockage cloud scalable pour assets statiques, uploads et sauvegardes avec accès sécurisé",
+  },
+  {
+    name: "Azure",
+    category: "cloud",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg",
+    description:
+      "Plateforme cloud avec App Service (PaaS), machines virtuelles (IaaS), stockage et Functions",
+  },
+
+  // Communication & Messaging
+  {
+    name: "SendGrid",
+    category: "other",
+    icon: "/images/icons/sendgrid.svg",
+    description:
+      "Plateforme d’envoi d’emails transactionnels, notifications et rapports automatisés",
+  },
+  {
+    name: "RabbitMQ",
+    category: "other",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rabbitmq/rabbitmq-original.svg",
+    description:
+      "Broker de messages pour microservices avec pub/sub et architecture événementielle",
+  },
+
+  // Monitoring & Analytics
+  {
+    name: "Elastic Stack",
+    category: "other",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/elasticsearch/elasticsearch-original.svg",
+    description:
+      "Recherche distribuée avec Elasticsearch et analytique temps réel avec Kibana",
+  },
+  {
+    name: "Power BI",
+    category: "other",
+    icon: "/images/icons/powerbi.webp",
+    description:
+      "Analytique métier avec DAX, Power Query et tableaux de bord interactifs",
+  },
+
+  // Infrastructure & Networking
+  {
+    name: "Nginx",
+    category: "other",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg",
+    description:
+      "Serveur web et reverse proxy haute performance pour répartition de charge et contenu statique",
+  },
+  {
+    name: "Bandwidth",
+    category: "other",
+    icon: "/images/icons/bandwidth.svg",
+    description:
+      "Gestion de la transmission de données IoT : limitation d’API, optimisation réseau et supervision temps réel",
+  },
+
+  // Authentication & Identity
+  {
+    name: "Firebase",
+    category: "other",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-original.svg",
+    description:
+      "Backend-as-a-Service avec authentification, Firestore, stockage et hébergement",
+  },
 ];
 
 export const certifications: Certification[] = [
