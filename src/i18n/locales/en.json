@@ -230,7 +230,7 @@
     "hero": {
       "eyebrow": "Full-stack engineer · Ariana, Tunisia",
       "roles": ["Systems thinker", "Product builder", "Problem solver"],
-      "tagline": "I turn data-heavy systems into products that feel effortless — from a 20M-row migration to the API and interface on top.",
+      "tagline": "I turn data-heavy systems into products that feel effortless — from the data model and API to the interface on top.",
       "available": "Available for select projects",
       "ctaWork": "Explore selected work",
       "ctaContact": "Start a conversation",
@@ -244,7 +244,7 @@
       "apiLabel": "REST APIs shipped",
       "devicesLabel": "IoT devices monitored",
       "rowsLabel": "Rows migrated",
-      "storageLabel": "Storage reduction on ClickHouse",
+      "yearsLabel": "Years in software",
       "storageFootprint": "Storage footprint after migration",
       "proofLabel": "Four outcomes, four systems",
       "since": "Building since 2020"
@@ -256,7 +256,7 @@
       "body": "I’m a full-stack engineer based in Tunisia, working across the web and mobile stack. My sweet spot is where architecture meets experience: designing the data model, building the API, then shaping the interface until it feels obvious.",
       "body2": "At SBG TECHELECTRO I’m rearchitecting a production platform into microservices and building the reporting layer behind 2,000+ IoT devices. Before that, I shipped multi-tenant SaaS, mobile apps and integrations at GOFIELD — always with the same obsession: make complex systems feel simple.",
       "currently": "Currently building",
-      "nowDesc": "Microservices, IoT reporting and ClickHouse analytics — the backbone of a platform used in the field every day.",
+      "nowDesc": "Microservices, IoT reporting and analytics — the backbone of a platform used in the field every day.",
       "stats": {
         "projects": "Projects shipped",
         "roles": "Roles & internships",

@@ -292,7 +292,7 @@ const clickhouseMigration: ProfessionalProject = {
   id: "clickhouse-migration",
   type: "professional",
   title: "MySQL to ClickHouse Migration",
-  subtitle: "20M rows migrated, storage reduced from 70 GB to 3 GB",
+  subtitle: "Making IoT analytics scale without losing a single row",
   description:
     "Performance-driven migration of 20 million IoT rows from MySQL to ClickHouse, cutting storage from 70 GB to 3 GB with full data integrity.",
   longDescription:
@@ -321,7 +321,7 @@ const clickhouseMigration: ProfessionalProject = {
   // ============================================
   quickStats: [
     { value: "20M", label: "Rows Migrated" },
-    { value: "70 GB → 3 GB", label: "Storage Optimized" },
+    { value: "70 GB → 3 GB", label: "Storage saved" },
     { value: "95%+", label: "Storage Reduction" },
     { value: "Zero Loss", label: "Data Integrity" },
   ],

@@ -16,14 +16,16 @@ export const Hero = () => {
   const apis = projects.find((p) => p.id === "pyrojs-refonte");
   const iot = projects.find((p) => p.id === "iot-reporting-service");
 
+  const years = Math.max(1, new Date().getFullYear() - 2020);
+
   const stats = [
+    {
+      value: `${years}+`,
+      label: t("v21.hero.yearsLabel"),
+    },
     {
       value: migration?.quickStats?.[0]?.value ?? "20M",
       label: t("v21.hero.rowsLabel"),
-    },
-    {
-      value: migration?.quickStats?.[2]?.value ?? "95%+",
-      label: t("v21.hero.storageLabel"),
     },
     {
       value: apis?.quickStats?.[0]?.value ?? "150+",
@@ -35,7 +37,7 @@ export const Hero = () => {
     },
   ];
 
-  const floating = ["React", "Node.js", "ClickHouse", "React Native"];
+  const floating = ["React", "Node.js", "TypeScript", "React Native"];
 
   const stack = skills.slice(0, 9).map((skill) => skill.name);
 

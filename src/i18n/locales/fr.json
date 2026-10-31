@@ -234,7 +234,7 @@
         "Créateur de produits",
         "Résolveur de problèmes"
       ],
-      "tagline": "Je transforme des systèmes à forte charge de données en produits qui semblent simples — d’une migration de 20 millions de lignes jusqu’à l’API et l’interface.",
+      "tagline": "Je transforme des systèmes à forte charge de données en produits qui semblent simples — du modèle de données et de l’API jusqu’à l’interface.",
       "available": "Disponible pour des projets choisis",
       "ctaWork": "Découvrir mes projets",
       "ctaContact": "Démarrer la conversation",
@@ -248,7 +248,7 @@
       "apiLabel": "API REST livrées",
       "devicesLabel": "objets IoT suivis",
       "rowsLabel": "lignes migrées",
-      "storageLabel": "de stockage économisé sur ClickHouse",
+      "yearsLabel": "années de développement",
       "storageFootprint": "Empreinte de stockage après migration",
       "proofLabel": "Quatre résultats, quatre systèmes",
       "since": "Je construis depuis 2020"
@@ -260,7 +260,7 @@
       "body": "Je suis un ingénieur full-stack basé en Tunisie, à l’aise sur toute la chaîne web et mobile. Mon terrain de jeu préféré, c’est la rencontre entre architecture et expérience : concevoir le modèle de données, construire l’API, puis façonner l’interface jusqu’à ce qu’elle paraisse évidente.",
       "body2": "Chez SBG TECHELECTRO, je transforme une plateforme de production en architecture microservices et je construis la couche de reporting de plus de 2 000 objets IoT. Auparavant, j’ai livré du SaaS multi-tenant, des applications mobiles et des intégrations chez GOFIELD — avec la même obsession : rendre les systèmes complexes simples.",
       "currently": "En ce moment",
-      "nowDesc": "Microservices, reporting IoT et analytique ClickHouse — l’épine dorsale d’une plateforme utilisée sur le terrain chaque jour.",
+      "nowDesc": "Microservices, reporting IoT et analytique — l’épine dorsale d’une plateforme utilisée sur le terrain chaque jour.",
       "stats": {
         "projects": "Projets livrés",
         "roles": "Postes & stages",
