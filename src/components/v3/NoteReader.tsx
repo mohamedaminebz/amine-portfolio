@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FiArrowLeft, FiArrowRight, FiX } from "react-icons/fi";
 import { formatNoteDate } from "../../lib/date";
+import { readingMinutes } from "../../lib/reading";
 import type { Note, Project } from "../../types/portfolio";
 import { Dialog } from "./Dialog";
 
@@ -29,7 +30,9 @@ export const NoteReader = ({
   const next = notes[(index + 1) % notes.length];
 
   useEffect(() => {
-    const scroller = document.querySelector<HTMLElement>("[data-dialog-scroll]");
+    const scroller = document.querySelector<HTMLElement>(
+      "[data-dialog-scroll]",
+    );
     if (scroller) scroller.scrollTop = 0;
   }, [note.slug]);
 
@@ -53,7 +56,7 @@ export const NoteReader = ({
             <button
               type="button"
               onClick={onClose}
-              className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-2 font-mono text-[9px] uppercase tracking-[0.1em] text-white backdrop-blur-md transition-colors hover:bg-white/25"
+              className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.1em] text-white backdrop-blur-md transition-colors hover:bg-white/25"
             >
               <FiArrowLeft aria-hidden="true" className="h-3.5 w-3.5" />
               {t("v3.notes.back")}
@@ -69,14 +72,16 @@ export const NoteReader = ({
           </div>
 
           <div className="relative mt-7">
-            <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5 font-mono text-[8px] uppercase tracking-[0.12em] text-white/65">
+            <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5 font-mono text-[10px] uppercase tracking-[0.12em] text-white/65">
               <span>{t("v3.notes.label")}</span>
               <span aria-hidden="true">·</span>
               <time dateTime={note.date}>
                 {formatNoteDate(note.date, i18n.language)}
               </time>
               <span aria-hidden="true">·</span>
-              <span>{t("v3.notes.minRead", { count: note.readingMinutes })}</span>
+              <span>
+                {t("v3.notes.minRead", { count: readingMinutes(note) })}
+              </span>
             </div>
 
             <h2
@@ -93,7 +98,7 @@ export const NoteReader = ({
               {note.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[8px] uppercase tracking-[0.08em] text-white/85 backdrop-blur-md"
+                  className="rounded-full border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.08em] text-white/85 backdrop-blur-md"
                 >
                   {tag}
                 </span>
@@ -133,9 +138,20 @@ export const NoteReader = ({
           </div>
 
           {project ? (
-            <button
-              type="button"
-              onClick={() => onOpenCase(project.id)}
+            <a
+              href={`#case=${encodeURIComponent(project.id)}`}
+              onClick={(event) => {
+                if (
+                  event.metaKey ||
+                  event.ctrlKey ||
+                  event.shiftKey ||
+                  event.button !== 0
+                ) {
+                  return;
+                }
+                event.preventDefault();
+                onOpenCase(project.id);
+              }}
               className="card-soft group mt-9 flex w-full items-center justify-between gap-4 p-4 text-left transition-all hover:-translate-y-0.5 hover:border-brand/25"
             >
               <span className="flex items-center gap-3">
@@ -146,7 +162,7 @@ export const NoteReader = ({
                   />
                 </span>
                 <span>
-                  <span className="label !text-[8px] block">
+                  <span className="label !text-[10px] block">
                     {t("v3.notes.linked")}
                   </span>
                   <span className="mt-0.5 block text-sm font-semibold group-hover:text-brand-text">
@@ -154,10 +170,10 @@ export const NoteReader = ({
                   </span>
                 </span>
               </span>
-              <span className="hidden font-mono text-[8px] uppercase tracking-[0.1em] text-brand-text sm:block">
+              <span className="hidden font-mono text-[10px] uppercase tracking-[0.1em] text-brand-text sm:block">
                 {t("v3.case.label")}
               </span>
-            </button>
+            </a>
           ) : null}
 
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
@@ -170,7 +186,7 @@ export const NoteReader = ({
                 <FiArrowLeft aria-hidden="true" className="h-4 w-4" />
               </span>
               <span className="min-w-0">
-                <span className="label !text-[8px] block">
+                <span className="label !text-[10px] block">
                   {t("v3.notes.previous")}
                 </span>
                 <span className="block truncate text-sm font-semibold group-hover:text-brand-text">
@@ -184,7 +200,7 @@ export const NoteReader = ({
               className="card-soft group flex items-center justify-end gap-3 p-4 text-right transition-all hover:-translate-y-0.5 hover:border-brand/25"
             >
               <span className="min-w-0">
-                <span className="label !text-[8px] block">
+                <span className="label !text-[10px] block">
                   {t("v3.notes.next")}
                 </span>
                 <span className="block truncate text-sm font-semibold group-hover:text-brand-text">

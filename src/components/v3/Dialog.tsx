@@ -16,7 +16,12 @@ const FOCUSABLE =
  * Accessible modal shell: scroll lock, focus trap, Escape to close and focus
  * restoration. Shared by the case-study reader and the field-note reader.
  */
-export const Dialog = ({ open, onClose, labelledBy, children }: DialogProps) => {
+export const Dialog = ({
+  open,
+  onClose,
+  labelledBy,
+  children,
+}: DialogProps) => {
   const { t } = useTranslation();
   const panelRef = useRef<HTMLDivElement>(null);
   const restoreRef = useRef<HTMLElement | null>(null);

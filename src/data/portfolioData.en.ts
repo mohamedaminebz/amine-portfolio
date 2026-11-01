@@ -358,6 +358,57 @@ const clickhouseMigration: ProfessionalProject = {
   placeholder: true,
 };
 
+const pmsFleetService: ProfessionalProject = {
+  id: "pms-fleet-service",
+  type: "professional",
+  title: "PMS - Fleet & Asset Platform",
+  subtitle: "One modular SaaS platform replacing several legacy products",
+  description:
+    "Backend engineer responsible for the fleet microservice of PMS, a modular SaaS platform replacing several of SBG's older products - building the APIs the frontend team consumes and, in parallel, the scripts that will move client data across.",
+  longDescription:
+    "PMS is SBG TECHELECTRO's move from several separate products to one modular SaaS platform, and it is still in progress. I joined at the start as the backend engineer responsible for its fleet microservice, the part that holds each client's organisation, their assets and the devices attached to them. I am building the APIs the frontend team consumes, module by module, and working in parallel on the migration scripts that will move client data from the old platforms into the new architecture. The work is as much about decisions as code - shaping a model that will serve many clients at once, and designing access rules the business can explain and trust.",
+  summary:
+    "Backend engineer responsible for the PMS fleet microservice: building the APIs the frontend team consumes and, in parallel, the scripts that will migrate client data from the old platforms to the new architecture.",
+  story: {
+    challenge:
+      "PMS has to replace several separate products with one modular platform, for clients who each work differently, and it is being built while those clients keep using the old systems. As the backend engineer responsible for the fleet microservice, I have to model each client's organisation and assets so they fit many different setups, and build the migration scripts that will carry existing data into this new architecture.",
+    action:
+      "I am building the microservice from an empty repository: architecture, data model, API and the access rules that keep each client and each team inside their own perimeter, so the frontend team always has a stable contract to work against. In parallel I am writing the migration scripts that read from the old platforms, map their data onto the new model and report every record that needs attention.",
+    result:
+      "The APIs are taking shape and the frontend team builds against them, while the migration scripts progress alongside: the first client move comes once both sides are ready.",
+  },
+  quickStats: [
+    { value: "75", label: "REST Endpoints" },
+    { value: "20", label: "Data Models" },
+    { value: "14", label: "Platform Modules" },
+  ],
+  achievements: [
+    "Building the fleet microservice from an empty repository",
+    "Building the APIs the frontend screens are built on, module by module",
+    "Designing a data model that will serve many clients at once without splitting them into separate systems",
+    "Turning access rules into something the product can explain and enforce, not a manual process",
+    "Writing the migration scripts that will move client data from the old platforms into the new architecture",
+    "Working directly with the platform team to turn operational needs into backend decisions",
+  ],
+  technologies: [
+    createTech("Node.js", "backend"),
+    createTech("TypeScript", "backend"),
+    createTech("Express", "backend"),
+    createTech("Prisma", "database"),
+    createTech("MySQL", "database"),
+    createTech("Redis", "database"),
+    createTech("Docker", "devops"),
+    createTech("GitLab CI", "devops"),
+    createTech("Swagger", "design"),
+  ],
+  role: "Backend Engineer - responsible for the fleet microservice",
+  period: "Aug 2026 - Present",
+  company: "SBG TECHELECTRO",
+  location: "Tunisia",
+  status: "In progress",
+  placeholder: true,
+};
+
 const winshotIntegration: ProfessionalProject = {
   id: "winshot-integration",
   type: "professional",
@@ -1227,13 +1278,6 @@ export const skills: Skill[] = [
       "Type-safe JavaScript for scalable and maintainable applications",
   },
   {
-    name: "HTML/CSS",
-    category: "frontend",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
-    description:
-      "Accessible, responsive interfaces with semantic HTML, modern CSS, and design systems",
-  },
-  {
     name: "Angular",
     category: "frontend",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg",
@@ -1477,6 +1521,7 @@ export const socialLinks = {
 // ============================================
 
 export const projects: Project[] = [
+  pmsFleetService,
   clickhouseMigration,
   iotReportingService,
   pyrojsRefonte,

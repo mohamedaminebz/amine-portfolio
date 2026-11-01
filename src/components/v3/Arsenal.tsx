@@ -45,6 +45,22 @@ export const Arsenal = ({ data }: ArsenalProps) => {
 
   const marquee = data.skills.map((skill) => skill.name);
 
+  // Evidence beats assertion: mark the tools that actually appear in a
+  // professional project so the list reads as "used in production".
+  const normalize = (name: string) =>
+    name
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "")
+      .replace(/js$/, "");
+
+  const inProduction = new Set(
+    data.projects
+      .filter((project) => project.type === "professional")
+      .flatMap((project) =>
+        project.technologies.map((tech) => normalize(tech.name)),
+      ),
+  );
+
   return (
     <section id="arsenal" className="section overflow-hidden">
       <div className="wrap">
@@ -66,7 +82,7 @@ export const Arsenal = ({ data }: ArsenalProps) => {
           {[...marquee, ...marquee].map((name, index) => (
             <span
               key={`${name}-${index}`}
-              className="display whitespace-nowrap text-lg text-muted/35"
+              className="display whitespace-nowrap text-lg text-muted"
             >
               {name}
               <span className="mx-4 text-brand/40">✦</span>
@@ -76,14 +92,19 @@ export const Arsenal = ({ data }: ArsenalProps) => {
       </div>
 
       <div className="wrap mt-8">
+        <p className="mb-4 flex items-center gap-2 text-[12px] text-muted">
+          <span
+            aria-hidden="true"
+            className="h-1.5 w-1.5 rounded-full bg-brand"
+          />
+          {t("v3.arsenal.legend")}
+        </p>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {groups.map((group, index) => (
             <Reveal
               key={group.id}
               delay={index * 50}
-              className={
-                index === groups.length - 1 ? "sm:col-span-2" : ""
-              }
+              className={index === groups.length - 1 ? "sm:col-span-2" : ""}
             >
               <div className="card-soft h-full p-5 transition-all hover:-translate-y-1 hover:border-brand/25">
                 <div className="flex items-center gap-3">
@@ -101,16 +122,25 @@ export const Arsenal = ({ data }: ArsenalProps) => {
                 </div>
 
                 <ul className="mt-4 flex flex-wrap gap-1.5">
-                  {group.skills.map((skill) => (
-                    <li key={skill.name}>
-                      <span
-                        title={skill.description}
-                        className="inline-flex rounded-full bg-surface-2/70 px-2.5 py-1 text-[11px] text-muted transition-colors hover:bg-brand/10 hover:text-brand-text"
-                      >
-                        {skill.name}
-                      </span>
-                    </li>
-                  ))}
+                  {group.skills.map((skill) => {
+                    const proven = inProduction.has(normalize(skill.name));
+                    return (
+                      <li key={skill.name}>
+                        <span
+                          title={skill.description}
+                          className="inline-flex items-center gap-1.5 rounded-full bg-surface-2/70 px-2.5 py-1 text-[11px] text-muted transition-colors hover:bg-brand/10 hover:text-brand-text"
+                        >
+                          {proven ? (
+                            <span
+                              aria-hidden="true"
+                              className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand"
+                            />
+                          ) : null}
+                          {skill.name}
+                        </span>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             </Reveal>
@@ -124,7 +154,9 @@ export const Arsenal = ({ data }: ArsenalProps) => {
                 <span className="icon-tile">
                   <FiGlobe aria-hidden="true" className="h-4 w-4" />
                 </span>
-                <h3 className="text-sm font-bold">{t("v3.arsenal.languages")}</h3>
+                <h3 className="text-sm font-bold">
+                  {t("v3.arsenal.languages")}
+                </h3>
               </div>
               <ul className="mt-4 space-y-2.5">
                 {data.languages.map((language) => (

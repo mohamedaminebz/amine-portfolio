@@ -293,7 +293,8 @@ const clickhouseMigration: ProfessionalProject = {
   id: "clickhouse-migration",
   type: "professional",
   title: "Migration MySQL vers ClickHouse",
-  subtitle: "Faire passer l’analytique IoT à l’échelle sans perdre une seule ligne",
+  subtitle:
+    "Faire passer l’analytique IoT à l’échelle sans perdre une seule ligne",
   description:
     "Migration orientée performance de 20 millions de lignes de données IoT de MySQL vers ClickHouse, réduisant le stockage de 70 Go à 3 Go avec intégrité totale des données.",
   longDescription:
@@ -356,6 +357,58 @@ const clickhouseMigration: ProfessionalProject = {
   period: "Août 2025 - Présent",
   company: "SBG TECHELECTRO",
   location: "Tunisie",
+  placeholder: true,
+};
+
+const pmsFleetService: ProfessionalProject = {
+  id: "pms-fleet-service",
+  type: "professional",
+  title: "PMS - Plateforme flotte et actifs",
+  subtitle:
+    "Une plateforme SaaS modulaire qui remplace plusieurs produits existants",
+  description:
+    "Ingénieur backend responsable du microservice flotte de PMS, une plateforme SaaS modulaire qui remplace plusieurs anciens produits de SBG - je construis les APIs utilisées par l'équipe frontend et, en parallèle, les scripts qui amèneront les données clients vers la nouvelle architecture.",
+  longDescription:
+    "PMS, c'est le passage de SBG TECHELECTRO de plusieurs produits séparés à une seule plateforme SaaS modulaire, et le projet est toujours en cours. J'ai rejoint le projet au démarrage comme ingénieur backend responsable de son microservice flotte, la partie qui contient l'organisation de chaque client, ses actifs et les dispositifs qui leur sont rattachés. Je construis les APIs utilisées par l'équipe frontend, module par module, et je travaille en parallèle sur les scripts de migration qui déplaceront les données clients des anciennes plateformes vers la nouvelle architecture. Le travail tient autant aux décisions qu'au code - concevoir un modèle qui servira plusieurs clients à la fois, et définir des règles d'accès que le métier peut expliquer et auxquelles il peut faire confiance.",
+  summary:
+    "Ingénieur backend responsable du microservice flotte de PMS : je construis les APIs utilisées par l'équipe frontend et, en parallèle, les scripts qui migreront les données clients des anciennes plateformes vers la nouvelle architecture.",
+  story: {
+    challenge:
+      "PMS doit remplacer plusieurs produits séparés par une seule plateforme modulaire, pour des clients qui travaillent chacun différemment, et le projet se construit pendant que ces clients continuent d'utiliser les anciens systèmes. En tant qu'ingénieur backend responsable du microservice flotte, je dois modéliser l'organisation et les actifs de chaque client pour qu'ils s'adaptent à des configurations très différentes, et construire les scripts de migration qui amèneront les données existantes dans cette nouvelle architecture.",
+    action:
+      "Je construis le microservice depuis un dépôt vide : architecture, modèle de données, API et règles d'accès qui gardent chaque client et chaque équipe dans son propre périmètre, pour que l'équipe frontend ait toujours un contrat stable sur lequel travailler. En parallèle, j'écris les scripts de migration qui lisent les anciennes plateformes, projettent leurs données sur le nouveau modèle et signalent chaque enregistrement qui demande une vérification.",
+    result:
+      "Les APIs prennent forme et l'équipe frontend construit dessus, pendant que les scripts de migration avancent en parallèle : le premier basculement viendra dès que les deux seront prêts.",
+  },
+  quickStats: [
+    { value: "75", label: "Endpoints REST" },
+    { value: "20", label: "Modèles de données" },
+    { value: "14", label: "Modules de la plateforme" },
+  ],
+  achievements: [
+    "Construction du microservice flotte depuis un dépôt vide",
+    "Construction des APIs sur lesquelles s'appuient les écrans de l'équipe frontend, module par module",
+    "Conception d'un modèle de données qui servira plusieurs clients à la fois sans les éclater en systèmes séparés",
+    "Des règles d'accès que le produit peut expliquer et appliquer, plutôt qu'un processus manuel",
+    "Écriture des scripts de migration qui amèneront les données clients des anciennes plateformes vers la nouvelle architecture",
+    "Un travail direct avec l'équipe plateforme pour transformer les besoins opérationnels en décisions backend",
+  ],
+  technologies: [
+    createTech("Node.js", "backend"),
+    createTech("TypeScript", "backend"),
+    createTech("Express", "backend"),
+    createTech("Prisma", "database"),
+    createTech("MySQL", "database"),
+    createTech("Redis", "database"),
+    createTech("Docker", "devops"),
+    createTech("GitLab CI", "devops"),
+    createTech("Swagger", "design"),
+  ],
+  role: "Ingénieur backend - responsable du microservice flotte",
+  period: "Août 2026 - Présent",
+  company: "SBG TECHELECTRO",
+  location: "Tunisie",
+  status: "En cours",
   placeholder: true,
 };
 
@@ -1235,13 +1288,6 @@ export const skills: Skill[] = [
       "JavaScript typé pour des applications évolutives et maintenables",
   },
   {
-    name: "HTML/CSS",
-    category: "frontend",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
-    description:
-      "Interfaces accessibles et responsives avec HTML sémantique, CSS moderne et design systems",
-  },
-  {
     name: "Angular",
     category: "frontend",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg",
@@ -1484,6 +1530,7 @@ export const socialLinks = {
 // ============================================
 
 export const projects: Project[] = [
+  pmsFleetService,
   clickhouseMigration,
   iotReportingService,
   pyrojsRefonte,

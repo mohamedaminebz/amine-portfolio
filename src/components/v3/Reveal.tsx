@@ -7,7 +7,11 @@ interface RevealProps {
 }
 
 /** Fades content in once, without animating anything on every re-render. */
-export const Reveal = ({ children, className = "", delay = 0 }: RevealProps) => {
+export const Reveal = ({
+  children,
+  className = "",
+  delay = 0,
+}: RevealProps) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

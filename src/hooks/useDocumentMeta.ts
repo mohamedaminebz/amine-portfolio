@@ -19,16 +19,20 @@ const setMeta = ({ attr, value }: MetaKey, content: string) => {
 
 /**
  * Keeps the document language, title and social metadata in sync with the
- * selected locale. Search engines and screen readers rely on these values.
+ * selected locale. An open case study or note can override the title and
+ * description so a shared link previews the thing being read.
  */
-export const useDocumentMeta = (): void => {
+export const useDocumentMeta = (
+  titleOverride?: string,
+  descriptionOverride?: string,
+): void => {
   const { t, i18n } = useTranslation();
   const language = i18n.resolvedLanguage ?? i18n.language ?? "fr";
 
   useEffect(() => {
     const lang = language.toLowerCase().startsWith("fr") ? "fr" : "en";
-    const title = t("meta.title");
-    const description = t("meta.description");
+    const title = titleOverride ?? t("meta.title");
+    const description = descriptionOverride ?? t("meta.description");
 
     document.documentElement.lang = lang;
     document.title = title;
@@ -51,5 +55,5 @@ export const useDocumentMeta = (): void => {
       { attr: "name", value: "twitter:image" },
       `${window.location.origin}${import.meta.env.BASE_URL}images/MAB2.jpg`,
     );
-  }, [i18n.language, language, t]);
+  }, [descriptionOverride, i18n.language, language, t, titleOverride]);
 };

@@ -1,6 +1,13 @@
 import { useTranslation } from "react-i18next";
-import { FiArrowUp, FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
+import {
+  FiArrowUp,
+  FiDownload,
+  FiGithub,
+  FiLinkedin,
+  FiMail,
+} from "react-icons/fi";
 import { usePortfolioData } from "../../hooks/usePortfolioData";
+import { RESUME_URL } from "../../lib/site";
 
 export const Footer = () => {
   const { t } = useTranslation();
@@ -15,12 +22,14 @@ export const Footer = () => {
               <span className="gradient-bg grid h-9 w-9 place-items-center rounded-xl text-sm font-extrabold text-white">
                 M
               </span>
-              <span className="text-[13px] font-bold">Mohamed Amine Bouzidi</span>
+              <span className="text-[13px] font-bold">
+                Mohamed Amine Bouzidi
+              </span>
             </a>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted">
               {t("v3.footer.tagline")}
             </p>
-            <span className="gradient-soft mt-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.1em] text-brand-text">
+            <span className="gradient-soft mt-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.1em] text-brand-text">
               <span
                 aria-hidden="true"
                 className="h-1.5 w-1.5 rounded-full bg-brand"
@@ -35,9 +44,9 @@ export const Footer = () => {
             <ul className="mt-3 space-y-2">
               {[
                 { href: "#work", key: "v3.nav.work" },
-                { href: "#notes", key: "v3.nav.notes" },
                 { href: "#about", key: "v3.nav.about" },
                 { href: "#journey", key: "v3.nav.journey" },
+                { href: "#notes", key: "v3.nav.notes" },
                 { href: "#arsenal", key: "v3.nav.arsenal" },
                 { href: "#contact", key: "v3.nav.contact" },
               ].map((link) => (
@@ -68,6 +77,11 @@ export const Footer = () => {
                   icon: FiGithub,
                 },
                 {
+                  href: RESUME_URL,
+                  label: t("v3.hero.resume"),
+                  icon: FiDownload,
+                },
+                {
                   href: `mailto:${personalInfo.email}`,
                   label: "Email",
                   icon: FiMail,
@@ -78,7 +92,7 @@ export const Footer = () => {
                   href={link.href}
                   target={link.href.startsWith("http") ? "_blank" : undefined}
                   rel={link.href.startsWith("http") ? "noreferrer" : undefined}
-                  className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/50 px-3 py-2 font-mono text-[9px] uppercase tracking-[0.08em] text-muted transition-all hover:border-line-strong hover:text-ink"
+                  className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/50 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.08em] text-muted transition-all hover:border-line-strong hover:text-ink"
                 >
                   <link.icon aria-hidden="true" className="h-3.5 w-3.5" />
                   {link.label}
@@ -89,17 +103,17 @@ export const Footer = () => {
         </div>
 
         <div className="mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-5">
-          <p className="font-mono text-[9px] uppercase tracking-[0.1em] text-muted">
+          <p className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted">
             © {new Date().getFullYear()} {personalInfo.name}.{" "}
             {t("v3.footer.rights")}
           </p>
           <div className="flex items-center gap-4">
-            <span className="font-mono text-[9px] uppercase tracking-[0.1em] text-muted/70">
+            <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted">
               {t("v3.footer.version")}
             </span>
             <a
               href="#top"
-              className="inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.1em] text-muted transition-all hover:border-line-strong hover:text-ink"
+              className="inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.1em] text-muted transition-all hover:border-line-strong hover:text-ink"
             >
               {t("v3.footer.backToTop")}
               <FiArrowUp aria-hidden="true" className="h-3 w-3" />

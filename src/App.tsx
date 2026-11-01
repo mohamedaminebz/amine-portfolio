@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { About } from "./components/v3/About";
 import { Arsenal } from "./components/v3/Arsenal";
@@ -13,7 +14,7 @@ import { ScrollProgress } from "./components/v3/ScrollProgress";
 import { Work } from "./components/v3/Work";
 import { getNote, getNotes } from "./data/notes";
 import { useDocumentMeta } from "./hooks/useDocumentMeta";
-import { useHashRoute } from "./hooks/useHashRoute";
+import { useHashRoute, useInitialHashScroll } from "./hooks/useHashRoute";
 import { usePortfolioData } from "./hooks/usePortfolioData";
 
 const App = () => {
@@ -23,7 +24,8 @@ const App = () => {
   const notes = getNotes(language);
   const { caseId, noteSlug, openCase, openNote, close } = useHashRoute();
 
-  useDocumentMeta();
+  const closeCase = useCallback(() => close("work"), [close]);
+  const closeNote = useCallback(() => close("notes"), [close]);
 
   const project = caseId
     ? data.projects.find((item) => item.id === caseId)
@@ -32,6 +34,16 @@ const App = () => {
   const noteProject = note?.projectId
     ? data.projects.find((item) => item.id === note.projectId)
     : undefined;
+
+  const titleOverride = project
+    ? `${project.title} — ${data.personalInfo.name}`
+    : note
+      ? `${note.title} — ${data.personalInfo.name}`
+      : undefined;
+  const descriptionOverride = project?.subtitle ?? note?.dek;
+
+  useDocumentMeta(titleOverride, descriptionOverride);
+  useInitialHashScroll();
 
   return (
     <div className="min-h-screen bg-canvas text-ink">
@@ -48,9 +60,9 @@ const App = () => {
       <main id="main-content">
         <Hero />
         <Work projects={data.projects} onOpenCase={openCase} />
-        <Notes notes={notes} onOpenNote={openNote} />
         <About data={data} onOpenCase={openCase} />
         <Journey data={data} />
+        <Notes notes={notes} onOpenNote={openNote} />
         <Arsenal data={data} />
         <Contact />
       </main>
@@ -61,7 +73,7 @@ const App = () => {
         <CaseStudy
           project={project}
           projects={data.projects}
-          onClose={() => close("work")}
+          onClose={closeCase}
           onNavigate={openCase}
         />
       ) : null}
@@ -71,7 +83,7 @@ const App = () => {
           note={note}
           notes={notes}
           project={noteProject}
-          onClose={() => close("notes")}
+          onClose={closeNote}
           onNavigate={openNote}
           onOpenCase={openCase}
         />

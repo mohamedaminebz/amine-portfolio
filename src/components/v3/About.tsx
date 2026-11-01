@@ -4,7 +4,6 @@ import {
   FiDatabase,
   FiFileText,
   FiLayers,
-  FiRefreshCw,
   FiServer,
   FiSmartphone,
   FiZap,
@@ -39,12 +38,6 @@ const fitCards = [
     statIndexes: [2, 3],
     icon: FiSmartphone,
   },
-  {
-    key: "automation",
-    projectId: "iot-reporting-service",
-    statIndexes: [0, 1],
-    icon: FiRefreshCw,
-  },
 ] as const;
 
 const principles = [
@@ -57,13 +50,25 @@ const principles = [
 export const About = ({ data, onOpenCase }: AboutProps) => {
   const { t, i18n } = useTranslation();
   const localTime = useLocalTime("Africa/Tunis", i18n.language);
-  const { personalInfo, projects, timelineItems, skills, interests, languages } =
-    data;
+  const {
+    personalInfo,
+    projects,
+    timelineItems,
+    skills,
+    interests,
+    languages,
+  } = data;
 
   const apis = projects.find((project) => project.id === "pyrojs-refonte");
+  const productionProjects = projects.filter(
+    (project) => project.type === "professional",
+  ).length;
 
   const stats = [
-    { value: String(projects.length), label: t("v21.about.stats.projects") },
+    {
+      value: String(productionProjects),
+      label: t("v3.about.stats.production"),
+    },
     { value: String(timelineItems.length), label: t("v21.about.stats.roles") },
     { value: String(skills.length), label: t("v21.about.stats.skills") },
     {
@@ -123,7 +128,7 @@ export const About = ({ data, onOpenCase }: AboutProps) => {
                     <dd className="display gradient-text text-[clamp(1.3rem,2.6vw,1.8rem)]">
                       {stat.value}
                     </dd>
-                    <dt className="mt-1 font-mono text-[8px] uppercase leading-snug tracking-[0.08em] text-muted">
+                    <dt className="mt-1 font-mono text-[10px] uppercase leading-snug tracking-[0.08em] text-muted">
                       {stat.label}
                     </dt>
                   </div>
@@ -144,13 +149,13 @@ export const About = ({ data, onOpenCase }: AboutProps) => {
                   className="absolute -bottom-14 right-16 h-32 w-32 rounded-full bg-white/10 blur-xl"
                 />
                 <div className="relative">
-                  <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-white/65">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/65">
                     {t("v3.about.now")}
                   </p>
                   <p className="mt-2 text-sm leading-relaxed text-white/90">
                     {t("v21.about.nowDesc")}
                   </p>
-                  <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1.5 font-mono text-[8px] uppercase tracking-[0.1em] text-white backdrop-blur-md">
+                  <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.1em] text-white backdrop-blur-md">
                     <span
                       aria-hidden="true"
                       className="h-1.5 w-1.5 rounded-full bg-white"
@@ -166,9 +171,9 @@ export const About = ({ data, onOpenCase }: AboutProps) => {
 
             <Reveal delay={120}>
               <div className="card-soft h-full p-5">
-                <p className="label !text-[8px]">{t("v3.contact.time")}</p>
+                <p className="label !text-[10px]">{t("v3.contact.time")}</p>
                 <p className="display mt-2 text-2xl">{localTime}</p>
-                <p className="mt-1 font-mono text-[8px] uppercase tracking-[0.1em] text-muted">
+                <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.1em] text-muted">
                   {personalInfo.location} · GMT+1
                 </p>
               </div>
@@ -176,7 +181,7 @@ export const About = ({ data, onOpenCase }: AboutProps) => {
 
             <Reveal delay={160}>
               <div className="card-soft h-full p-5">
-                <p className="label !text-[8px]">{t("v3.about.languages")}</p>
+                <p className="label !text-[10px]">{t("v3.about.languages")}</p>
                 <ul className="mt-2 space-y-1.5">
                   {languages.map((language) => (
                     <li
@@ -184,7 +189,7 @@ export const About = ({ data, onOpenCase }: AboutProps) => {
                       className="flex items-baseline justify-between gap-2 text-[12px]"
                     >
                       <span>{language.name}</span>
-                      <span className="font-mono text-[8px] uppercase tracking-[0.08em] text-muted">
+                      <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-muted">
                         {language.level}
                       </span>
                     </li>
@@ -195,7 +200,7 @@ export const About = ({ data, onOpenCase }: AboutProps) => {
 
             <Reveal delay={200} className="sm:col-span-2">
               <div className="card-soft p-5">
-                <p className="label !text-[8px]">{t("v3.about.offClock")}</p>
+                <p className="label !text-[10px]">{t("v3.about.offClock")}</p>
                 <div className="mt-2 flex flex-wrap gap-1.5">
                   {interests.map((interest) => (
                     <span
@@ -239,19 +244,30 @@ export const About = ({ data, onOpenCase }: AboutProps) => {
             </div>
           </Reveal>
 
-          <div className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {fit.map((card, index) => (
               <Reveal key={card.key} delay={index * 60}>
-                <button
-                  type="button"
-                  onClick={() => onOpenCase(card.project.id)}
+                <a
+                  href={`#case=${encodeURIComponent(card.project.id)}`}
+                  onClick={(event) => {
+                    if (
+                      event.metaKey ||
+                      event.ctrlKey ||
+                      event.shiftKey ||
+                      event.button !== 0
+                    ) {
+                      return;
+                    }
+                    event.preventDefault();
+                    onOpenCase(card.project.id);
+                  }}
                   className="card-soft group flex h-full w-full flex-col p-5 text-left transition-all hover:-translate-y-1 hover:border-brand/25 hover:shadow-[var(--shadow-card)]"
                 >
                   <span className="flex items-center justify-between">
                     <span className="icon-tile">
                       <card.icon aria-hidden="true" className="h-4 w-4" />
                     </span>
-                    <span className="font-mono text-[8px] uppercase tracking-[0.1em] text-brand-text">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-brand-text">
                       {t(`v21.fit.cards.${card.key}.focus`)}
                     </span>
                   </span>
@@ -271,7 +287,7 @@ export const About = ({ data, onOpenCase }: AboutProps) => {
                         <span className="display block text-base leading-none">
                           {proof.value}
                         </span>
-                        <span className="mt-1 block font-mono text-[8px] uppercase leading-tight tracking-[0.04em] text-muted">
+                        <span className="mt-1 block font-mono text-[10px] uppercase leading-tight tracking-[0.04em] text-muted">
                           {proof.label}
                         </span>
                       </span>
@@ -288,7 +304,7 @@ export const About = ({ data, onOpenCase }: AboutProps) => {
                       →
                     </span>
                   </span>
-                </button>
+                </a>
               </Reveal>
             ))}
           </div>

@@ -1,0 +1,14 @@
+# Normalise line endings so a Windows checkout and the Linux CI checkout
+# produce identical files (Prettier's `endOfLine: lf` check depends on it).
+* text=auto eol=lf
+
+# Binaries: never convert, never diff as text.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.pdf binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary

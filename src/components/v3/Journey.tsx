@@ -88,17 +88,19 @@ export const Journey = ({ data }: JourneyProps) => {
                   <Reveal delay={Math.min(index, 5) * 50}>
                     <div className="card-soft ml-9 p-5 transition-all hover:-translate-y-1 hover:border-brand/25 sm:ml-0">
                       <div className="flex flex-wrap items-center justify-between gap-2">
-                        <span className="rounded-full bg-surface-2/70 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.1em] text-muted">
+                        <span className="rounded-full bg-surface-2/70 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-muted">
                           {item.date}
                         </span>
                         {current ? (
-                          <span className="pill pill-brand !px-2.5 !py-1 !text-[8px]">
+                          <span className="pill pill-brand !px-2.5 !py-1 !text-[10px]">
                             {t("v3.journey.current")}
                           </span>
                         ) : null}
                       </div>
 
-                      <h3 className="mt-3 text-[15px] font-bold">{item.title}</h3>
+                      <h3 className="mt-3 text-[15px] font-bold">
+                        {item.title}
+                      </h3>
                       <p className="mt-0.5 text-[11px] font-semibold text-brand-text">
                         {item.company} · {item.location}
                       </p>
@@ -110,7 +112,7 @@ export const Journey = ({ data }: JourneyProps) => {
                         {item.technologies.map((tech) => (
                           <span
                             key={tech}
-                            className="rounded-full bg-surface-2/70 px-2 py-0.5 font-mono text-[8.5px] text-muted"
+                            className="rounded-full bg-surface-2/70 px-2 py-0.5 font-mono text-[10px] text-muted"
                           >
                             {tech}
                           </span>
@@ -132,7 +134,7 @@ export const Journey = ({ data }: JourneyProps) => {
               </span>
               <div>
                 <p className="text-sm font-bold">{t("v3.journey.education")}</p>
-                <p className="font-mono text-[9px] uppercase tracking-[0.1em] text-muted">
+                <p className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted">
                   {t("v3.journey.educationNote")}
                 </p>
               </div>
@@ -144,10 +146,12 @@ export const Journey = ({ data }: JourneyProps) => {
                   key={`${item.degree}-${item.year}`}
                   className="rounded-2xl bg-surface-2/50 p-4"
                 >
-                  <span className="font-mono text-[9px] uppercase tracking-[0.1em] text-brand-text">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-brand-text">
                     {item.year}
                   </span>
-                  <p className="mt-1.5 text-[13px] font-semibold">{item.degree}</p>
+                  <p className="mt-1.5 text-[13px] font-semibold">
+                    {item.degree}
+                  </p>
                   <p className="mt-0.5 text-[11px] leading-relaxed text-muted">
                     {item.institution}
                     {item.description ? ` · ${item.description}` : ""}

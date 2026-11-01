@@ -129,10 +129,11 @@ Copy `.env.example` to `.env.local` to configure a custom endpoint.
 
 ## Images
 
-Original screenshots are kept in `public/images`. `pnpm optimize:images` generates
-WebP versions (max width 1600 px, quality 82) next to the originals; the data files
+Original screenshots live in `public/images`; `pnpm optimize:images` generates WebP
+versions (max width 1600 px, quality 82) next to the originals, and the data files
 reference the `.webp` files. Social preview images keep their JPEG versions for
-maximum compatibility.
+maximum compatibility. Only images that a component or data file actually
+references are kept — run the site before deleting anything from that folder.
 
 Referenced images go through `src/lib/asset.ts`, which prefixes them with Vite's
 `BASE_URL` so they resolve correctly under `/amine-portfolio/`.
@@ -147,7 +148,9 @@ Two workflows are included:
 
 - `.github/workflows/ci.yml` runs typecheck, lint, formatting, tests and the build
   on pushes and pull requests.
-- `.github/workflows/deploy.yml` builds and publishes `dist/` to GitHub Pages.
+- `.github/workflows/deploy.yml` publishes `main` at the site root (and copies the
+  same build to `/v3/`) and keeps the `/v2.1/` and `/v2.2/` previews alive, with
+  `/v2/` redirecting to the newest v2 build.
 
 Enable **Settings → Pages → Build and deployment → GitHub Actions** once.
 

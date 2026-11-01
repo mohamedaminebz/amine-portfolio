@@ -6,16 +6,19 @@ import {
   FiCheck,
   FiClock,
   FiCopy,
+  FiDownload,
   FiGithub,
   FiLinkedin,
   FiMail,
   FiMapPin,
+  FiPhone,
   FiSend,
 } from "react-icons/fi";
 import { z } from "zod";
 import { useLocalTime } from "../../hooks/useLocalTime";
 import { usePortfolioData } from "../../hooks/usePortfolioData";
 import { copyToClipboard } from "../../lib/clipboard";
+import { RESUME_URL } from "../../lib/site";
 import { Reveal } from "./Reveal";
 import { SectionHeader } from "./SectionHeader";
 
@@ -27,11 +30,14 @@ const schema = z.object({
 });
 
 type ContactValues = z.infer<typeof schema>;
-type Status = "idle" | "success" | "error";
+/**
+ * `manual` means "we handed the message to the visitor's mail client": we
+ * cannot know whether it opened, so we must not claim the message was sent.
+ */
+type Status = "idle" | "success" | "error" | "manual";
 
 const CONTACT_ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT as
-  | string
-  | undefined;
+  string | undefined;
 
 export const Contact = () => {
   const { t, i18n } = useTranslation();
@@ -39,6 +45,7 @@ export const Contact = () => {
   const localTime = useLocalTime("Africa/Tunis", i18n.language);
 
   const [status, setStatus] = useState<Status>("idle");
+  const [mailtoHref, setMailtoHref] = useState<string>("");
   const [copied, setCopied] = useState(false);
   const copiedTimer = useRef<number | null>(null);
 
@@ -73,11 +80,16 @@ export const Contact = () => {
 
     if (!CONTACT_ENDPOINT) {
       const body = `${values.message}\n\n—\n${values.name} (${values.email})`;
-      window.location.href = `mailto:${personalInfo.email}?subject=${encodeURIComponent(
+      const href = `mailto:${personalInfo.email}?subject=${encodeURIComponent(
         values.subject,
       )}&body=${encodeURIComponent(body)}`;
-      setStatus("success");
-      reset();
+
+      // Hand off to the mail client, but keep the form contents: if no client
+      // is registered, nothing was sent and the visitor must be able to retry
+      // or copy the address.
+      setMailtoHref(href);
+      setStatus("manual");
+      window.location.href = href;
       return;
     }
 
@@ -128,7 +140,7 @@ export const Contact = () => {
               />
 
               <div className="relative">
-                <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.12em] text-white backdrop-blur-md">
+                <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.12em] text-white backdrop-blur-md">
                   <span
                     aria-hidden="true"
                     className="h-1.5 w-1.5 rounded-full bg-white"
@@ -155,7 +167,7 @@ export const Contact = () => {
                     <FiMail aria-hidden="true" className="h-4 w-4 shrink-0" />
                     <a
                       href={`mailto:${personalInfo.email}`}
-                      className="min-w-0 flex-1 truncate text-sm underline-offset-4 hover:underline"
+                      className="min-w-0 flex-1 break-all text-[13px] leading-snug underline-offset-4 hover:underline"
                     >
                       {personalInfo.email}
                     </a>
@@ -173,15 +185,31 @@ export const Contact = () => {
                     </button>
                   </div>
 
+                  <div className="flex items-center gap-3 rounded-2xl bg-white/10 px-4 py-3 backdrop-blur-md">
+                    <FiPhone aria-hidden="true" className="h-4 w-4 shrink-0" />
+                    <a
+                      href={`tel:${personalInfo.phone.replace(/[^\d+]/g, "")}`}
+                      className="min-w-0 flex-1 font-mono text-[13px] underline-offset-4 hover:underline"
+                    >
+                      {personalInfo.phone}
+                    </a>
+                  </div>
+
                   <div className="grid gap-2.5 sm:grid-cols-2">
                     <div className="flex items-center gap-2.5 rounded-2xl bg-white/10 px-4 py-3 backdrop-blur-md">
-                      <FiMapPin aria-hidden="true" className="h-4 w-4 shrink-0" />
+                      <FiMapPin
+                        aria-hidden="true"
+                        className="h-4 w-4 shrink-0"
+                      />
                       <span className="truncate text-[12px]">
                         {personalInfo.location}
                       </span>
                     </div>
                     <div className="flex items-center gap-2.5 rounded-2xl bg-white/10 px-4 py-3 backdrop-blur-md">
-                      <FiClock aria-hidden="true" className="h-4 w-4 shrink-0" />
+                      <FiClock
+                        aria-hidden="true"
+                        className="h-4 w-4 shrink-0"
+                      />
                       <span className="truncate font-mono text-[11px]">
                         {localTime} · GMT+1
                       </span>
@@ -191,10 +219,18 @@ export const Contact = () => {
 
                 <div className="mt-6 flex flex-wrap items-center gap-2">
                   <a
+                    href={RESUME_URL}
+                    download
+                    className="inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-2 font-mono text-[10px] uppercase tracking-[0.1em] text-brand-text backdrop-blur-md transition-opacity hover:opacity-90"
+                  >
+                    <FiDownload aria-hidden="true" className="h-3.5 w-3.5" />
+                    {t("v3.hero.resume")}
+                  </a>
+                  <a
                     href={socialLinks.linkedIn}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3.5 py-2 font-mono text-[9px] uppercase tracking-[0.1em] text-white backdrop-blur-md transition-colors hover:bg-white/25"
+                    className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3.5 py-2 font-mono text-[10px] uppercase tracking-[0.1em] text-white backdrop-blur-md transition-colors hover:bg-white/25"
                   >
                     <FiLinkedin aria-hidden="true" className="h-3.5 w-3.5" />
                     LinkedIn
@@ -203,14 +239,14 @@ export const Contact = () => {
                     href={socialLinks.github}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3.5 py-2 font-mono text-[9px] uppercase tracking-[0.1em] text-white backdrop-blur-md transition-colors hover:bg-white/25"
+                    className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3.5 py-2 font-mono text-[10px] uppercase tracking-[0.1em] text-white backdrop-blur-md transition-colors hover:bg-white/25"
                   >
                     <FiGithub aria-hidden="true" className="h-3.5 w-3.5" />
                     GitHub
                   </a>
                 </div>
 
-                <p className="mt-6 font-mono text-[9px] uppercase tracking-[0.1em] text-white/55">
+                <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.1em] text-white/55">
                   {t("v3.contact.response")}
                 </p>
               </div>
@@ -224,8 +260,10 @@ export const Contact = () => {
                   <FiSend aria-hidden="true" className="h-4 w-4" />
                 </span>
                 <div>
-                  <h3 className="text-sm font-bold">{t("v3.contact.formTitle")}</h3>
-                  <p className="font-mono text-[9px] uppercase tracking-[0.1em] text-muted">
+                  <h3 className="text-sm font-bold">
+                    {t("v3.contact.formTitle")}
+                  </h3>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted">
                     {t("v3.contact.formNote")}
                   </p>
                 </div>
@@ -238,7 +276,10 @@ export const Contact = () => {
               >
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
-                    <label htmlFor="contact-name" className="label !text-[9px]">
+                    <label
+                      htmlFor="contact-name"
+                      className="label !text-[10px]"
+                    >
                       {t("v3.contact.name")}
                     </label>
                     <input
@@ -264,7 +305,10 @@ export const Contact = () => {
                   </div>
 
                   <div>
-                    <label htmlFor="contact-email" className="label !text-[9px]">
+                    <label
+                      htmlFor="contact-email"
+                      className="label !text-[10px]"
+                    >
                       {t("v3.contact.emailField")}
                     </label>
                     <input
@@ -291,7 +335,10 @@ export const Contact = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="contact-subject" className="label !text-[9px]">
+                  <label
+                    htmlFor="contact-subject"
+                    className="label !text-[10px]"
+                  >
                     {t("v3.contact.subject")}
                   </label>
                   <input
@@ -316,7 +363,10 @@ export const Contact = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="contact-message" className="label !text-[9px]">
+                  <label
+                    htmlFor="contact-message"
+                    className="label !text-[10px]"
+                  >
                     {t("v3.contact.message")}
                   </label>
                   <textarea
@@ -354,7 +404,7 @@ export const Contact = () => {
 
                   <p
                     aria-live="polite"
-                    className={`text-[11px] ${
+                    className={`text-[12px] ${
                       status === "error" ? "text-red-500" : "text-muted"
                     }`}
                   >
@@ -364,6 +414,29 @@ export const Contact = () => {
                       : null}
                   </p>
                 </div>
+
+                {status === "manual" ? (
+                  <div className="rounded-2xl border border-line bg-surface-2/60 p-4">
+                    <p className="text-[13px] font-semibold">
+                      {t("v3.contact.manualTitle")}
+                    </p>
+                    <p className="mt-1 text-[12px] leading-relaxed text-muted">
+                      {t("v3.contact.manualBody")}{" "}
+                      <a
+                        href={`mailto:${personalInfo.email}`}
+                        className="font-semibold text-brand-text underline-offset-4 hover:underline"
+                      >
+                        {personalInfo.email}
+                      </a>
+                    </p>
+                    <a
+                      href={mailtoHref}
+                      className="btn btn-primary mt-3 !px-3.5 !py-2 text-[12px]"
+                    >
+                      {t("v3.contact.manualOpen")}
+                    </a>
+                  </div>
+                ) : null}
               </form>
             </div>
           </Reveal>

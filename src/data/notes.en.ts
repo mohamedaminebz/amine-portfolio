@@ -9,7 +9,6 @@ export const notes: Note[] = [
   {
     slug: "measure-twice-migrate-once",
     date: "2026-03-18",
-    readingMinutes: 5,
     tags: ["ClickHouse", "Data", "Migration"],
     projectId: "clickhouse-migration",
     title: "Twenty million rows taught me to measure twice",
@@ -60,7 +59,6 @@ export const notes: Note[] = [
   {
     slug: "one-hundred-fifty-apis-is-a-design-problem",
     date: "2026-02-06",
-    readingMinutes: 4,
     tags: ["Node.js", "API", "Architecture"],
     projectId: "pyrojs-refonte",
     title: "150 APIs is a design problem, not a typing problem",
@@ -103,7 +101,6 @@ export const notes: Note[] = [
   {
     slug: "boring-cron-jobs-survive",
     date: "2026-01-12",
-    readingMinutes: 4,
     tags: ["IoT", "Node.js", "Reliability"],
     projectId: "iot-reporting-service",
     title: "Boring cron jobs are the ones that survive",
@@ -146,7 +143,6 @@ export const notes: Note[] = [
   {
     slug: "designing-for-gloves",
     date: "2025-11-20",
-    readingMinutes: 3,
     tags: ["React Native", "Product", "UX"],
     projectId: "winshot-integration",
     title: "Designing a product people use with gloves on",

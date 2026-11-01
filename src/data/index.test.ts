@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { getPortfolioData, normalizeLanguage } from "./index";
+import { CORE_STACK } from "../lib/site";
 
 describe("normalizeLanguage", () => {
   it("maps French variants to fr", () => {
@@ -51,6 +52,15 @@ describe("getPortfolioData", () => {
       const translated = fr.find((item) => item.id === project.id);
       expect(translated, `missing fr project ${project.id}`).toBeDefined();
       expect(keys(translated!)).toEqual(keys(project));
+    }
+  });
+
+  it("only lists real skills in the hero core stack", () => {
+    for (const lang of ["en", "fr"] as const) {
+      const names = new Set(getPortfolioData(lang).skills.map((s) => s.name));
+      for (const tool of CORE_STACK) {
+        expect(names, `${tool} is missing from ${lang} skills`).toContain(tool);
+      }
     }
   });
 });

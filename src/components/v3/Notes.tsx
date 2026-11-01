@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { FiArrowUpRight, FiClock } from "react-icons/fi";
 import { formatNoteDate } from "../../lib/date";
+import { readingMinutes } from "../../lib/reading";
 import type { Note } from "../../types/portfolio";
 import { Reveal } from "./Reveal";
 import { SectionHeader } from "./SectionHeader";
@@ -10,11 +11,12 @@ interface NotesProps {
   onOpenNote: (slug: string) => void;
 }
 
+// A barely-there tilt: enough to feel like notes, not enough to look playful.
 const tilts = [
-  "-rotate-[0.7deg]",
-  "rotate-[0.6deg]",
-  "-rotate-[0.4deg]",
-  "rotate-[0.8deg]",
+  "-rotate-[0.35deg]",
+  "rotate-[0.25deg]",
+  "-rotate-[0.2deg]",
+  "rotate-[0.4deg]",
 ];
 
 const bars = [
@@ -46,9 +48,20 @@ export const Notes = ({ notes, onOpenNote }: NotesProps) => {
               delay={Math.min(index, 5) * 70}
               className={index === 0 || index === 3 ? "md:col-span-2" : ""}
             >
-              <button
-                type="button"
-                onClick={() => onOpenNote(note.slug)}
+              <a
+                href={`#note=${encodeURIComponent(note.slug)}`}
+                onClick={(event) => {
+                  if (
+                    event.metaKey ||
+                    event.ctrlKey ||
+                    event.shiftKey ||
+                    event.button !== 0
+                  ) {
+                    return;
+                  }
+                  event.preventDefault();
+                  onOpenNote(note.slug);
+                }}
                 className={`card-soft note-tilt group relative flex h-full w-full flex-col overflow-hidden text-left ${tilts[index % tilts.length]}`}
               >
                 <span
@@ -62,20 +75,20 @@ export const Notes = ({ notes, onOpenNote }: NotesProps) => {
                     <span className="flex items-center gap-2">
                       <time
                         dateTime={note.date}
-                        className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted"
+                        className="font-mono text-[11px] uppercase tracking-[0.1em] text-muted"
                       >
                         {formatNoteDate(note.date, i18n.language)}
                       </time>
                       {index === 0 ? (
-                        <span className="gradient-soft rounded-full px-2 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-[0.1em] text-brand-text">
+                        <span className="gradient-soft rounded-full px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[0.1em] text-brand-text">
                           {t("v3.notes.latest")}
                         </span>
                       ) : null}
                     </span>
-                    <span className="flex items-center gap-1 font-mono text-[10px] text-muted">
+                    <span className="flex items-center gap-1 font-mono text-[11px] text-muted">
                       <FiClock aria-hidden="true" className="h-3 w-3" />
                       {t("v3.notes.minRead", {
-                        count: note.readingMinutes,
+                        count: readingMinutes(note),
                       })}
                     </span>
                   </span>
@@ -101,7 +114,7 @@ export const Notes = ({ notes, onOpenNote }: NotesProps) => {
                     {note.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full bg-surface-2/70 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.08em] text-muted"
+                        className="rounded-full bg-surface-2/70 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.08em] text-muted"
                       >
                         {tag}
                       </span>
@@ -109,7 +122,7 @@ export const Notes = ({ notes, onOpenNote }: NotesProps) => {
                   </span>
 
                   <span className="mt-5 flex items-center justify-between border-t border-line pt-4">
-                    <span className="text-[11px] font-semibold text-brand-text">
+                    <span className="text-[12px] font-semibold text-brand-text">
                       {t("v3.notes.read")}
                     </span>
                     <span className="grid h-8 w-8 place-items-center rounded-full border border-line text-muted transition-all group-hover:border-transparent group-hover:bg-brand group-hover:text-white">
@@ -117,7 +130,7 @@ export const Notes = ({ notes, onOpenNote }: NotesProps) => {
                     </span>
                   </span>
                 </span>
-              </button>
+              </a>
             </Reveal>
           ))}
         </div>

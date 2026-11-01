@@ -49,11 +49,13 @@ jobs:
 
           mkdir -p site .build
 
-          build_version() {
+          # Builds one branch into .build/<name>/dist. The caller decides where
+          # the result is published, so a branch can be reused for several URLs.
+          build_ref() {
             ref="$1"
-            out="$2"
+            name="$2"
             base="$3"
-            dir=".build/${out:-root}"
+            dir=".build/${name}"
 
             echo "::group::Building ${ref} for ${base}"
             mkdir -p "$dir"
@@ -64,19 +66,27 @@ jobs:
               pnpm exec tsc -b
               pnpm exec vite build --mode production --base="$base"
             )
-            mkdir -p "site/${out}"
-            cp -r "$dir/dist/." "site/${out}/"
             echo "::endgroup::"
           }
 
-          # The root URL keeps deploying the main branch, as before.
-          build_version main "" "/amine-portfolio/"
+          publish() {
+            name="$1"
+            out="$2"
+            mkdir -p "site/${out}"
+            cp -r ".build/${name}/dist/." "site/${out}/"
+          }
 
-          # Version previews.
-          # v3 currently lives on main (there is no origin/v3 branch).
-          build_version v2.1 "v2.1" "/amine-portfolio/v2.1/"
-          build_version v2.2 "v2.2" "/amine-portfolio/v2.2/"
-          build_version main "v3" "/amine-portfolio/v3/"
+          # `main` is the live site *and* the v3 preview: build it once and
+          # publish the same output twice instead of building it twice.
+          build_ref main main "/amine-portfolio/"
+          publish main ""
+          publish main "v3"
+
+          # Older previews still need their own base path.
+          build_ref v2.1 v2.1 "/amine-portfolio/v2.1/"
+          publish v2.1 "v2.1"
+          build_ref v2.2 v2.2 "/amine-portfolio/v2.2/"
+          publish v2.2 "v2.2"
 
           # Short link: /v2/ redirects to the newest v2 version.
           mkdir -p site/v2
@@ -95,9 +105,10 @@ jobs:
           </html>
           EOF
 
-          # Make each preview's canonical/Open Graph URLs point at that preview
-          # instead of the root site.
-          for version in v2.1 v2.2 v3; do
+          # Preview builds declare themselves as the canonical URL so they are
+          # not indexed twice. `/v3/` is a byte-for-byte copy of the live site,
+          # so it deliberately keeps pointing at the root URL.
+          for version in v2.1 v2.2; do
             sed -i \
               "s|https://mohamedaminebz.github.io/amine-portfolio/|https://mohamedaminebz.github.io/amine-portfolio/${version}/|g" \
               "site/${version}/index.html"

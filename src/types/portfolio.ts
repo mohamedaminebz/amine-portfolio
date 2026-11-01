@@ -213,7 +213,6 @@ export interface Note {
   slug: string;
   /** ISO date used for sorting and display. */
   date: string;
-  readingMinutes: number;
   tags: string[];
   /** Links the note back to the work that produced it. */
   projectId?: string;

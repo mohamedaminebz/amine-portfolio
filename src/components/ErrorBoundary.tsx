@@ -1,31 +1,58 @@
 import React from "react";
+import i18n from "../i18n";
 
-const searilizeError = (error: any) => {
-  if (error instanceof Error) {
-    return error.message + "\n" + error.stack;
-  }
-  return JSON.stringify(error, null, 2);
-};
+interface ErrorBoundaryProps {
+  children: React.ReactNode;
+}
 
+interface ErrorBoundaryState {
+  hasError: boolean;
+}
+
+/**
+ * Last-resort boundary. Visitors get a short, localized message and a way
+ * back; stack traces stay in the console where developers can find them.
+ */
 export class ErrorBoundary extends React.Component<
-  { children: React.ReactNode },
-  { hasError: boolean; error: any }
+  ErrorBoundaryProps,
+  ErrorBoundaryState
 > {
-  constructor(props: { children: React.ReactNode }) {
+  constructor(props: ErrorBoundaryProps) {
     super(props);
-    this.state = { hasError: false, error: null };
+    this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error: any) {
-    return { hasError: true, error };
+  static getDerivedStateFromError(): ErrorBoundaryState {
+    return { hasError: true };
   }
+
+  componentDidCatch(error: unknown, info: React.ErrorInfo) {
+    console.error("[portfolio] render error", error, info.componentStack);
+  }
+
+  private reload = () => {
+    window.location.assign(
+      `${window.location.pathname}${window.location.search}`,
+    );
+  };
 
   render() {
     if (this.state.hasError) {
       return (
-        <div className="p-4 border border-red-500 rounded">
-          <h2 className="text-red-500">Something went wrong.</h2>
-          <pre className="mt-2 text-sm">{searilizeError(this.state.error)}</pre>
+        <div className="grid min-h-screen place-items-center bg-canvas p-6 text-ink">
+          <div className="card-soft max-w-md p-6 text-center">
+            <h1 className="display text-2xl">{i18n.t("a11y.errorTitle")}</h1>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
+              {i18n.t("a11y.errorBody")}
+            </p>
+            <button
+              type="button"
+              onClick={this.reload}
+              className="btn btn-primary mt-5"
+            >
+              {i18n.t("a11y.errorReload")}
+            </button>
+          </div>
         </div>
       );
     }

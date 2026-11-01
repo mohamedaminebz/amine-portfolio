@@ -105,7 +105,11 @@
   body {
     @apply bg-canvas text-ink antialiased;
     font-family:
-      "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+      "Manrope",
+      system-ui,
+      -apple-system,
+      "Segoe UI",
+      sans-serif;
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
   }
@@ -169,7 +173,7 @@
   }
 
   .section {
-    @apply relative py-20 md:py-28;
+    @apply relative py-16 md:py-20;
   }
 
   .display {
@@ -181,9 +185,9 @@
 
   .label {
     font-family: "JetBrains Mono", ui-monospace, monospace;
-    font-size: 0.62rem;
+    font-size: 0.7rem;
     font-weight: 500;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--muted);
   }
@@ -239,7 +243,7 @@
     background: color-mix(in srgb, var(--surface) 60%, transparent);
     padding: 0.42rem 0.85rem;
     font-family: "JetBrains Mono", ui-monospace, monospace;
-    font-size: 0.58rem;
+    font-size: 0.64rem;
     font-weight: 500;
     letter-spacing: 0.1em;
     text-transform: uppercase;

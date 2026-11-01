@@ -3,41 +3,13 @@
     "title": "Mohamed Amine Bouzidi — Ingénieur Full-Stack",
     "description": "Portfolio de Mohamed Amine Bouzidi, ingénieur full-stack spécialisé en React, Node.js et React Native."
   },
-  "nav": {
-    "about": "À propos",
-    "timeline": "Parcours",
-    "skills": "Compétences",
-    "projects": "Projets",
-    "contact": "Contact"
-  },
-  "hero": {
-    "cta": "Voir les Projets",
-    "hire": "Engagez-moi"
-  },
-  "about": {
-    "title": "À propos de moi",
-    "subtitle": "Passionné par le",
-    "development": "développement",
-    "years": "Années d'expérience",
-    "projects": "Projets Complétés",
-    "internships": "Stages Effectués",
-    "contactInfo": "Informations de contact",
-    "interests": "Centres d'intérêt"
-  },
+  "nav": {},
+  "hero": {},
+  "about": {},
   "timeline": {
-    "title": "Mon Parcours",
-    "subtitle": "Un aperçu de mon évolution professionnelle et académique à travers les années",
-    "filter": {
-      "all": "Tout",
-      "work": "Expériences",
-      "internship": "Stages"
-    },
-    "showMore": "Voir plus",
-    "education": "Formation Académique"
+    "filter": {}
   },
   "projects": {
-    "title": "Mes Projets",
-    "subtitle": "Explorez mes réalisations et découvrez mon expertise technique à travers des projets concrets",
     "filter": {
       "all": "Tous",
       "professional": "Professionnel",
@@ -45,36 +17,9 @@
       "academic": "Académique",
       "other": "Autres"
     },
-    "addPhoto": "Ajouter une photo",
-    "technologies": "Technologies utilisées",
-    "viewGithub": "Voir sur GitHub",
-    "viewSite": "Voir le site",
-    "viewDetails": "Voir les détails",
-    "viewCaseStudy": "Voir l'étude de cas",
-    "placeholder": "Placeholder - Photo à venir",
-    "noProjects": "Aucun projet trouvé dans cette catégorie",
-    "type": {
-      "professional": "Professionnel",
-      "internship": "Stage",
-      "academic": "Académique",
-      "other": "Autre"
-    },
-    "stats": {
-      "microservices": "Microservices",
-      "metrics": "Métriques",
-      "tasks": "Tâches",
-      "learnings": "Apprentissages",
-      "concepts": "Concepts",
-      "methodologies": "Méthodologies",
-      "details": "Détails",
-      "info": "Infos"
-    },
-    "default": {
-      "professional": "Projet professionnel",
-      "internship": "Projet de stage",
-      "academic": "Projet académique",
-      "project": "Détails du projet"
-    },
+    "type": {},
+    "stats": {},
+    "default": {},
     "yearsAgo": {
       "thisMonth": "Ce mois-ci",
       "oneMonth": "Il y a 1 mois",
@@ -86,245 +31,59 @@
     }
   },
   "projectDetail": {
-    "architecture": "Architecture",
-    "technicalStack": "Stack Technique",
-    "microservices": "Microservices",
-    "performance": "Améliorations des performances",
-    "contributions": "Mes Contributions",
-    "teamSize": "Taille de l'équipe",
-    "developers": "développeurs",
-    "mission": "Mission",
-    "supervisor": "Encadreur",
-    "keyTasks": "Tâches Principales",
-    "keyLearnings": "Principaux Apprentissages",
-    "deliverables": "Livrables",
-    "evaluation": "Évaluation",
-    "images": "images",
-    "preview": "Aperçu",
-    "clickToEnlarge": "Cliquez sur une image pour l'agrandir",
-    "close": "Fermer",
-    "viewCode": "Voir le code",
-    "course": "Cours",
-    "professor": "Professeur",
-    "grade": "Note",
-    "teamMembers": "Membres de l'équipe",
-    "methodologies": "Méthodologies",
-    "keyConcepts": "Concepts Clés",
-    "documentation": "Documentation",
-    "features": "Fonctionnalités",
-    "modules": "Modules",
-    "challenges": "Défis & Solutions",
-    "results": "Impact & Résultats",
-    "screenshots": "Captures d'écran",
-    "technologies": "Technologies",
-    "challenge": "Défi",
-    "solution": "Solution",
-    "addPhoto": "Ajouter une photo",
-    "noScreenshots": "Aucune capture d'écran disponible",
-    "photoPending": "Photo en attente - à ajouter bientôt",
-    "whatIBuilt": "Ce que j'ai réalisé",
-    "myResponsibilities": "Mes responsabilités",
-    "keySkillsDemonstrated": "Compétences clés démontrées",
-    "keyResults": "Résultats clés",
-    "technologiesUsed": "Technologies utilisées",
-    "techStack": "Stack technique",
-    "technologiesUsedCount_one": "{{count}} technologie utilisée",
-    "technologiesUsedCount_other": "{{count}} technologies utilisées",
-    "teamSizeDevelopers_one": "{{count}} développeur dans l'équipe",
-    "teamSizeDevelopers_other": "{{count}} développeurs dans l'équipe",
-    "webScreenshots": "Captures de l'application web",
-    "mobileScreenshots": "Captures de l'application mobile",
-    "whatIDid": "Ce que j'ai fait",
-    "whatILearned": "Ce que j'ai appris",
-    "swipeToSee": "Glisser pour voir plus",
-    "overview": "Vue d'ensemble",
-    "context": "Contexte",
-    "gallery": "Galerie",
-    "status": "Statut",
-    "team": "Équipe",
-    "solo": "Solo",
-    "previousProject": "Projet précédent",
-    "nextProject": "Projet suivant",
-    "caseStudySections": "Sections de l'étude de cas"
+    "supervisor": "Encadreur"
   },
   "skills": {
-    "title": "Compétences",
-    "subtitle": "Un aperçu de mes compétences techniques acquises au fil de mes expériences",
-    "categories": {
-      "all": "Tous",
-      "frontend": "Frontend",
-      "backend": "Backend",
-      "mobile": "Mobile",
-      "devops": "DevOps",
-      "database": "Base de données",
-      "other": "Autre"
-    },
-    "languages": "Langues",
-    "certifications": "Certifications"
+    "categories": {}
   },
   "contact": {
-    "title1": "Travaillons",
-    "title2": "ensemble",
-    "subtitle": "Contact",
-    "description": "N'hésitez pas à me contacter pour discuter de vos projets ou simplement pour échanger",
-    "email": "Email",
-    "phone": "Téléphone",
-    "location": "Localisation",
     "form": {
-      "title": "Envoyez-moi un message",
-      "name": "Nom",
-      "namePlaceholder": "Votre nom",
-      "email": "Email",
-      "emailPlaceholder": "votre@email.com",
-      "subject": "Sujet",
-      "subjectPlaceholder": "Objet du message",
-      "message": "Message",
-      "messagePlaceholder": "Votre message...",
-      "submit": "Envoyer le message",
-      "sending": "Envoi…",
-      "success": "Merci ! Votre message est prêt — je vous répondrai bientôt.",
-      "error": "Une erreur est survenue. Réessayez ou écrivez-moi directement par email.",
-      "mailtoNote": "Ce formulaire ouvre votre application email avec le message pré-rempli. Vous pouvez aussi m'écrire à {{email}}.",
-      "validation": {
-        "name": "Veuillez saisir votre nom (2 caractères minimum).",
-        "email": "Veuillez saisir une adresse email valide.",
-        "subject": "Veuillez saisir un sujet (3 caractères minimum).",
-        "message": "Veuillez écrire un message (10 caractères minimum)."
-      }
+      "validation": {}
     }
   },
   "a11y": {
     "skipToContent": "Aller au contenu",
     "mainNavigation": "Navigation principale",
-    "toggleTheme": "Changer le thème de couleur",
-    "openMenu": "Ouvrir le menu de navigation",
-    "closeMenu": "Fermer le menu de navigation",
-    "closeProject": "Fermer les détails du projet",
-    "closeImage": "Fermer l'image",
-    "previousImage": "Image précédente",
-    "nextImage": "Image suivante",
-    "email": "Envoyer un email",
-    "linkedin": "Profil LinkedIn",
-    "github": "Profil GitHub"
+    "errorTitle": "Cette page a rencontré une erreur inattendue",
+    "errorBody": "Rien n'a été envoyé ni perdu. Rechargez la page pour continuer.",
+    "errorReload": "Recharger la page"
   },
   "theme": {
-    "dark": "Sombre",
-    "light": "Clair"
+    "dark": "Passer au thème sombre",
+    "light": "Passer au thème clair"
   },
-  "footer": {
-    "rights": "Tous droits réservés."
-  },
+  "footer": {},
   "v21": {
-    "nav": {
-      "work": "Projets",
-      "about": "À propos",
-      "fit": "Profil",
-      "journey": "Parcours",
-      "skills": "Arsenal",
-      "contact": "Contact",
-      "menu": "Menu",
-      "close": "Fermer",
-      "command": "Ouvrir le menu de commandes",
-      "hire": "Discutons"
-    },
+    "nav": {},
     "hero": {
-      "eyebrow": "Ingénieur full-stack · Ariana, Tunisie",
-      "roles": [
-        "Esprit système",
-        "Créateur de produits",
-        "Résolveur de problèmes"
-      ],
       "tagline": "Je transforme des systèmes à forte charge de données en produits qui semblent simples — du modèle de données et de l’API jusqu’à l’interface.",
-      "available": "Disponible pour des projets choisis",
+      "available": "Ouvert au travail",
       "ctaWork": "Découvrir mes projets",
-      "ctaContact": "Démarrer la conversation",
-      "scroll": "Faites défiler",
-      "based": "Basé à Ariana, Tunisie",
-      "localTime": "Heure locale",
       "portraitAlt": "Portrait de Mohamed Amine Bouzidi",
-      "openCard": "Ouvert aux opportunités",
-      "remote": "À distance",
-      "stackLabel": "Stack du quotidien",
       "apiLabel": "API REST livrées",
       "devicesLabel": "objets IoT suivis",
-      "rowsLabel": "lignes migrées",
-      "yearsLabel": "années de développement",
-      "storageFootprint": "Empreinte de stockage après migration",
-      "proofLabel": "Quatre résultats, quatre systèmes",
-      "since": "Je construis depuis 2020"
+      "rowsLabel": "lignes migrées"
     },
     "about": {
-      "label": "01 — À propos",
-      "title": "Ingénieur de métier.",
-      "titleAccent": "Esprit produit par instinct.",
       "body": "Je suis un ingénieur full-stack basé en Tunisie, à l’aise sur toute la chaîne web et mobile. Mon terrain de jeu préféré, c’est la rencontre entre architecture et expérience : concevoir le modèle de données, construire l’API, puis façonner l’interface jusqu’à ce qu’elle paraisse évidente.",
       "body2": "Chez SBG TECHELECTRO, je transforme une plateforme de production en architecture microservices et je construis la couche de reporting de plus de 2 000 objets IoT. Auparavant, j’ai livré du SaaS multi-tenant, des applications mobiles et des intégrations chez GOFIELD — avec la même obsession : rendre les systèmes complexes simples.",
-      "currently": "En ce moment",
       "nowDesc": "Microservices, reporting IoT et analytique — l’épine dorsale d’une plateforme utilisée sur le terrain chaque jour.",
       "stats": {
-        "projects": "Projets livrés",
         "roles": "Postes & stages",
         "skills": "Technologies au quotidien",
         "apis": "API REST documentées"
       },
       "toolkit": "Stack essentielle",
-      "offClock": "En dehors du code",
-      "languages": "Langues",
-      "availability": "Ouvert au travail",
-      "availabilityNote": "CDI, freelance, ou une bonne conversation.",
-      "photoCaption": "Ariana, Tunisie · GMT+1",
-      "journeyCta": "Voir le parcours complet",
-      "languagesNote": "Arabe · Français · Anglais"
+      "availability": "Ouvert au travail"
     },
     "work": {
-      "label": "02 — Projets sélectionnés",
-      "title": "Des projets qui",
-      "titleAccent": "livrent.",
-      "subtitle": "De vrais systèmes, de vraies contraintes, des résultats mesurables. Ouvrez une étude de cas pour l’histoire complète.",
-      "all": "Tous",
-      "count": "{{count}} projets",
-      "featured": "À la une",
-      "flagship": "Projet phare",
-      "selectedProduct": "Produit sélectionné",
-      "zeroLoss": "Aucune perte de données",
-      "storageReduction": "Réduction du stockage",
-      "migrationConsole": "Console de migration",
-      "verified": "Intégrité vérifiée",
-      "source": "Source",
-      "target": "Cible",
-      "unit": "1 case = 1 Go · cases sombres récupérées",
-      "archiveNote": "Sélection parmi {{count}} projets · {{systems}} systèmes professionnels",
-      "discuss": "Parler d’un projet similaire",
-      "viewCase": "Voir l’étude de cas",
-      "noResults": "Aucun projet dans cette catégorie.",
-      "impactLabel": "03 — Impact",
-      "impactTitle": "Des chiffres qui ont survécu à la production.",
-      "impactSubtitle": "Pas de métriques de façade. Voici les résultats de systèmes que j’ai conçus, développés ou migrés.",
-      "impact": {
-        "apis": "API REST conçues et documentées",
-        "rows": "lignes migrées en toute intégrité",
-        "storage": "de stockage économisé sur ClickHouse",
-        "devices": "objets IoT en reporting automatisé"
-      },
-      "browseAll": "Voir tous les projets"
+      "impact": {}
     },
     "fit": {
-      "label": "03 — Trouver le profil",
-      "title": "Trouvez le profil",
-      "titleAccent": "qu’il vous faut.",
-      "subtitle": "Quatre briefs de poste inspirés de vraies annonces backend, data et produit — puis reliés au travail livré.",
-      "postLabel": "Annonce type",
-      "askLabel": "La demande",
-      "requirementsLabel": "Exigences",
-      "evidenceLabel": "Preuves",
-      "matchedLabel": "Retrouvé dans",
-      "openCase": "Ouvrir l’étude de cas",
-      "note": "Les briefs sont des composites de vraies annonces. Chaque preuve ouvre le travail livré.",
       "cards": {
         "backend": {
           "title": "Ingénieur backend",
           "focus": "API & microservices",
-          "meta": "Temps plein · Remote ou hybride",
           "ask": "Prendre en charge la couche API, découper un monolithe en services et préserver les données de production pendant la migration.",
           "proof1": "API REST livrées",
           "proof2": "architecture reconstruite"
@@ -332,7 +91,6 @@
         "data": {
           "title": "Ingénieur plateforme data",
           "focus": "Stockage & performance",
-          "meta": "Temps plein · Plateforme data",
           "ask": "Déplacer de gros volumes analytiques sans interruption, optimiser le stockage et rendre les requêtes lentes à nouveau rapides.",
           "proof1": "lignes migrées",
           "proof2": "empreinte de stockage"
@@ -340,156 +98,30 @@
         "product": {
           "title": "Ingénieur produit full-stack",
           "focus": "Web, mobile & API",
-          "meta": "Temps plein · Équipe produit",
           "ask": "Livrer l’application web d’administration, l’application mobile terrain et l’API derrière — tenants, releases et CI/CD inclus.",
           "proof1": "applications web + mobile",
           "proof2": "services intégrés"
-        },
-        "automation": {
-          "title": "Ingénieur automatisation reporting",
-          "focus": "IoT & tâches planifiées",
-          "meta": "Temps plein · Opérations",
-          "ask": "Remplacer le reporting manuel par des jobs planifiés qui suivent l’uptime, détectent les pannes et préviennent le bon groupe à temps.",
-          "proof1": "objets IoT couverts",
-          "proof2": "tâches cron actives"
         }
       },
-      "cta": {
-        "eyebrow": "Un autre poste ?",
-        "title": "Apportez le problème.",
-        "accent": "J’apporte la preuve.",
-        "description": "Dites-moi le poste, la stack et la contrainte. Je vous montrerai où je l’ai déjà résolu.",
-        "primary": "Démarrer la conversation",
-        "secondary": "Voir le parcours complet",
-        "note": "CDI, freelance, ou une bonne conversation."
-      }
+      "cta": {}
     },
-    "journey": {
-      "label": "04 — Parcours",
-      "title": "Le chemin",
-      "titleAccent": "parcouru.",
-      "subtitle": "Des premiers stages à l’architecture de production. Chaque étape m’a appris quelque chose que j’utilise encore.",
-      "all": "Tout",
-      "work": "Expériences",
-      "internship": "Stages",
-      "education": "Formation",
-      "certifications": "Certifications",
-      "current": "En cours",
-      "educationNote": "Le côté formel de l’histoire.",
-      "skillsNote": "Les outils appris en route →",
-      "progress": "{{count}} chapitres. Une seule direction."
-    },
+    "journey": {},
     "skills": {
-      "label": "05 — Arsenal",
-      "title": "Les outils",
-      "titleAccent": "du métier.",
-      "subtitle": "Une stack pragmatique, choisie pour le problème — pas pour la hype.",
-      "all": "Tous",
-      "count": "{{count}} outils",
-      "languages": "Langues",
-      "certifications": "Certifications",
-      "hoverHint": "Survolez un outil pour voir comment je l’utilise.",
       "categories": {
-        "all": "Tous",
         "frontend": "Frontend",
         "backend": "Backend",
         "mobile": "Mobile",
         "devops": "DevOps",
         "database": "Bases de données",
         "cloud": "Cloud",
-        "other": "Plateformes",
-        "design": "Design"
+        "other": "Plateformes"
       }
     },
-    "contact": {
-      "label": "06 — Contact",
-      "title": "Construisons",
-      "titleAccent": "quelque chose de mémorable.",
-      "subtitle": "Je suis ouvert aux postes full-stack, aux équipes produit ambitieuses et aux missions freelance. Parlez-moi de ce que vous construisez — je vous dirai comment je peux aider.",
-      "emailLabel": "Email",
-      "phoneLabel": "Téléphone",
-      "locationLabel": "Localisation",
-      "timeLabel": "Heure locale",
-      "copy": "Copier l’email",
-      "copied": "Copié dans le presse-papiers",
-      "availability": "Disponible",
-      "response": "Je réponds généralement sous 24 h.",
-      "formTitle": "Démarrons la conversation",
-      "intentLabel": "Je vous contacte pour",
-      "intents": [
-        "Un poste en CDI",
-        "Une mission freelance",
-        "Un simple bonjour"
-      ],
-      "name": "Votre nom",
-      "namePlaceholder": "Amine, Sarah, Alex…",
-      "email": "Votre email",
-      "emailPlaceholder": "vous@entreprise.com",
-      "subject": "Sujet",
-      "subjectPlaceholder": "Qu’avez-vous en tête ?",
-      "message": "Message",
-      "messagePlaceholder": "Parlez-moi de votre projet, votre équipe ou votre idée…",
-      "submit": "Envoyer le message",
-      "sending": "Envoi…",
-      "success": "Message prêt — je vous réponds très vite.",
-      "error": "Une erreur est survenue. Écrivez-moi directement à {{email}}.",
-      "note": "Ce formulaire ouvre votre application mail avec le message pré-rempli. Vous préférez le direct ? Écrivez à {{email}}.",
-      "or": "ou retrouvez-moi sur",
-      "ctaNote": "Pas besoin de slides. Juste une conversation.",
-      "responseTime": "Sous 24 h",
-      "basedIn": "Ariana, Tunisie",
-      "openTo": "Ouvert à",
-      "scopeLine": "Des rôles full-stack, des équipes produit et du freelance."
-    },
-    "footer": {
-      "backToTop": "Retour en haut",
-      "built": "Conçu et développé avec intention.",
-      "version": "v2.2",
-      "elsewhere": "Ailleurs",
-      "navigate": "Navigation",
-      "status": "Ouvert aux opportunités",
-      "local": "Ariana, Tunisie",
-      "copyright": "© {{year}} {{name}}. Tous droits réservés."
-    },
-    "case": {
-      "back": "Retour aux projets",
-      "overview": "Vue d’ensemble",
-      "theStory": "L’histoire",
-      "challenge": "Le défi",
-      "action": "Ce que j’ai fait",
-      "result": "Le résultat",
-      "mission": "Mission",
-      "keyTasks": "Ce que j’ai construit",
-      "achievements": "Réalisations",
-      "results": "Résultats",
-      "deliverables": "Livrables",
-      "learnings": "Ce que j’ai appris",
-      "responsibilities": "Responsabilités",
-      "keySkills": "Compétences démontrées",
-      "gallery": "Galerie",
-      "close": "Fermer l’étude de cas",
-      "previous": "Projet précédent",
-      "next": "Projet suivant",
-      "role": "Rôle",
-      "period": "Période",
-      "company": "Entreprise",
-      "location": "Lieu",
-      "status": "Statut",
-      "team": "Équipe",
-      "solo": "Seul",
-      "viewImage": "Ouvrir l’image",
-      "noImages": "Pas encore de captures pour ce projet.",
-      "tech": "Stack",
-      "impact": "Impact"
-    },
+    "contact": {},
+    "footer": {},
+    "case": {},
     "common": {
-      "close": "Fermer",
-      "available": "Disponible",
-      "scroll": "Défiler",
-      "of": "sur",
-      "open": "Ouvrir",
-      "copy": "Copier",
-      "copied": "Copié"
+      "close": "Fermer"
     }
   },
   "v3": {
@@ -500,21 +132,18 @@
       "journey": "Parcours",
       "arsenal": "Arsenal",
       "contact": "Contact",
-      "menu": "Menu",
       "close": "Fermer",
-      "language": "Langue",
       "switchToEnglish": "Passer en anglais",
-      "switchToFrench": "Passer en français",
-      "theme": "Palette"
+      "switchToFrench": "Passer en français"
     },
     "hero": {
-      "kicker": "Portfolio / 2026",
       "headline": "Des systèmes complexes.",
       "headlineAccent": "Des produits simples.",
       "readNotes": "Lire le carnet",
-      "currently": "En ce moment",
-      "proof": "Résultats choisis",
-      "scroll": "Défiler"
+      "scroll": "Défiler",
+      "sinceLabel": "En développement depuis",
+      "resume": "Télécharger le CV",
+      "github": "Profil GitHub"
     },
     "work": {
       "label": "Projets choisis",
@@ -524,7 +153,10 @@
       "filterLabel": "Filtrer",
       "count_one": "{{count}} projet",
       "count_other": "{{count}} projets",
-      "open": "Ouvrir l'étude de cas"
+      "open": "Ouvrir l'étude de cas",
+      "archiveHint": "Seul le travail professionnel est affiché. Les stages et les projets académiques restent dans les archives.",
+      "viewAll": "Voir tous les projets",
+      "privateNote": "Système interne"
     },
     "notes": {
       "label": "Carnet",
@@ -534,18 +166,15 @@
       "read": "Lire la note",
       "minRead": "{{count}} min de lecture",
       "latest": "Dernière note",
-      "all": "Toutes les notes",
       "back": "Retour au carnet",
       "linked": "Tiré du projet",
       "next": "Note suivante",
-      "previous": "Note précédente",
-      "empty": "Pas encore de note."
+      "previous": "Note précédente"
     },
     "about": {
       "label": "À propos",
       "title": "Ingénieur par métier.",
       "titleAccent": "Penseur produit par instinct.",
-      "principles": "Ma façon de travailler",
       "principle1Title": "Comprendre le système",
       "principle1Body": "Lire les données, parler à ceux qui les utilisent, puis choisir la frontière.",
       "principle2Title": "Livrer la version ennuyeuse",
@@ -555,13 +184,13 @@
       "principle4Title": "Concevoir tout le chemin",
       "principle4Body": "L'API, l'écran et le message d'erreur forment une seule expérience.",
       "fitLabel": "Ce pour quoi on m'embauche",
-      "fitTitle": "Quatre façons de m'intégrer.",
+      "fitTitle": "Trois façons de m'intégrer.",
       "now": "Maintenant",
-      "based": "Basé à",
-      "openTo": "Ouvert à",
-      "openToValue": "CDI, freelance, une bonne conversation",
       "languages": "Langues",
-      "offClock": "En dehors du code"
+      "offClock": "En dehors du code",
+      "stats": {
+        "production": "Projets professionnels"
+      }
     },
     "journey": {
       "label": "Parcours",
@@ -582,7 +211,8 @@
       "subtitle": "Une stack pratique, choisie pour le problème plutôt que pour la mode.",
       "toolCount": "{{count}} outils",
       "languages": "Langues",
-      "certifications": "Certifications"
+      "certifications": "Certifications et formations",
+      "legend": "Point bleu : utilisé dans un projet en production"
     },
     "contact": {
       "label": "Contact",
@@ -592,13 +222,9 @@
       "panelTitle": "Racontez-moi",
       "panelTitleAccent": "ce que vous construisez.",
       "panelNote": "Un projet, un rôle, ou simplement une idée ?",
-      "email": "Email",
-      "phone": "Téléphone",
-      "location": "Lieu",
       "time": "Heure locale",
       "copy": "Copier l'email",
-      "copied": "Copié",
-      "availability": "Disponible maintenant",
+      "availability": "Ouvert au travail",
       "response": "Réponse en général sous 24 heures.",
       "formTitle": "Démarrer une conversation",
       "formNote": "Ce formulaire ouvre votre application mail avec le message prêt à envoyer.",
@@ -619,7 +245,10 @@
         "email": "Indiquez une adresse email valide.",
         "subject": "Indiquez un sujet.",
         "message": "Écrivez un message d'au moins 10 caractères."
-      }
+      },
+      "manualTitle": "Votre application mail devrait être ouverte",
+      "manualBody": "Si rien ne s'est ouvert, écrivez-moi à",
+      "manualOpen": "Rouvrir l'email"
     },
     "case": {
       "label": "Étude de cas",
@@ -629,14 +258,12 @@
       "challenge": "Le défi",
       "action": "Ce que j'ai fait",
       "result": "Le résultat",
-      "impact": "Impact",
       "role": "Rôle",
       "period": "Période",
       "company": "Entreprise",
       "location": "Lieu",
       "status": "Statut",
       "team": "Équipe",
-      "solo": "Seul",
       "tech": "Stack",
       "architecture": "Architecture",
       "services": "Services",
@@ -664,7 +291,12 @@
       "noImages": "Pas encore de captures pour ce projet.",
       "previous": "Précédent",
       "next": "Suivant",
-      "back": "Retour aux projets"
+      "back": "Retour aux projets",
+      "privateImages": "Il s'agit d'un système interne : les captures ne sont pas publiques. L'étude de cas ci-dessous décrit le travail en détail.",
+      "teamSize_one": "{{count}} personne",
+      "teamSize_other": "{{count}} personnes",
+      "links": "Liens",
+      "liveDemo": "Démo en ligne"
     },
     "footer": {
       "tagline": "Ingénieur full-stack à Ariana, Tunisie.",

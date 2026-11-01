@@ -27,7 +27,7 @@ const SectionCard = ({
   children: ReactNode;
 }) => (
   <section className="card-soft mt-4 p-5 sm:p-6">
-    <h3 className="label !text-[9px] text-brand-text">{title}</h3>
+    <h3 className="label !text-[10px] text-brand-text">{title}</h3>
     <div className="mt-3">{children}</div>
   </section>
 );
@@ -35,7 +35,10 @@ const SectionCard = ({
 const Bullets = ({ items }: { items: string[] }) => (
   <ul className="space-y-2">
     {items.map((item) => (
-      <li key={item} className="flex gap-2.5 text-sm leading-relaxed text-muted">
+      <li
+        key={item}
+        className="flex gap-2.5 text-sm leading-relaxed text-muted"
+      >
         <span
           aria-hidden="true"
           className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand"
@@ -72,11 +75,11 @@ const GalleryHeading = ({
 
   return (
     <div className="flex items-center justify-between gap-3">
-      <span className="inline-flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.12em] text-brand-text">
+      <span className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.12em] text-brand-text">
         <Icon aria-hidden="true" className="h-3.5 w-3.5" />
         {label}
       </span>
-      <span className="font-mono text-[9px] uppercase tracking-[0.1em] text-muted">
+      <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted">
         {t("v3.case.screens", { count })}
       </span>
     </div>
@@ -85,8 +88,10 @@ const GalleryHeading = ({
 
 const ScreenshotGallery = ({
   screenshots,
+  fallback,
 }: {
   screenshots: ProjectScreenshot[];
+  fallback: string;
 }) => {
   const { t } = useTranslation();
   const web = screenshots.filter((screenshot) => !screenshot.isMobile);
@@ -95,7 +100,7 @@ const ScreenshotGallery = ({
   const featureFirstWeb = web.length % 2 === 1;
 
   if (screenshots.length === 0) {
-    return <p className="text-sm text-muted">{t("v3.case.noImages")}</p>;
+    return <p className="text-sm leading-relaxed text-muted">{fallback}</p>;
   }
 
   return (
@@ -128,13 +133,13 @@ const ScreenshotGallery = ({
                     <span className="h-1.5 w-1.5 rounded-full bg-[#28c840]" />
                     <span className="ml-2 h-4 flex-1 rounded-md bg-surface-2/70" />
                   </span>
-                  <span className="block overflow-hidden bg-surface-2/40">
+                  <span className="block aspect-[16/10] overflow-hidden bg-surface-2/40">
                     <img
                       src={asset(screenshot.url)}
                       alt={screenshot.caption}
                       loading="lazy"
                       decoding="async"
-                      className="block h-auto w-full transition-transform duration-500 group-hover:scale-[1.02]"
+                      className="block h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
                     />
                   </span>
                 </a>
@@ -202,7 +207,9 @@ export const CaseStudy = ({
   const next = projects[(index + 1) % projects.length];
 
   useEffect(() => {
-    const scroller = document.querySelector<HTMLElement>("[data-dialog-scroll]");
+    const scroller = document.querySelector<HTMLElement>(
+      "[data-dialog-scroll]",
+    );
     if (scroller) scroller.scrollTop = 0;
   }, [project.id]);
 
@@ -214,14 +221,27 @@ export const CaseStudy = ({
     ...(project.status
       ? [{ label: t("v3.case.status"), value: project.status }]
       : []),
-    {
-      label: t("v3.case.team"),
-      value: project.teamSize ? `${project.teamSize}` : t("v3.case.solo"),
-    },
+    // Only render the team field when a size is actually recorded. The old
+    // fallback printed "Solo" for every project that omitted the field, which
+    // was a claim the data never supported.
+    ...(project.teamSize
+      ? [
+          {
+            label: t("v3.case.team"),
+            value: t("v3.case.teamSize", { count: project.teamSize }),
+          },
+        ]
+      : []),
   ];
 
   const screenshots =
     project.screenshots?.filter((screenshot) => !screenshot.placeholder) ?? [];
+
+  const links = project as { githubLink?: string; demoLink?: string };
+  const galleryFallback =
+    project.type === "professional"
+      ? t("v3.case.privateImages")
+      : t("v3.case.noImages");
 
   return (
     <Dialog open onClose={onClose} labelledBy="case-title">
@@ -243,7 +263,7 @@ export const CaseStudy = ({
             <button
               type="button"
               onClick={onClose}
-              className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-2 font-mono text-[9px] uppercase tracking-[0.1em] text-white backdrop-blur-md transition-colors hover:bg-white/25"
+              className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.1em] text-white backdrop-blur-md transition-colors hover:bg-white/25"
             >
               <FiArrowLeft aria-hidden="true" className="h-3.5 w-3.5" />
               {t("v3.case.back")}
@@ -280,7 +300,7 @@ export const CaseStudy = ({
           </div>
 
           <div className="relative mt-7">
-            <span className="inline-flex rounded-full border border-white/25 bg-white/15 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.12em] text-white/90 backdrop-blur-md">
+            <span className="inline-flex rounded-full border border-white/25 bg-white/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-white/90 backdrop-blur-md">
               {t("v3.case.label")} · {t(`projects.filter.${project.type}`)}
             </span>
             <h2
@@ -299,7 +319,7 @@ export const CaseStudy = ({
               {meta.map((item) => (
                 <span
                   key={item.label}
-                  className="rounded-full border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.06em] text-white/80 backdrop-blur-md"
+                  className="rounded-full border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.06em] text-white/80 backdrop-blur-md"
                 >
                   {item.label}: {item.value}
                 </span>
@@ -309,12 +329,20 @@ export const CaseStudy = ({
         </header>
 
         <article className="px-5 py-7 sm:px-8 sm:py-9">
-          <p className="max-w-3xl text-sm leading-relaxed text-muted">
+          <p className="text-sm leading-relaxed text-muted">
             {project.longDescription}
           </p>
 
           {project.quickStats && project.quickStats.length > 0 ? (
-            <dl className="mt-6 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+            // Match the grid to the number of stats so three of them do not
+            // leave an empty cell in a four-column row.
+            <dl
+              className={`mt-6 grid grid-cols-2 gap-2.5 ${
+                project.quickStats.length === 3
+                  ? "sm:grid-cols-3"
+                  : "sm:grid-cols-4"
+              }`}
+            >
               {project.quickStats.map((stat) => (
                 <div
                   key={`${stat.value}-${stat.label}`}
@@ -323,7 +351,7 @@ export const CaseStudy = ({
                   <dd className="display gradient-text text-[clamp(1.2rem,2.4vw,1.6rem)] leading-none">
                     {stat.value}
                   </dd>
-                  <dt className="mt-1.5 font-mono text-[8px] uppercase leading-tight tracking-[0.06em] text-muted">
+                  <dt className="mt-1.5 font-mono text-[10px] uppercase leading-tight tracking-[0.06em] text-muted">
                     {stat.label}
                   </dt>
                 </div>
@@ -332,34 +360,46 @@ export const CaseStudy = ({
           ) : null}
 
           <SectionCard title={t("v3.case.gallery")}>
-            <ScreenshotGallery screenshots={screenshots} />
+            <ScreenshotGallery
+              screenshots={screenshots}
+              fallback={galleryFallback}
+            />
           </SectionCard>
 
           {project.type === "professional" ? (
             <>
               <SectionCard title={t("v3.case.story")}>
-                <div className="grid gap-3 md:grid-cols-3">
+                {/* Prose does not read well in three narrow columns, so each
+                    step gets its own row with a label rail on wider screens. */}
+                <ol className="divide-y divide-line">
                   {[
                     [t("v3.case.challenge"), project.story.challenge],
                     [t("v3.case.action"), project.story.action],
                     [t("v3.case.result"), project.story.result],
-                  ].map(([label, text]) => (
-                    <div
+                  ].map(([label, text], step) => (
+                    <li
                       key={label}
-                      className="rounded-2xl bg-surface-2/50 p-4"
+                      className="py-4 first:pt-0 last:pb-0 sm:grid sm:grid-cols-[7.5rem_minmax(0,1fr)] sm:gap-x-5"
                     >
-                      <p className="label !text-[9px]">{label}</p>
-                      <p className="mt-1.5 text-sm leading-relaxed text-muted">
+                      <p className="label !text-[10px] text-brand-text">
+                        <span aria-hidden="true" className="mr-1.5 opacity-50">
+                          {String(step + 1).padStart(2, "0")}
+                        </span>
+                        {label}
+                      </p>
+                      <p className="mt-1.5 text-sm leading-relaxed text-muted sm:mt-0">
                         {text}
                       </p>
-                    </div>
+                    </li>
                   ))}
-                </div>
+                </ol>
               </SectionCard>
 
               {project.architecture ? (
                 <SectionCard title={t("v3.case.architecture")}>
-                  <p className="text-sm font-bold">{project.architecture.type}</p>
+                  <p className="text-sm font-bold">
+                    {project.architecture.type}
+                  </p>
                   <p className="mt-1 text-sm leading-relaxed text-muted">
                     {project.architecture.description}
                   </p>
@@ -372,7 +412,7 @@ export const CaseStudy = ({
                     {Object.entries(project.technicalStack).map(
                       ([group, values]) => (
                         <div key={group}>
-                          <p className="label !text-[9px]">{group}</p>
+                          <p className="label !text-[10px]">{group}</p>
                           <div className="mt-2">
                             <Chips items={values} />
                           </div>
@@ -433,8 +473,7 @@ export const CaseStudy = ({
                 </SectionCard>
               ) : null}
 
-              {project.myContributions &&
-              project.myContributions.length > 0 ? (
+              {project.myContributions && project.myContributions.length > 0 ? (
                 <SectionCard title={t("v3.case.contributions")}>
                   <Bullets items={project.myContributions} />
                 </SectionCard>
@@ -456,7 +495,7 @@ export const CaseStudy = ({
                   {project.mission}
                 </p>
                 {project.supervisor ? (
-                  <p className="mt-2 font-mono text-[9px] uppercase tracking-[0.08em] text-muted">
+                  <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.08em] text-muted">
                     {t("projectDetail.supervisor")}: {project.supervisor}
                   </p>
                 ) : null}
@@ -571,41 +610,47 @@ export const CaseStudy = ({
                   <Bullets items={project.futureFeatures} />
                 </SectionCard>
               ) : null}
-
-              {project.githubLink || project.demoLink ? (
-                <SectionCard title={t("v3.case.overview")}>
-                  <div className="flex flex-wrap gap-3">
-                    {project.githubLink ? (
-                      <a
-                        href={project.githubLink}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-2 rounded-full bg-surface-2/70 px-3.5 py-2 text-sm font-semibold text-brand-text"
-                      >
-                        GitHub
-                        <FiExternalLink aria-hidden="true" className="h-3.5 w-3.5" />
-                      </a>
-                    ) : null}
-                    {project.demoLink ? (
-                      <a
-                        href={project.demoLink}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-2 rounded-full bg-surface-2/70 px-3.5 py-2 text-sm font-semibold text-brand-text"
-                      >
-                        Demo
-                        <FiExternalLink aria-hidden="true" className="h-3.5 w-3.5" />
-                      </a>
-                    ) : null}
-                  </div>
-                </SectionCard>
-              ) : null}
             </>
           ) : null}
 
           <SectionCard title={t("v3.case.tech")}>
             <Chips items={project.technologies.map((tech) => tech.name)} />
           </SectionCard>
+
+          {links.githubLink || links.demoLink ? (
+            <SectionCard title={t("v3.case.links")}>
+              <div className="flex flex-wrap gap-3">
+                {links.githubLink ? (
+                  <a
+                    href={links.githubLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full bg-surface-2/70 px-3.5 py-2 text-sm font-semibold text-brand-text"
+                  >
+                    GitHub
+                    <FiExternalLink
+                      aria-hidden="true"
+                      className="h-3.5 w-3.5"
+                    />
+                  </a>
+                ) : null}
+                {links.demoLink ? (
+                  <a
+                    href={links.demoLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full bg-surface-2/70 px-3.5 py-2 text-sm font-semibold text-brand-text"
+                  >
+                    {t("v3.case.liveDemo")}
+                    <FiExternalLink
+                      aria-hidden="true"
+                      className="h-3.5 w-3.5"
+                    />
+                  </a>
+                ) : null}
+              </div>
+            </SectionCard>
+          ) : null}
 
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             <button
@@ -617,7 +662,7 @@ export const CaseStudy = ({
                 <FiArrowLeft aria-hidden="true" className="h-4 w-4" />
               </span>
               <span className="min-w-0">
-                <span className="label !text-[9px] block">
+                <span className="label !text-[10px] block">
                   {t("v3.case.previous")}
                 </span>
                 <span className="block truncate text-sm font-semibold group-hover:text-brand-text">
@@ -631,7 +676,7 @@ export const CaseStudy = ({
               className="card-soft group flex items-center justify-end gap-3 p-4 text-right transition-all hover:-translate-y-0.5 hover:border-brand/25"
             >
               <span className="min-w-0">
-                <span className="label !text-[9px] block">
+                <span className="label !text-[10px] block">
                   {t("v3.case.next")}
                 </span>
                 <span className="block truncate text-sm font-semibold group-hover:text-brand-text">

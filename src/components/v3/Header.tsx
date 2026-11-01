@@ -5,22 +5,32 @@ import {
   FiBriefcase,
   FiCompass,
   FiCpu,
+  FiDownload,
   FiMail,
   FiUser,
 } from "react-icons/fi";
 import { useActiveSection } from "../../hooks/useActiveSection";
 import { usePortfolioData } from "../../hooks/usePortfolioData";
+import { RESUME_URL } from "../../lib/site";
 import { ThemeToggle } from "./ThemeToggle";
 
 const links = [
   { id: "work", href: "#work", key: "v3.nav.work", icon: FiBriefcase },
-  { id: "notes", href: "#notes", key: "v3.nav.notes", icon: FiBookOpen },
   { id: "about", href: "#about", key: "v3.nav.about", icon: FiUser },
   { id: "journey", href: "#journey", key: "v3.nav.journey", icon: FiCompass },
+  { id: "notes", href: "#notes", key: "v3.nav.notes", icon: FiBookOpen },
   { id: "arsenal", href: "#arsenal", key: "v3.nav.arsenal", icon: FiCpu },
 ] as const;
 
-const sectionIds = ["top", "work", "notes", "about", "journey", "arsenal", "contact"] as const;
+const sectionIds = [
+  "top",
+  "work",
+  "about",
+  "journey",
+  "notes",
+  "arsenal",
+  "contact",
+] as const;
 
 export const Header = () => {
   const { t, i18n } = useTranslation();
@@ -51,22 +61,24 @@ export const Header = () => {
         }`}
       >
         <div className="wrap flex items-center justify-between gap-4">
-          <a
-            href="#top"
-            className="group flex items-center gap-2.5"
-            aria-label={`${personalInfo.name} — ${personalInfo.title}`}
-          >
-            <span className="gradient-bg grid h-9 w-9 place-items-center rounded-xl text-sm font-extrabold text-white shadow-[0_10px_24px_-10px_rgba(37,99,235,0.8)] transition-transform group-hover:scale-105">
+          <a href="#top" className="group flex min-w-0 items-center gap-2.5">
+            <span
+              aria-hidden="true"
+              className="gradient-bg grid h-9 w-9 shrink-0 place-items-center rounded-xl text-sm font-extrabold text-white shadow-[0_10px_24px_-10px_rgba(37,99,235,0.8)] transition-transform group-hover:scale-105"
+            >
               M
             </span>
-            <span className="hidden sm:block">
-              <span className="block text-[13px] font-bold leading-tight">
-                Mohamed Amine
+            <span className="hidden min-w-0 max-w-[170px] sm:block xl:max-w-[260px]">
+              <span className="block truncate text-[13px] font-bold leading-tight">
+                {personalInfo.name}
               </span>
-              <span className="block font-mono text-[9px] uppercase tracking-[0.14em] text-muted">
-                Full-stack engineer
+              <span className="block truncate font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
+                {personalInfo.title}
               </span>
             </span>
+            {/* Below `sm` only the monogram is visible, so the link needs a
+                text alternative; above `sm` its own text names it. */}
+            <span className="sr-only sm:hidden">{personalInfo.name}</span>
           </a>
 
           <nav
@@ -118,6 +130,15 @@ export const Header = () => {
             </button>
             <ThemeToggle />
             <a
+              href={RESUME_URL}
+              download
+              aria-label={t("v3.hero.resume")}
+              title={t("v3.hero.resume")}
+              className="grid h-9 w-9 place-items-center rounded-full border border-line bg-surface/50 text-muted backdrop-blur-md transition-all hover:border-line-strong hover:text-ink"
+            >
+              <FiDownload aria-hidden="true" className="h-4 w-4" />
+            </a>
+            <a
               href="#contact"
               className="btn btn-primary hidden !px-4 !py-2.5 text-[12px] sm:inline-flex"
             >
@@ -133,27 +154,33 @@ export const Header = () => {
         className="dock glass-strong w-[calc(100%-2rem)] max-w-[26rem] rounded-[1.6rem] p-1.5 lg:hidden"
       >
         <ul className="flex w-full items-center gap-0.5">
-          {[...links, { id: "contact", href: "#contact", key: "v3.nav.contact", icon: FiMail }].map(
-            (link) => {
-              const isActive = active === link.id;
-              return (
-                <li key={link.id}>
-                  <a
-                    href={link.href}
-                    aria-current={isActive ? "page" : undefined}
-                    className={`flex min-w-0 flex-1 basis-0 flex-col items-center gap-1 rounded-[1.2rem] px-1 py-2 text-[9px] font-semibold transition-all min-[380px]:text-[10px] ${
-                      isActive
-                        ? "gradient-bg text-white"
-                        : "text-muted hover:text-ink"
-                    }`}
-                  >
-                    <link.icon aria-hidden="true" className="h-4 w-4" />
-                    <span className="truncate">{t(link.key)}</span>
-                  </a>
-                </li>
-              );
+          {[
+            ...links,
+            {
+              id: "contact",
+              href: "#contact",
+              key: "v3.nav.contact",
+              icon: FiMail,
             },
-          )}
+          ].map((link) => {
+            const isActive = active === link.id;
+            return (
+              <li key={link.id}>
+                <a
+                  href={link.href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`flex min-w-0 flex-1 basis-0 flex-col items-center gap-1 rounded-[1.2rem] px-1 py-2 text-[10px] font-semibold transition-all min-[380px]:text-[11px] ${
+                    isActive
+                      ? "gradient-bg text-white"
+                      : "text-muted hover:text-ink"
+                  }`}
+                >
+                  <link.icon aria-hidden="true" className="h-4 w-4" />
+                  <span className="truncate">{t(link.key)}</span>
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </nav>
     </>
