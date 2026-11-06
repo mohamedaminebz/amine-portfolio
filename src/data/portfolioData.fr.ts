@@ -1500,6 +1500,20 @@ export const skills: Skill[] = [
     description:
       "Backend-as-a-Service avec authentification, Firestore, stockage et hébergement",
   },
+  {
+    name: "Express",
+    category: "backend",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+    description:
+      "Framework web minimaliste pour Node.js - APIs REST, middlewares et routage",
+  },
+  {
+    name: "GitLab CI",
+    category: "devops",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg",
+    description:
+      "Pipelines d'intégration et de livraison continues, runners et registre de conteneurs",
+  },
 ];
 
 export const certifications: Certification[] = [

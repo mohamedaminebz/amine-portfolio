@@ -1485,11 +1485,18 @@ export const skills: Skill[] = [
 
   // Authentication & Identity
   {
-    name: "Firebase",
-    category: "other",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-original.svg",
+    name: "Express",
+    category: "backend",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
     description:
-      "Backend-as-a-Service with authentication (Firebase Auth), Firestore database, storage, and hosting",
+      "Minimalist web framework for Node.js - REST APIs, middleware and routing",
+  },
+  {
+    name: "GitLab CI",
+    category: "devops",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg",
+    description:
+      "Continuous integration and delivery pipelines, runners and container registry",
   },
 ];
 
